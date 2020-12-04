@@ -43,11 +43,6 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
-    }
-
-    @Override
     public int getItemCount() {
         return reminderList == null ? 0 : reminderList.size();
     }
