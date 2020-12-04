@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "342079939905",
+    "firebase_url": "https://mollymoranfyp.firebaseio.com",
+    "project_id": "mollymoranfyp",
+    "storage_bucket": "mollymoranfyp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342079939905:android:f0b6794dd047d1f23d2dc0",
+        "android_client_info": {
+          "package_name": "com.example.MollyMoranFYP"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342079939905-nh9ebbla0iedudipk3ol7q6smqrbfajl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6qDmkLOsjHXWtes5T24qb8YbQt9sti-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342079939905-nh9ebbla0iedudipk3ol7q6smqrbfajl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
