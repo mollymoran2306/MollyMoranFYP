@@ -3,22 +3,17 @@ package com.example.MollyMoranFYP.Activities;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.MollyMoranFYP.Models.Reminder;
@@ -28,9 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -41,11 +34,11 @@ public class InputReminderActivity extends AppCompatActivity {
     private EditText addername, adderdes;
     private String curdate = "", curtime = "", taskdate = "", tasktime = "";
     private TextView repeattv, addertimetv, adderdatetv;
-    private ImageView addermarker;
+    private Toolbar toolbar;
+
     private DatabaseReference db;
-    private static int noww, repeat, color = 0;
-    private static final int REQUEST_CODE_SPEECH = 1000;
-    private static final int PICK_CONTACT_CALL = 1, PICK_CONTACT_MSG = 2;
+    private static int now, repeat;
+
     String[] rep = new String[]{"None", "Daily", "Weekly", "Monthly", "Yearly"};
 
 
@@ -56,7 +49,7 @@ public class InputReminderActivity extends AppCompatActivity {
         repeat = 0;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            noww = extras.getInt("now");
+            now = extras.getInt("now");
         }
         adderset = findViewById(R.id.adderset);
         adderset.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +68,13 @@ public class InputReminderActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     public void setdate(View view) {
-        if (noww == 2) {
+        //this code was taken from
+        if (now == 2) {
             return;
         }
         Calendar calendar = Calendar.getInstance();
@@ -112,7 +108,7 @@ public class InputReminderActivity extends AppCompatActivity {
     }
 
     public void settime(View view) {
-        if (noww == 2) {
+        if (now == 2) {
             return;
         }
         Calendar calendar = Calendar.getInstance();
@@ -150,14 +146,14 @@ public class InputReminderActivity extends AppCompatActivity {
 
     public void settask() {
         boolean flag = true;
-        if (taskdate.compareTo(curdate) < 0 && noww != 2) {
+        if (taskdate.compareTo(curdate) < 0 && now != 2) {
             flag = false;
-        } else if (taskdate.compareTo(curdate) == 0 && noww != 2) {
+        } else if (taskdate.compareTo(curdate) == 0 && now != 2) {
             if (tasktime.compareTo(curtime) < 0) {
                 flag = false;
             }
         }
-        Log.d("chk", String.valueOf(noww));
+        Log.d("chk", String.valueOf(now));
         addername = findViewById(R.id.addername);
         String task = addername.getText().toString();
         adderdes = findViewById(R.id.adderdes);
@@ -168,7 +164,7 @@ public class InputReminderActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Task name is empty", Toast.LENGTH_LONG).show();
             flag = false;
         }
-        if (noww != 2) {
+        if (now != 2) {
             if (taskdate.isEmpty() || tasktime.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Choose Time and Date", Toast.LENGTH_LONG).show();
                 flag = false;
@@ -182,9 +178,9 @@ public class InputReminderActivity extends AppCompatActivity {
             Random rand = new Random();
             int rNum = 100 + rand.nextInt((999 - 100) + 1);
             String fin = taskdate + tasktime + Integer.toString(rNum);
-            FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
-            if (curuser != null) {
-                String uid = curuser.getUid();
+            FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+            if (cursor != null) {
+                String uid = cursor.getUid();
 //                if (noww == 2) {
 //                    db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder");
 //                } else {
@@ -197,7 +193,7 @@ public class InputReminderActivity extends AppCompatActivity {
 //                }
                 Map<String, Object> val = new TreeMap<>();
                 Reminder reminder;
-                if (noww == 2) {
+                if (now == 2) {
                     reminder = new Reminder(task, details, "---", "---", "None", fin);
                 } else {
                     reminder = new Reminder(task, details, taskdate, tasktime, rep[repeat], fin);
@@ -206,13 +202,13 @@ public class InputReminderActivity extends AppCompatActivity {
                 db.updateChildren(val);
             }
             Toast.makeText(getApplicationContext(), "Reminder Added!", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(InputReminderActivity.this, InputReminderActivity.class);
+            Intent intent = new Intent(InputReminderActivity.this, AdminHomeActivity.class);
             startActivity(intent);
         }
     }
 
     public void setrepeat(View view) {
-        if (noww == 2) {
+        if (now == 2) {
             return;
         }
         repeat = (repeat + 1) % 5;
@@ -243,40 +239,5 @@ public class InputReminderActivity extends AppCompatActivity {
 
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        switch (requestCode) {
-//            case REQUEST_CODE_SPEECH: {
-//                if (data != null) {
-//                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-//                    addername = findViewById(R.id.addername);
-//                    String res = result.get(0);
-//                    res = res.substring(0, 1).toUpperCase() + res.substring(1);
-//                    addername.setText(res);
-//                }
-//                break;
-//            }
-//            case PICK_CONTACT_CALL: {
-//                Uri contactData = data.getData();
-//                Cursor c = getContentResolver().query(contactData, null, null, null, null);
-//                if (c.moveToFirst()) {
-//                    String name = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-//                    addername = findViewById(R.id.addername);
-//                    addername.setText("Call " + name);
-//                }
-//                break;
-//            }
-//            case PICK_CONTACT_MSG: {
-//                Uri contactData = data.getData();
-//                Cursor c = getContentResolver().query(contactData, null, null, null, null);
-//                if (c.moveToFirst()) {
-//                    String name = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-//                    addername = findViewById(R.id.addername);
-//                    addername.setText("Send SMS to " + name);
-//                }
-//                break;
-//            }
-//        }
-//    }
+
 }

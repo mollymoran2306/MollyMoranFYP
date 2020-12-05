@@ -26,6 +26,10 @@
         </activity>
 
         <activity android:name="com.example.MollyMoranFYP.Activities.RegistrationActivity">
+
+        </activity>
+
+        <activity android:name="com.example.MollyMoranFYP.Activities.SplashActivity" android:theme ="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

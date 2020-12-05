@@ -47,18 +47,19 @@ public class RegistrationActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(activity_registration);
+            setTitle("Connect");
 
-            /* MOLLY - TAKE THIS OUT!!! */
+            /* TAKE THIS OUT!!! */
             TextView txtFirstName = findViewById(R.id.txtFirstName);
             TextView txtLastName = findViewById(R.id.txtLastName);
             TextView txtEmail = findViewById(R.id.txtEmail);
             TextView txtPassword = findViewById(R.id.txtPassword);
 
-            txtFirstName.setText("Fergal");
+            txtFirstName.setText("Molly");
             txtLastName.setText("Moran");
-            txtEmail.setText(String.format("fergal-%s@fergl.ie", UUID.randomUUID().toString()));
+            txtEmail.setText(String.format("moll@gmail.com", UUID.randomUUID().toString()));
             txtPassword.setText("secret");
-            /* MOLLY - TAKE THIS OUT!!! */
+            /* TAKE THIS OUT!!! */
 
 
             rb = findViewById(R.id.btnRegister);
@@ -119,14 +120,14 @@ public class RegistrationActivity extends AppCompatActivity {
                                     TreeMap<String, Reminder> taskk = new TreeMap<String, Reminder>();
                                     db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Task");
                                     db.setValue(taskk);
-                                    db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Settings");
-                                    HashMap<String, String> settings = new HashMap<>();
-                                    settings.put("Darkmode", "False");
-                                    settings.put("Vibration", "True");
-                                    settings.put("Sound", "True");
-                                    settings.put("Fullscreen", "False");
-                                    settings.put("Notification", "True");
-                                    db.setValue(settings);
+//                                    db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Settings");
+//                                    HashMap<String, String> settings = new HashMap<>();
+//                                    settings.put("Darkmode", "False");
+//                                    settings.put("Vibration", "True");
+//                                    settings.put("Sound", "True");
+//                                    settings.put("Fullscreen", "False");
+//                                    settings.put("Notification", "True");
+//                                    db.setValue(settings);
                                     Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_LONG).show();
                                     finish();
                                     Intent intent = new Intent(RegistrationActivity.this, AdminHomeActivity.class);
