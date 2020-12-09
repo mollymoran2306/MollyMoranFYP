@@ -5,12 +5,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MollyMoranFYP.Adapters.ReminderAdapter;
 import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
+import com.example.MollyMoranFYP.Utils.MyDividerItemDecoration;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setHasFixedSize(true);
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
         String uid = cursor.getUid();
@@ -76,4 +80,9 @@ public class ViewRemindersActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
 }
