@@ -37,11 +37,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
         private Button rb;
         String n, fn, sn, u, p;
-        EditText efn, esn, eu, ep;
-        CheckBox regpasschk;
+        EditText firstName, lastName, email, password;
         FirebaseAuth mAuth;
         private DatabaseReference db;
-        boolean doubleBackToExitPressedOnce = false;
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
             setContentView(activity_registration);
             setTitle("Connect");
 
-            /* TAKE THIS OUT!!! */
+            // TAKE THIS OUT!!!
             TextView txtFirstName = findViewById(R.id.txtFirstName);
             TextView txtLastName = findViewById(R.id.txtLastName);
             TextView txtEmail = findViewById(R.id.txtEmail);
@@ -59,22 +58,22 @@ public class RegistrationActivity extends AppCompatActivity {
             txtLastName.setText("Moran");
             txtEmail.setText(String.format("moll@gmail.com", UUID.randomUUID().toString()));
             txtPassword.setText("secret");
-            /* TAKE THIS OUT!!! */
+            // TAKE THIS OUT!!!
 
 
             rb = findViewById(R.id.btnRegister);
             rb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    efn = findViewById(R.id.txtFirstName);
-                    esn = findViewById(R.id.txtLastName);
-                    eu = findViewById(R.id.txtEmail);
-                    ep = findViewById(R.id.txtPassword);
-                    fn = efn.getText().toString();
-                    sn = esn.getText().toString();
+                    firstName = findViewById(R.id.txtFirstName);
+                    lastName = findViewById(R.id.txtLastName);
+                    email = findViewById(R.id.txtEmail);
+                    password = findViewById(R.id.txtPassword);
+                    fn = firstName.getText().toString();
+                    sn = lastName.getText().toString();
                     n = fn + " " + sn;
-                    u = eu.getText().toString();
-                    p = ep.getText().toString();
+                    u = email.getText().toString();
+                    p = password.getText().toString();
                    // Checker chk = new Checker();
                     mAuth = FirebaseAuth.getInstance();
                     String s = "";
@@ -88,30 +87,27 @@ public class RegistrationActivity extends AppCompatActivity {
 //                        }
 //                    }
                     if (u.isEmpty()) {
-                        eu.setError("Enter an email address");
-                        eu.requestFocus();
+                        email.setError("Enter an email address");
+                        email.requestFocus();
                     } else if (!Patterns.EMAIL_ADDRESS.matcher(u).matches()) {
-                        eu.setError("Enter a valid email address");
-                        eu.requestFocus();
+                        email.setError("Enter a valid email address");
+                        email.requestFocus();
                     } else if (p.isEmpty()) {
-                        ep.setError("Enter a password");
-                        ep.requestFocus();
+                        password.setError("Enter a password");
+                        password.requestFocus();
                     } else if (p.length() < 6) {
-                        ep.setError("Password must be minimum of 6 characters");
-                        ep.requestFocus();
+                        password.setError("Password must be minimum of 6 characters");
+                        password.requestFocus();
                     }
-//                    else if (!chk.pass(p)) {
-//                        ep.setError("Enter a valid password");
-//                        ep.requestFocus();
-                   // }
+
                     //Complete Listener for error handling
                     else {
                         mAuth.createUserWithEmailAndPassword(u, p).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
-                                    String uid = curuser.getUid();
+                                    FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+                                    String uid = cursor.getUid();
                                     db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Info");
                                     HashMap<String, String> info = new HashMap<>();
                                     info.put("Name", n);
@@ -120,15 +116,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                     TreeMap<String, Reminder> taskk = new TreeMap<String, Reminder>();
                                     db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Task");
                                     db.setValue(taskk);
-//                                    db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Settings");
-//                                    HashMap<String, String> settings = new HashMap<>();
-//                                    settings.put("Darkmode", "False");
-//                                    settings.put("Vibration", "True");
-//                                    settings.put("Sound", "True");
-//                                    settings.put("Fullscreen", "False");
-//                                    settings.put("Notification", "True");
-//                                    db.setValue(settings);
-                                    Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_LONG).show();
+
+                                    Toast.makeText(getApplicationContext(), "Registration Successful!", Toast.LENGTH_LONG).show();
                                     finish();
                                     Intent intent = new Intent(RegistrationActivity.this, AdminHomeActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

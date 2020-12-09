@@ -28,12 +28,15 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
+/** Some code here taken from MyDay - master opensource reminders
+application can be found at: https://github.com/edge555/MyDay **/
+
 public class InputReminderActivity extends AppCompatActivity {
-    private Button adderset;
+    private Button btnSet;
     private Button btnBack;
-    private EditText addername, adderdes;
-    private String curdate = "", curtime = "", taskdate = "", tasktime = "";
-    private TextView repeattv, addertimetv, adderdatetv;
+    private EditText txtTitle, txtDescription;
+    private String curdate = "", curtime = "", reminderDate = "", reminderTime = "";
+    private TextView tvRepeat, tvTime, tvDate;
     private Toolbar toolbar;
 
     private DatabaseReference db;
@@ -46,16 +49,17 @@ public class InputReminderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inputreminder);
+        setTitle("Input Reminder");
         repeat = 0;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             now = extras.getInt("now");
         }
-        adderset = findViewById(R.id.adderset);
-        adderset.setOnClickListener(new View.OnClickListener() {
+        btnSet = findViewById(R.id.btnSet);
+        btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                settask();
+                setReminder();
             }
         });
 
@@ -72,8 +76,11 @@ public class InputReminderActivity extends AppCompatActivity {
 
     }
 
-    public void setdate(View view) {
-        //this code was taken from
+    /** These methods are taken from MyDay - master opensource reminders
+     application can be found at: https://github.com/edge555/MyDay **/
+
+    public void setDate(View view) {
+
         if (now == 2) {
             return;
         }
@@ -99,15 +106,15 @@ public class InputReminderActivity extends AppCompatActivity {
                     y += "0";
                 if (d.length() != 2)
                     m += "0";
-                taskdate = y + m + d;
-                adderdatetv = findViewById(R.id.adderdatetv);
-                adderdatetv.setText(parsedate(taskdate));
+                reminderDate = y + m + d;
+                tvDate = findViewById(R.id.tvDate);
+                tvDate.setText(parsedate(reminderDate));
             }
         }, year, month, date);
         datePickerDialog.show();
     }
 
-    public void settime(View view) {
+    public void setTime(View view) {
         if (now == 2) {
             return;
         }
@@ -136,36 +143,36 @@ public class InputReminderActivity extends AppCompatActivity {
                 if (m.length() != 2)
                     s += "0";
                 s += m;
-                tasktime = s;
-                addertimetv = findViewById(R.id.addertimetv);
-                addertimetv.setText(parsetime(tasktime));
+                reminderTime = s;
+                tvTime = findViewById(R.id.tvTime);
+                tvTime.setText(parsetime(reminderTime));
             }
         }, hour, min, true);
         timePickerDialog.show();
     }
 
-    public void settask() {
+    public void setReminder() {
         boolean flag = true;
-        if (taskdate.compareTo(curdate) < 0 && now != 2) {
+        if (reminderDate.compareTo(curdate) < 0 && now != 2) {
             flag = false;
-        } else if (taskdate.compareTo(curdate) == 0 && now != 2) {
-            if (tasktime.compareTo(curtime) < 0) {
+        } else if (reminderDate.compareTo(curdate) == 0 && now != 2) {
+            if (reminderTime.compareTo(curtime) < 0) {
                 flag = false;
             }
         }
-        Log.d("chk", String.valueOf(now));
-        addername = findViewById(R.id.addername);
-        String task = addername.getText().toString();
-        adderdes = findViewById(R.id.adderdes);
-        String details = adderdes.getText().toString();
+       // Log.d("chk", String.valueOf(now));
+        txtTitle = findViewById(R.id.txtTitle);
+        String task = txtTitle.getText().toString();
+        txtDescription = findViewById(R.id.txtDescription);
+        String details = txtDescription.getText().toString();
         String ct = curdate + curtime;
-        String tt = taskdate + tasktime;
+        String tt = reminderDate + reminderTime;
         if (task.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Task name is empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Reminder name is empty", Toast.LENGTH_LONG).show();
             flag = false;
         }
         if (now != 2) {
-            if (taskdate.isEmpty() || tasktime.isEmpty()) {
+            if (reminderDate.isEmpty() || reminderTime.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Choose Time and Date", Toast.LENGTH_LONG).show();
                 flag = false;
             }
@@ -177,7 +184,7 @@ public class InputReminderActivity extends AppCompatActivity {
         if (flag) {
             Random rand = new Random();
             int rNum = 100 + rand.nextInt((999 - 100) + 1);
-            String fin = taskdate + tasktime + Integer.toString(rNum);
+            String fin = reminderDate + reminderTime + Integer.toString(rNum);
             FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
             if (cursor != null) {
                 String uid = cursor.getUid();
@@ -196,7 +203,7 @@ public class InputReminderActivity extends AppCompatActivity {
                 if (now == 2) {
                     reminder = new Reminder(task, details, "---", "---", "None", fin);
                 } else {
-                    reminder = new Reminder(task, details, taskdate, tasktime, rep[repeat], fin);
+                    reminder = new Reminder(task, details, reminderDate, reminderTime, rep[repeat], fin);
                 }
                 val.put(fin, reminder);
                 db.updateChildren(val);
@@ -212,8 +219,8 @@ public class InputReminderActivity extends AppCompatActivity {
             return;
         }
         repeat = (repeat + 1) % 5;
-        repeattv = findViewById(R.id.adderrepeat);
-        repeattv.setText(rep[repeat]);
+        tvRepeat = findViewById(R.id.tvRepeat);
+        tvRepeat.setText(rep[repeat]);
     }
 
 
