@@ -48,7 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
             setContentView(activity_registration);
             setTitle("Connect");
 
-            // TAKE THIS OUT!!!
+            // TAKE THIS OUT!
             TextView txtFirstName = findViewById(R.id.txtFirstName);
             TextView txtLastName = findViewById(R.id.txtLastName);
             TextView txtEmail = findViewById(R.id.txtEmail);
@@ -58,7 +58,7 @@ public class RegistrationActivity extends AppCompatActivity {
             txtLastName.setText("Moran");
             txtEmail.setText(String.format("moll@gmail.com", UUID.randomUUID().toString()));
             txtPassword.setText("secret");
-            // TAKE THIS OUT!!!
+            // TAKE THIS OUT!
 
 
             rb = findViewById(R.id.btnRegister);

@@ -40,6 +40,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
         //Some code here taken from MyDay - master open source reminders application. Can be found at: https://github.com/edge555/MyDay
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewreminders);
+        setTitle("Reminders");
 
         recyclerView = findViewById(R.id.recyclerview);
 

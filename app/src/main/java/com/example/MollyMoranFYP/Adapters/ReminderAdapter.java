@@ -39,6 +39,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         holder.reltitle.setText(r.getTitle());
         holder.reldate.setText(parseDate(r.getDate()));
         holder.reltime.setText(parseTime(r.getTime()));
+        holder.reldesc.setText(r.getDes());
     }
 
     @Override
@@ -52,6 +53,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         TextView reltitle;
         TextView reltime;
         TextView reldate;
+        TextView reldesc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +61,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             reltitle = itemView.findViewById(R.id.reltitle);
             reltime = itemView.findViewById(R.id.reltime);
             reldate = itemView.findViewById(R.id.reldate);
+            reldesc = itemView.findViewById(R.id.reldesc);
 
         }
     }
