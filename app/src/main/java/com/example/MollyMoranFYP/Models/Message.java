@@ -1,17 +1,28 @@
 package com.example.MollyMoranFYP.Models;
 
 public class Message {
-    private int userID;
+    //private int userID;
+    private String subject;
     private String messageText;
-    private int time;
 
-    public int getUserID() {
-        return userID;
+
+    public Message() {
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public Message(String subject, String messageText) {
+        this.subject = subject;
+        this.messageText = messageText;
     }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String messageText) {
+        this.subject = subject;
+    }
+
+
 
     public String getMessageText() {
         return messageText;
@@ -21,11 +32,6 @@ public class Message {
         this.messageText = messageText;
     }
 
-    public int getTime() {
-        return time;
-    }
 
-    public void setTime(int time) {
-        this.time = time;
-    }
+
 }

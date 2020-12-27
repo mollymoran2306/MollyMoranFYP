@@ -11,11 +11,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="139dp"
         android:layout_marginEnd="128dp"
-        android:layout_marginBottom="174dp"
+        android:layout_marginBottom="34dp"
         android:background="@drawable/custom_button"
+        android:padding="30dp"
         android:text="Input Reminders"
-        android:textColor="@android:color/white"
-        android:padding="30dp"/>
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btnViewReminders"
@@ -25,13 +25,28 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="139dp"
-
-
         android:layout_marginEnd="128dp"
         android:layout_marginBottom="192dp"
         android:background="@drawable/custom_button"
         android:padding="30dp"
         android:text="View Reminders"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btnSendMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnInputReminder"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/custom_button"
+        android:padding="30dp"
+        android:text="Send a Message"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

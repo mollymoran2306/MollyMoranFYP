@@ -1,5 +1,6 @@
 package com.example.MollyMoranFYP.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         private Button btnInputReminder;
         private Button btnViewReminders;
+        private Button btnSendMessage;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class AdminHomeActivity extends AppCompatActivity {
 
             btnInputReminder = findViewById(R.id.btnInputReminder);
             btnViewReminders = findViewById(R.id.btnViewReminders);
+            btnSendMessage = findViewById(R.id.btnSendMessage);
+
             btnInputReminder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -41,8 +45,14 @@ public class AdminHomeActivity extends AppCompatActivity {
                 }
             });
 
+            btnSendMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(AdminHomeActivity.this, SendMessageActivity.class);
 
-
+                    startActivity(intent);
+                }
+            });
 
         }
 

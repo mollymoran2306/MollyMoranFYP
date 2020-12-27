@@ -10,24 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.example.MollyMoranFYP.Activities.RetrieveDataActivity">
-
         </activity>
+
         <activity android:name="com.example.MollyMoranFYP.Activities.AdminHomeActivity">
         </activity>
 
         <activity android:name="com.example.MollyMoranFYP.Activities.ViewRemindersActivity">
-
         </activity>
+
         <activity android:name="com.example.MollyMoranFYP.Activities.InputReminderActivity">
-
         </activity>
-        <activity android:name="com.example.MollyMoranFYP.Activities.RemindersActivity">
 
+        <activity android:name="com.example.MollyMoranFYP.Activities.RemindersActivity">
         </activity>
 
         <activity android:name="com.example.MollyMoranFYP.Activities.RegistrationActivity">
-
         </activity>
+
+        <activity android:name="com.example.MollyMoranFYP.Activities.SendMessageActivity">
+        </activity>
+
 
         <activity android:name="com.example.MollyMoranFYP.Activities.SplashActivity" android:theme ="@style/SplashTheme">
             <intent-filter>

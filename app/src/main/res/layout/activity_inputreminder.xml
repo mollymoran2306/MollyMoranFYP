@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"><![CDATA[
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,10 +11,7 @@
     android:orientation="vertical"
     tools:context=".TaskAdderActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"/>
+    ]]>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +21,7 @@
         android:gravity="start">
 
         <EditText
-            android:id="@+id/txtTitle"
+            android:id="@+id/txtSubject"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -64,7 +61,7 @@
         </TextView>
 
         <EditText
-            android:id="@+id/txtDescription"
+            android:id="@+id/txtMessage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Add details about task..."
@@ -87,7 +84,7 @@
             android:layout_weight="7"
             android:gravity="center"
             android:onClick="setDate"
-            android:paddingRight="15dp"
+            android:paddingEnd="15dp"
             android:text="Choose Date"
             android:textSize="22dp"
             android:textStyle="bold"></TextView>
@@ -109,7 +106,7 @@
             android:gravity="center"
             android:onClick="setTime"
             android:paddingRight="15dp"
-            android:text="Choose Time"
+            android:text="@string/choose_time"
             android:textSize="22dp"
             android:textStyle="bold"></TextView>
 
@@ -131,7 +128,7 @@
             android:onClick="setrepeat"
             android:paddingRight="15dp"
             android:text="No Repeating"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textStyle="bold">
 
         </TextView>
@@ -151,11 +148,11 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btnSet"
+            android:id="@+id/btnSend"
             android:layout_width="180dp"
             android:layout_height="60dp"
 
-            android:text="Set"
+            android:text="@string/set"
             android:textColor="#000000"
             android:textSize="19sp" />
 
