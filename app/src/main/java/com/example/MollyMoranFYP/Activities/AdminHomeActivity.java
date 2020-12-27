@@ -16,6 +16,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         private Button btnInputReminder;
         private Button btnViewReminders;
         private Button btnSendMessage;
+        private Button btnViewMessages;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class AdminHomeActivity extends AppCompatActivity {
             btnInputReminder = findViewById(R.id.btnInputReminder);
             btnViewReminders = findViewById(R.id.btnViewReminders);
             btnSendMessage = findViewById(R.id.btnSendMessage);
+            btnViewMessages = findViewById(R.id.btnViewMessages);
 
             btnInputReminder.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -49,6 +51,15 @@ public class AdminHomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(AdminHomeActivity.this, SendMessageActivity.class);
+
+                    startActivity(intent);
+                }
+            });
+
+            btnViewMessages.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(AdminHomeActivity.this, ViewMessagesActivity.class);
 
                     startActivity(intent);
                 }

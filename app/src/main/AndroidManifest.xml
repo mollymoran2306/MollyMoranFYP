@@ -30,6 +30,9 @@
         <activity android:name="com.example.MollyMoranFYP.Activities.SendMessageActivity">
         </activity>
 
+        <activity android:name="com.example.MollyMoranFYP.Activities.ViewMessagesActivity">
+        </activity>
+
 
         <activity android:name="com.example.MollyMoranFYP.Activities.SplashActivity" android:theme ="@style/SplashTheme">
             <intent-filter>
