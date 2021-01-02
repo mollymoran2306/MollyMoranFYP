@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -41,6 +42,8 @@ public class InputReminderActivity extends AppCompatActivity {
     private DatabaseReference db;
     private static int now, repeat;
 
+    private static final String TAG = "*InputReminderActivity*";
+
     String[] rep = new String[]{"None", "Daily", "Weekly", "Monthly", "Yearly"};
 
 
@@ -61,6 +64,8 @@ public class InputReminderActivity extends AppCompatActivity {
                 setReminder();
             }
         });
+
+        Log.d(TAG, "on create method running");
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +211,7 @@ public class InputReminderActivity extends AppCompatActivity {
                 }
                 val.put(fin, reminder);
                 db.updateChildren(val);
+                Log.d(TAG, "Reminder added to database " + reminder);
             }
             Toast.makeText(getApplicationContext(), "Reminder Added!", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(InputReminderActivity.this, AdminHomeActivity.class);

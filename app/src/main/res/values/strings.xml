@@ -8,4 +8,6 @@
     <string name="last_name">Last Name</string>
     <string name="set">Set</string>
     <string name="choose_time">Choose Time</string>
+    <string name="subject">Subject</string>
+    <string name="message_text">Message Text</string>
 </resources>

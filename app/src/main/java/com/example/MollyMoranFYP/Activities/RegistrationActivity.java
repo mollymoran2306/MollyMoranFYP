@@ -2,6 +2,7 @@ package com.example.MollyMoranFYP.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +42,8 @@ public class RegistrationActivity extends AppCompatActivity {
         FirebaseAuth mAuth;
         private DatabaseReference db;
 
+    private static final String TAG = "*RegistrationActivity*";
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
             txtPassword.setText("secret");
            //  TAKE THIS OUT!
 
+            Log.d(TAG, "The onCreate() method is being executed");
 
             rb = findViewById(R.id.btnRegister);
             rb.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +122,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                     db.setValue(taskk);
 
                                     Toast.makeText(getApplicationContext(), "Registration Successful!", Toast.LENGTH_LONG).show();
+                                    Log.d(TAG,
+                                            "User added to database " + n);
                                     finish();
                                     Intent intent = new Intent(RegistrationActivity.this, AdminHomeActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
