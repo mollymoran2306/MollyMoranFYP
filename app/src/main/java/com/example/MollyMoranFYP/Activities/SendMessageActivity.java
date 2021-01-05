@@ -61,6 +61,11 @@ public class SendMessageActivity extends AppCompatActivity {
 
     private Uri filePath;
 
+    Random rand = new Random();
+    int rNum = 100 + rand.nextInt((999 - 100) + 1);
+    String fin =  Integer.toString(rNum);
+    String id;
+
 
     private DatabaseReference db;
     private static int now, repeat;
@@ -127,9 +132,7 @@ public class SendMessageActivity extends AppCompatActivity {
         }
 
         if (flag) {
-            Random rand = new Random();
-            int rNum = 100 + rand.nextInt((999 - 100) + 1);
-            String fin =  Integer.toString(rNum);
+
 
             FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
             if (cursor != null) {
@@ -150,6 +153,7 @@ public class SendMessageActivity extends AppCompatActivity {
                     message1 = new Message(subject, message);
 
                 val.put(fin, message1);
+                id = fin;
                 db.updateChildren(val);
 
                 Log.d(TAG, "message saved to db" + message);
@@ -297,7 +301,8 @@ public class SendMessageActivity extends AppCompatActivity {
                     .child("Users")
                     .child(uid)
                     .child("Message")
-                    .child("Image");
+                    .child(id)
+                    .child("image");
 
             if (filePath != null) {
 
@@ -305,15 +310,7 @@ public class SendMessageActivity extends AppCompatActivity {
             Log.d(TAG, "Adding image to firebase " + filePath);
 
 
-//            Map<String, Object> val = new TreeMap<>();
-//            Message message1;
-//
-//            message1 = new Message(subject, message);
-//
-//            val.put(fin, message1);
-//            db.updateChildren(val);
-//
-//            Log.d(TAG, "message saved to db" + message);
+
         }
         Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity.class);
