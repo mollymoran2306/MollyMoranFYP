@@ -4,14 +4,21 @@ public class Message {
     //private int userID;
     private String subject;
     private String messageText;
+    private String image;
 
 
     public Message() {
     }
 
+    public Message(String subject, String messageText, String image) {
+        this.subject = subject;
+        this.messageText = messageText;
+        this.image = image;
+    }
     public Message(String subject, String messageText) {
         this.subject = subject;
         this.messageText = messageText;
+
     }
 
     public String getSubject() {
@@ -23,7 +30,6 @@ public class Message {
     }
 
 
-
     public String getMessageText() {
         return messageText;
     }
@@ -33,5 +39,11 @@ public class Message {
     }
 
 
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

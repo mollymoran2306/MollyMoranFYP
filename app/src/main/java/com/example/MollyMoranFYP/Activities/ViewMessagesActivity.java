@@ -1,6 +1,7 @@
 package com.example.MollyMoranFYP.Activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,9 @@ public class ViewMessagesActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private ArrayList<Message> messageList;
     private MessageAdapter mAdapter;
+    private String i;
+
+    private static final String TAG = "*ViewMessageActivity*";
 
 
     @Override
@@ -57,8 +61,6 @@ public class ViewMessagesActivity extends AppCompatActivity {
         mAdapter = new MessageAdapter(this, messageList);
         recyclerView.setAdapter(mAdapter);
 
-        //want to change this to only display future reminders not past reminders
-
         myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Message");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -66,10 +68,13 @@ public class ViewMessagesActivity extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Message r = new Message(
                             ds.child("subject").getValue(String.class),
-                            ds.child("messageText").getValue(String.class)
-
+                            ds.child("messageText").getValue(String.class),
+                            ds.child("image").getValue(String.class)
                     );
+                    //crashes if theres no image, add error handling here
                     messageList.add(r);
+
+
                 }
                 mAdapter.notifyDataSetChanged();
             }

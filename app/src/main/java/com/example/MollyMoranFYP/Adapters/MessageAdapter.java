@@ -1,14 +1,17 @@
 package com.example.MollyMoranFYP.Adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.MollyMoranFYP.Models.Image;
 import com.example.MollyMoranFYP.Models.Message;
 import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
@@ -20,6 +23,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private static final String Tag = "RecyclerView";
     private Context mContext;
     private ArrayList<Message> messageList;
+    private String i;
+
+    private static final String TAG = "*MessageAdapter*";
 
     public MessageAdapter(Context mContext, ArrayList<Message> messageList) {
         this.mContext = mContext;
@@ -39,18 +45,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Message r = messageList.get(position);
         holder.relsubject.setText(r.getSubject());
         holder.relmessagetext.setText(r.getMessageText());
+        holder.messageImage.setImageURI(Uri.parse(r.getImage()));
+
     }
 
     @Override
     public int getItemCount() {
         if (messageList == null) return 0;
         return messageList.size();
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView relsubject;
         TextView relmessagetext;
+        ImageView messageImage;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -58,7 +68,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
             relsubject = itemView.findViewById(R.id.relsubject);
             relmessagetext = itemView.findViewById(R.id.relmessagetext);
-
+            messageImage = itemView.findViewById(R.id.messageImage);
 
         }
     }
