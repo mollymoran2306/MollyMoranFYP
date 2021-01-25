@@ -31,7 +31,7 @@ import java.util.UUID;
 
 import static com.example.MollyMoranFYP.R.layout.activity_registration;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class  RegistrationActivity extends AppCompatActivity {
 
     //Some code here taken from MyDay - master opensource reminders application can be found at: https://github.com/edge555/MyDay
 
@@ -59,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
             txtFirstName.setText("Molly");
             txtLastName.setText("Moran");
-            txtEmail.setText(String.format("moll@gmail.com", UUID.randomUUID().toString()));
+            txtEmail.setText(String.format("mm@gmail.com", UUID.randomUUID().toString()));
             txtPassword.setText("secret");
            //  TAKE THIS OUT!
 

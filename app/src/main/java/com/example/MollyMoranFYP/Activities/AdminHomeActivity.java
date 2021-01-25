@@ -17,6 +17,8 @@ public class AdminHomeActivity extends AppCompatActivity {
         private Button btnViewReminders;
         private Button btnSendMessage;
         private Button btnViewMessages;
+        private Button btnNews;
+        private Button btnWeather;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class AdminHomeActivity extends AppCompatActivity {
             btnViewReminders = findViewById(R.id.btnViewReminders);
             btnSendMessage = findViewById(R.id.btnSendMessage);
             btnViewMessages = findViewById(R.id.btnViewMessages);
+            btnNews = findViewById(R.id.btnNews);
+            btnWeather = findViewById(R.id.btnWeather);
+
 
             btnInputReminder.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -60,6 +65,25 @@ public class AdminHomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(AdminHomeActivity.this, ViewMessagesActivity.class);
+
+                    startActivity(intent);
+                }
+            });
+
+            btnNews.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(AdminHomeActivity.this, NewsActivity.class);
+
+                    startActivity(intent);
+                }
+
+            });
+
+            btnWeather.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(AdminHomeActivity.this, WeatherActivity.class);
 
                     startActivity(intent);
                 }

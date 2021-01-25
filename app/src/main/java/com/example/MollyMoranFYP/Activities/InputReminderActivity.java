@@ -31,7 +31,7 @@ import java.util.TreeMap;
 /** Some code here taken from MyDay - master opensource reminders
 application can be found at: https://github.com/edge555/MyDay **/
 
-public class InputReminderActivity extends AppCompatActivity {
+public class  InputReminderActivity extends AppCompatActivity {
     private Button btnSet;
     private Button btnBack;
     private EditText txtTitle, txtDescription;
