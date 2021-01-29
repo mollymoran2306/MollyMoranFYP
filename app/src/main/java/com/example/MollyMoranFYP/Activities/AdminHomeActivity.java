@@ -13,12 +13,11 @@ import com.example.MollyMoranFYP.R;
 
 public class AdminHomeActivity extends AppCompatActivity {
 
-        private Button btnInputReminder;
-        private Button btnViewReminders;
-        private Button btnSendMessage;
-        private Button btnViewMessages;
-        private Button btnNews;
-        private Button btnWeather;
+        //ignore this class, use AdminHomeActivity2 instead
+
+        private Button btnInputReminder, btnViewReminders, btnSendMessage, btnViewMessages, btnNews, btnWeather, btnUserView;
+
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,7 @@ public class AdminHomeActivity extends AppCompatActivity {
             btnViewMessages = findViewById(R.id.btnViewMessages);
             btnNews = findViewById(R.id.btnNews);
             btnWeather = findViewById(R.id.btnWeather);
+            btnUserView = findViewById(R.id.btnUserView);
 
 
             btnInputReminder.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +84,15 @@ public class AdminHomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(AdminHomeActivity.this, WeatherActivity.class);
+
+                    startActivity(intent);
+                }
+            });
+
+            btnUserView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(AdminHomeActivity.this, UserHomeActivity.class);
 
                     startActivity(intent);
                 }

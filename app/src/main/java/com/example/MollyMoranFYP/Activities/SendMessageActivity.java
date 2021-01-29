@@ -49,7 +49,7 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
 
-/** Some code here taken from MyDay - master opensource reminders
+/** Some code here adapted from MyDay - master opensource reminders
  application can be found at: https://github.com/edge555/MyDay **/
 
 public class SendMessageActivity extends AppCompatActivity {
@@ -95,7 +95,7 @@ public class SendMessageActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity.class);
+                Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
                 startActivity(intent);
             }
         });
@@ -159,7 +159,7 @@ public class SendMessageActivity extends AppCompatActivity {
                 Log.d(TAG, "message saved to db" + message);
             }
             Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity.class);
+            Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
             startActivity(intent);
         }
     }

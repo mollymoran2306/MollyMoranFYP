@@ -39,6 +39,7 @@ public class  RegistrationActivity extends AppCompatActivity {
         private Button rb;
         String n, fn, sn, u, p;
         EditText firstName, lastName, email, password;
+        TextView txtLogin;
         FirebaseAuth mAuth;
         private DatabaseReference db;
 
@@ -64,6 +65,17 @@ public class  RegistrationActivity extends AppCompatActivity {
            //  TAKE THIS OUT!
 
             Log.d(TAG, "The onCreate() method is being executed");
+
+            TextView txtLogin = findViewById(R.id.txtLogin);
+
+            txtLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+
+                    startActivity(intent);
+                }
+            });
 
             rb = findViewById(R.id.btnRegister);
             rb.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +137,7 @@ public class  RegistrationActivity extends AppCompatActivity {
                                     Log.d(TAG,
                                             "User added to database " + n);
                                     finish();
-                                    Intent intent = new Intent(RegistrationActivity.this, AdminHomeActivity.class);
+                                    Intent intent = new Intent(RegistrationActivity.this, AdminHomeActivity2.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
 

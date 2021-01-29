@@ -22,6 +22,9 @@
         <activity android:name="com.example.MollyMoranFYP.Activities.AdminHomeActivity">
         </activity>
 
+        <activity android:name="com.example.MollyMoranFYP.Activities.AdminHomeActivity2">
+        </activity>
+
         <activity android:name="com.example.MollyMoranFYP.Activities.ViewRemindersActivity">
         </activity>
 
@@ -48,6 +51,14 @@
 
         <activity android:name="com.example.MollyMoranFYP.Activities.WeatherActivity">
         </activity>
+
+        <activity android:name="com.example.MollyMoranFYP.Activities.UserHomeActivity">
+        </activity>
+
+        <activity android:name="com.example.MollyMoranFYP.Activities.LoginActivity">
+        </activity>
+
+
 
 
         <activity android:name="com.example.MollyMoranFYP.Activities.SplashActivity" android:theme ="@style/SplashTheme">
