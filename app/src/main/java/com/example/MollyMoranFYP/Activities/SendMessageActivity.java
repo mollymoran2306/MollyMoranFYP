@@ -91,14 +91,6 @@ public class SendMessageActivity extends AppCompatActivity {
             }
         });
 
-        btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
-                startActivity(intent);
-            }
-        });
 
         imageView = findViewById(R.id.my_avatar);
 
