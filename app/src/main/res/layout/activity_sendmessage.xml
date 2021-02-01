@@ -17,17 +17,16 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/header"
-
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
             android:text="Send a Message"
             android:textColor="@color/white"
-            android:textSize="30dp">
+            android:textSize="30sp">
 
         </TextView>
     </ScrollView>
@@ -36,7 +35,8 @@
         android:layout_width="384dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-20dp"
-        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        app:cardCornerRadius="12dp"
         >
 
         <LinearLayout
@@ -58,7 +58,9 @@
                 android:paddingRight="15dp"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:autofillHints=""
+                android:inputType="text" />
         </LinearLayout>
 
 
@@ -75,9 +77,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
                 android:text="Message"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold">
 
             </TextView>
@@ -87,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Enter message here..."
-                android:paddingLeft="15dp">
+                android:paddingStart="15dp">
 
             </EditText>
         </LinearLayout>
@@ -97,7 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:layout_marginTop="200dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
@@ -118,7 +121,8 @@
             android:adjustViewBounds="true"
             app:layout_collapseMode="parallax"
             app:layout_collapseParallaxMultiplier="0.7"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="Image" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,7 +131,7 @@
             android:gravity="center"
             android:layout_marginTop="410dp"
             android:layout_marginBottom="20dp"
-            android:paddingEnd="20dp">
+            >
 
             <Button
                 android:id="@+id/btnSend"

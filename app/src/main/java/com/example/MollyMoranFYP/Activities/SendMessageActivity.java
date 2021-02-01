@@ -54,8 +54,6 @@ import java.util.UUID;
 
 public class SendMessageActivity extends AppCompatActivity {
     private Button btnSend;
-    private Button btnBack;
-    
     private EditText txtMessage, txtSubject;
     private ImageView imageView;
 
@@ -66,10 +64,8 @@ public class SendMessageActivity extends AppCompatActivity {
     String fin =  Integer.toString(rNum);
     String id;
 
-
     private DatabaseReference db;
     private static int now, repeat;
-
     private static final String TAG = "*SendMessageActivity*";
 
     @Override

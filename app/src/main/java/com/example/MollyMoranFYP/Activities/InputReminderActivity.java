@@ -33,7 +33,6 @@ application can be found at: https://github.com/edge555/MyDay **/
 
 public class  InputReminderActivity extends AppCompatActivity {
     private Button btnSet;
-    private Button btnBack;
     private EditText txtTitle, txtDescription;
     private String curdate = "", curtime = "", reminderDate = "", reminderTime = "";
     private TextView tvRepeat, tvTime, tvDate;
@@ -66,17 +65,6 @@ public class  InputReminderActivity extends AppCompatActivity {
         });
 
         Log.d(TAG, "on create method running");
-
-        btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(InputReminderActivity.this, AdminHomeActivity.class);
-
-                startActivity(intent);
-            }
-        });
-
 
     }
 
@@ -214,7 +202,7 @@ public class  InputReminderActivity extends AppCompatActivity {
                 Log.d(TAG, "Reminder added to database " + reminder);
             }
             Toast.makeText(getApplicationContext(), "Reminder Added!", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(InputReminderActivity.this, AdminHomeActivity.class);
+            Intent intent = new Intent(InputReminderActivity.this, AdminHomeActivity2.class);
             startActivity(intent);
         }
     }
