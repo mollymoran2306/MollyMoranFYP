@@ -46,14 +46,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         holder.relsubject.setText(r.getSubject());
         holder.relmessagetext.setText(r.getMessageText());
         holder.messageImage.setImageURI(Uri.parse(r.getImage()));
-
     }
 
     @Override
     public int getItemCount() {
         if (messageList == null) return 0;
         return messageList.size();
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

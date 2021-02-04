@@ -28,9 +28,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-/** Some code here taken from MyDay - master opensource reminders
-application can be found at: https://github.com/edge555/MyDay **/
-
 public class  InputReminderActivity extends AppCompatActivity {
     private Button btnSet;
     private EditText txtTitle, txtDescription;
@@ -68,14 +65,15 @@ public class  InputReminderActivity extends AppCompatActivity {
 
     }
 
-    /** These methods are taken from MyDay - master opensource reminders
-     application can be found at: https://github.com/edge555/MyDay **/
-
+   /*	Code	below	is	based	on	MyDay - master opensource reminders application
+                by Edge555 url:https://github.com/edge555/MyDay
+                     */
     public void setDate(View view) {
 
         if (now == 2) {
             return;
         }
+        //using the calendar class to get month, date and year
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -83,6 +81,7 @@ public class  InputReminderActivity extends AppCompatActivity {
         String y = Integer.toString(year);
         String m = Integer.toString(month);
         String d = Integer.toString(date);
+        Log.d(TAG, "date"+ d );
         if (m.length() != 2)
             y += "0";
         if (d.length() != 2)
@@ -152,7 +151,7 @@ public class  InputReminderActivity extends AppCompatActivity {
                 flag = false;
             }
         }
-       // Log.d("chk", String.valueOf(now));
+
         txtTitle = findViewById(R.id.txtSubject);
         String task = txtTitle.getText().toString();
         txtDescription = findViewById(R.id.txtMessage);
@@ -238,6 +237,6 @@ public class  InputReminderActivity extends AppCompatActivity {
     }
 
 
-
+//END
 
 }

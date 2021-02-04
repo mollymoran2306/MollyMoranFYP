@@ -20,6 +20,7 @@ TextView a,b,c,d;
 Button btn;
 DatabaseReference reff;
 
+    //Not currently using this class!
     @Override
     protected void onCreate (Bundle savedInstanceState) {
 
@@ -34,7 +35,7 @@ DatabaseReference reff;
 
         btn.setOnClickListener(new View.OnClickListener() {
 
-            // this code was take from the YouTube video "How to retrieve data
+            // this code was adapted from the YouTube video "How to retrieve data
             // from Firebase in Android || Retrieve data from firebase || Android Firebase #4
             //by Educatree
             @Override

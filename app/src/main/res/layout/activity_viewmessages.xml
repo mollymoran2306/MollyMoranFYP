@@ -9,8 +9,36 @@
     android:orientation="vertical"
     tools:context=".Activities.RemindersActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/header"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:text="Message Board"
+            android:textColor="@color/white"
+            android:textSize="30sp">
+
+        </TextView>
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="384dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="13dp"
+        app:cardCornerRadius="12dp"
+        >
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"/>
+
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

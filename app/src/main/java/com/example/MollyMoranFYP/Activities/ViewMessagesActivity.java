@@ -1,7 +1,10 @@
 package com.example.MollyMoranFYP.Activities;
 
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +19,7 @@ import com.example.MollyMoranFYP.Models.Message;
 
 import com.example.MollyMoranFYP.R;
 import com.example.MollyMoranFYP.Utils.MyDividerItemDecoration;
+import com.example.MollyMoranFYP.Utils.MyTouchListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,7 +47,6 @@ public class ViewMessagesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        //Some code here taken from MyDay - master open source reminders application. Can be found at: https://github.com/edge555/MyDay
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewmessages);
         setTitle("Message Board");
@@ -61,6 +64,37 @@ public class ViewMessagesActivity extends AppCompatActivity {
         mAdapter = new MessageAdapter(this, messageList);
         recyclerView.setAdapter(mAdapter);
 
+        /*
+        This block of code is adapted from MyRecyclerViewApp by Michael Gleeson
+         */
+        recyclerView.addOnItemTouchListener(new MyTouchListener(getApplicationContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
+            @Override
+            public void onLeftSwipe(View view, int position) {
+                //code as per your need
+                Toast.makeText(getApplicationContext(), "Left Swipe", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRightSwipe(View view, int position) {
+                //code as per your need
+                Toast.makeText(getApplicationContext(), "Right Swipe", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onClick(View view, int position) {
+               // Movie movie = movieList.get(position);
+               // Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onLongClick(View view, int position){
+                //code as per your need
+                Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_SHORT).show();
+            }
+        }
+        ) );
+
+
+
         myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Message");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -73,8 +107,6 @@ public class ViewMessagesActivity extends AppCompatActivity {
                     );
                     //crashes if theres no image, add error handling here
                     messageList.add(r);
-
-
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -85,7 +117,7 @@ public class ViewMessagesActivity extends AppCompatActivity {
             }
         });
     }
-
+//END
 
 
 

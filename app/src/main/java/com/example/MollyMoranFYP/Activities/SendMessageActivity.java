@@ -49,9 +49,6 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
 
-/** Some code here adapted from MyDay - master opensource reminders
- application can be found at: https://github.com/edge555/MyDay **/
-
 public class SendMessageActivity extends AppCompatActivity {
     private Button btnSend;
     private EditText txtMessage, txtSubject;
@@ -87,7 +84,6 @@ public class SendMessageActivity extends AppCompatActivity {
             }
         });
 
-
         imageView = findViewById(R.id.my_avatar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -97,12 +93,10 @@ public class SendMessageActivity extends AppCompatActivity {
                 selectImage(SendMessageActivity.this);
             }
         });
-
-
     }
 
-    /** These methods are taken from MyDay - master opensource reminders
-     application can be found at: https://github.com/edge555/MyDay **/
+
+
 
 
     public void postMessage() {
@@ -120,8 +114,6 @@ public class SendMessageActivity extends AppCompatActivity {
         }
 
         if (flag) {
-
-
             FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
             if (cursor != null) {
                 String uid = cursor.getUid();
@@ -152,8 +144,6 @@ public class SendMessageActivity extends AppCompatActivity {
         }
     }
 
-
-
     public String parsedate(String d) {
         String year = d.substring(0, 4), month = d.substring(4, 6), day = d.substring(6, 8);
         return day + "-" + month + "-" + year;
@@ -173,7 +163,9 @@ public class SendMessageActivity extends AppCompatActivity {
         return h + ":" + m + (pm ? " PM" : " AM");
     }
 
-    //this method is adapted from https://github.com/Cassendra4/ImageCaptureExample/blob/master/app/src/main/java/example/hasnagi/com/imagecaptureexample/ImageCaptureActivity.java
+    /*	Code	below	is	based	on	ImageCaptureExample by Cassendra4
+     url: https://github.com/Cassendra4/ImageCaptureExample/blob/master/app/src/main/java/example/hasnagi/com/imagecaptureexample/ImageCaptureActivity.java
+                     */
     private void selectImage(Context context) {
 
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
@@ -222,7 +214,6 @@ public class SendMessageActivity extends AppCompatActivity {
                         imageView.setImageBitmap(selectedImage);
                         Log.d(TAG, "case 0 entered" + selectedImage);
                     }
-
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
@@ -252,9 +243,8 @@ public class SendMessageActivity extends AppCompatActivity {
                     break;
             }
         }
-
-
     }
+    //END
 
     //this method adapted from https://stackoverflow.com/questions/42571558/bitmapfactory-unable-to-decode-stream-java-io-filenotfoundexception
     @Override
@@ -270,9 +260,12 @@ public class SendMessageActivity extends AppCompatActivity {
         }
     }
 
+     /*	Code	below	is	based	on	ImageCaptureExample by Cassendra4
+     url: https://github.com/Cassendra4/ImageCaptureExample/blob/master/app/src/main/java/example/hasnagi/com/imagecaptureexample/ImageCaptureActivity.java
+                     */
+
     public void postImage() {
         boolean flag = true;
-
 
         Random rand = new Random();
         int rNum = 100 + rand.nextInt((999 - 100) + 1);
@@ -281,7 +274,6 @@ public class SendMessageActivity extends AppCompatActivity {
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
         if (cursor != null) {
             String uid = cursor.getUid();
-
 
             db = FirebaseDatabase
                     .getInstance()
@@ -297,16 +289,10 @@ public class SendMessageActivity extends AppCompatActivity {
             db.setValue(filePath.toString());
             Log.d(TAG, "Adding image to firebase " + filePath);
 
-
-
-        }
+            }
         Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity.class);
         startActivity(intent);
     }
-
-
-
-
-
+    //END
 }}

@@ -33,9 +33,6 @@ import static com.example.MollyMoranFYP.R.layout.activity_registration;
 
 public class  RegistrationActivity extends AppCompatActivity {
 
-    //Some code here taken from MyDay - master opensource reminders application can be found at: https://github.com/edge555/MyDay
-
-
         private Button rb;
         String n, fn, sn, u, p;
         EditText firstName, lastName, email, password;
@@ -72,7 +69,6 @@ public class  RegistrationActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-
                     startActivity(intent);
                 }
             });
@@ -81,6 +77,9 @@ public class  RegistrationActivity extends AppCompatActivity {
             rb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    /*	Code	below	is	based	on	MyDay - master opensource reminders application
+                    by Edge555 url:https://github.com/edge555/MyDay
+                     */
                     firstName = findViewById(R.id.txtFirstName);
                     lastName = findViewById(R.id.txtLastName);
                     email = findViewById(R.id.txtEmail);
@@ -93,15 +92,8 @@ public class  RegistrationActivity extends AppCompatActivity {
                    // Checker chk = new Checker();
                     mAuth = FirebaseAuth.getInstance();
                     String s = "";
-//                    if (!chk.name(n)) {
-//                        if (!chk.name(fn)) {
-//                            efn.setError("Enter a valid name");
-//                            efn.requestFocus();
-//                        } else if (!chk.name(sn)) {
-//                            esn.setError("Enter a valid name");
-//                            esn.requestFocus();
-//                        }
-//                    }
+
+                    //Error handling
                     if (u.isEmpty()) {
                         email.setError("Enter an email address");
                         email.requestFocus();
@@ -116,7 +108,6 @@ public class  RegistrationActivity extends AppCompatActivity {
                         password.requestFocus();
                     }
 
-                    //Complete Listener for error handling
                     else {
                         mAuth.createUserWithEmailAndPassword(u, p).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -152,6 +143,7 @@ public class  RegistrationActivity extends AppCompatActivity {
                         });
                     }
                 }
+                //END
             });
         }
 

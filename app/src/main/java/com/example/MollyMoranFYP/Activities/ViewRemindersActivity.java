@@ -37,7 +37,6 @@ public class ViewRemindersActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        //Some code here taken from MyDay - master open source reminders application. Can be found at: https://github.com/edge555/MyDay
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewreminders);
         setTitle("Reminders");
@@ -55,8 +54,11 @@ public class ViewRemindersActivity extends AppCompatActivity {
         mAdapter = new ReminderAdapter(this, reminderList);
         recyclerView.setAdapter(mAdapter);
 
-        //want to change this to only display future reminders not past reminders
 
+        /*	Code	below	is	based	on	MyDay - master opensource reminders application
+                by Edge555 url:https://github.com/edge555/MyDay
+                     */
+        //want to change this to only display future reminders not past reminders
         myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,6 +76,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
                 }
                 mAdapter.notifyDataSetChanged();
             }
+            //END
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
