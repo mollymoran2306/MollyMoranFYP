@@ -6,7 +6,6 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +37,8 @@ public class  RegistrationActivity extends AppCompatActivity {
         EditText firstName, lastName, email, password;
         TextView txtLogin;
         FirebaseAuth mAuth;
-        private DatabaseReference db;
+        private DatabaseReference db, db2;
+
 
     private static final String TAG = "*RegistrationActivity*";
 
@@ -73,7 +73,7 @@ public class  RegistrationActivity extends AppCompatActivity {
                 }
             });
 
-            rb = findViewById(R.id.btnRegister);
+            rb = findViewById(R.id.btnLetsGo);
             rb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -120,15 +120,22 @@ public class  RegistrationActivity extends AppCompatActivity {
                                     info.put("Name", n);
                                     info.put("Email", u);
                                     db.setValue(info);
+
                                     TreeMap<String, Reminder> taskk = new TreeMap<String, Reminder>();
                                     db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Task");
                                     db.setValue(taskk);
+
+                                    db2 = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames");
+                                    HashMap<String, String> user = new HashMap<>();
+                                    user.put("Name", n);
+                                    db2.child("1").setValue(user);
+                                   //  db2.setValue(user);
 
                                     Toast.makeText(getApplicationContext(), "Registration Successful!", Toast.LENGTH_LONG).show();
                                     Log.d(TAG,
                                             "User added to database " + n);
                                     finish();
-                                    Intent intent = new Intent(RegistrationActivity.this, AdminHomeActivity2.class);
+                                    Intent intent = new Intent(RegistrationActivity.this, UserSetupActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
 

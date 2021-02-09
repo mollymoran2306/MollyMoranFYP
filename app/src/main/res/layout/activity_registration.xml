@@ -25,7 +25,7 @@
             android:layout_height="422dp">
 
             <Button
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnLetsGo"
                 android:layout_width="237dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="30dp"
@@ -113,7 +113,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.186"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+                app:layout_constraintTop_toBottomOf="@+id/btnLetsGo" />
 
             <TextView
                 android:id="@+id/textView2"

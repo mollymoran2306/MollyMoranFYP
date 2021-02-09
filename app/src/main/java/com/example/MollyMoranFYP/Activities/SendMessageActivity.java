@@ -112,7 +112,9 @@ public class SendMessageActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Message Subject is empty", Toast.LENGTH_LONG).show();
             flag = false;
         }
-
+      /*	Code	below	is	based	on	MyDay - master opensource reminders application
+                by Edge555 url:https://github.com/edge555/MyDay
+                     */
         if (flag) {
             FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
             if (cursor != null) {
@@ -143,25 +145,9 @@ public class SendMessageActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+    //END
 
-    public String parsedate(String d) {
-        String year = d.substring(0, 4), month = d.substring(4, 6), day = d.substring(6, 8);
-        return day + "-" + month + "-" + year;
-    }
 
-    public String parsetime(String d) {
-        String h = d.substring(0, 2), m = d.substring(2, 4);
-        int hr = Integer.parseInt(h);
-        Boolean pm = false;
-        if (hr >= 12) {
-            pm = true;
-            hr %= 12;
-        }
-        if (hr == 0)
-            hr = 12;
-        h = String.valueOf(hr);
-        return h + ":" + m + (pm ? " PM" : " AM");
-    }
 
     /*	Code	below	is	based	on	ImageCaptureExample by Cassendra4
      url: https://github.com/Cassendra4/ImageCaptureExample/blob/master/app/src/main/java/example/hasnagi/com/imagecaptureexample/ImageCaptureActivity.java
@@ -291,7 +277,7 @@ public class SendMessageActivity extends AppCompatActivity {
 
             }
         Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity.class);
+        Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
         startActivity(intent);
     }
     //END

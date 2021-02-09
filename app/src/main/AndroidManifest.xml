@@ -58,6 +58,9 @@
         <activity android:name="com.example.MollyMoranFYP.Activities.LoginActivity">
         </activity>
 
+        <activity android:name="com.example.MollyMoranFYP.Activities.UserSetupActivity">
+        </activity>
+
 
 
 
