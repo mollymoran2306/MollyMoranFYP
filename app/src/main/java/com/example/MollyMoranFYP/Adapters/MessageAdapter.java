@@ -46,6 +46,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         holder.relsubject.setText(r.getSubject());
         holder.relmessagetext.setText(r.getMessageText());
         holder.messageImage.setImageURI(Uri.parse(r.getImage()));
+        holder.txtUsername.setText(r.getSender());
     }
 
     @Override
@@ -56,9 +57,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        TextView txtUsername;
         TextView relsubject;
         TextView relmessagetext;
         ImageView messageImage;
+
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,7 +70,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             relsubject = itemView.findViewById(R.id.relsubject);
             relmessagetext = itemView.findViewById(R.id.relmessagetext);
             messageImage = itemView.findViewById(R.id.messageImage);
-
+            txtUsername = itemView.findViewById(R.id.txtUsername);
         }
     }
 

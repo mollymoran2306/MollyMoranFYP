@@ -37,7 +37,7 @@ public class  RegistrationActivity extends AppCompatActivity {
         EditText firstName, lastName, email, password;
         TextView txtLogin;
         FirebaseAuth mAuth;
-        private DatabaseReference db, db2;
+        private DatabaseReference db, db2, db3;
 
 
     private static final String TAG = "*RegistrationActivity*";
@@ -130,6 +130,11 @@ public class  RegistrationActivity extends AppCompatActivity {
                                     user.put("Name", n);
                                     db2.child("1").setValue(user);
                                    //  db2.setValue(user);
+
+                                    db3 = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("User Settings");
+                                    HashMap<String, String> msg = new HashMap<>();
+                                    msg.put("Send Message", "yes");
+                                    db3.setValue(msg);
 
                                     Toast.makeText(getApplicationContext(), "Registration Successful!", Toast.LENGTH_LONG).show();
                                     Log.d(TAG,

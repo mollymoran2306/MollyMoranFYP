@@ -10,6 +10,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -53,6 +54,9 @@ public class SendMessageActivity extends AppCompatActivity {
     private Button btnSend;
     private EditText txtMessage, txtSubject;
     private ImageView imageView;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    public static final String Name = "nameKey";
 
     private Uri filePath;
 
@@ -70,6 +74,8 @@ public class SendMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendmessage);
         setTitle("Send Message"); //might change to add to message board
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -107,6 +113,7 @@ public class SendMessageActivity extends AppCompatActivity {
         String subject = txtSubject.getText().toString();
         txtMessage = findViewById(R.id.txtMessage);
         String message = txtMessage.getText().toString();
+        String sender = sharedpreferences.getString(Name, "");
 
         if (subject.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Message Subject is empty", Toast.LENGTH_LONG).show();
@@ -132,7 +139,7 @@ public class SendMessageActivity extends AppCompatActivity {
                 Map<String, Object> val = new TreeMap<>();
                 Message message1;
 
-                    message1 = new Message(subject, message);
+                    message1 = new Message(subject, message, sender);
 
                 val.put(fin, message1);
                 id = fin;

@@ -103,7 +103,8 @@ public class ViewMessagesActivity extends AppCompatActivity {
                     Message r = new Message(
                             ds.child("subject").getValue(String.class),
                             ds.child("messageText").getValue(String.class),
-                            ds.child("image").getValue(String.class)
+                            ds.child("image").getValue(String.class),
+                            ds.child("sender").getValue(String.class)
                     );
                     //crashes if theres no image, add error handling here
                     messageList.add(r);
