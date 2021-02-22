@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 public class AdminHomeActivity2 extends AppCompatActivity {
-    private LinearLayout linSendMessage, linViewMessages, linViewReminders, linReminders;
+    private LinearLayout linSendMessage, linViewMessages, linViewReminders, linManageUsers, linInputReminders;
     private Switch viewSwitch;
     private CardView cardViewMessages;
     private TextView txtWelcome;
@@ -34,11 +34,12 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         setTitle("Admin Homepage");
 
         txtWelcome = findViewById(R.id.txtWelcome);
-        linReminders = findViewById(R.id.linNews);
+        linManageUsers = findViewById(R.id.linManageUsers);
         linSendMessage = findViewById(R.id.linSendMessage);
         linViewMessages = findViewById(R.id.linViewMessages);
-        linViewReminders = findViewById(R.id.linSettings);
+        linViewReminders = findViewById(R.id.linViewReminders);
         cardViewMessages = findViewById(R.id.cvViewMessages);
+        linInputReminders = findViewById(R.id.linInputReminders);
         viewSwitch = findViewById(R.id.viewSwitch);
 
         sharedpreferences = getSharedPreferences(mypreference,
@@ -64,7 +65,17 @@ public class AdminHomeActivity2 extends AppCompatActivity {
 //        });
 
 
-        linReminders.setOnClickListener(new View.OnClickListener() {
+        linManageUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminHomeActivity2.this, CustomizeUserHome.class);
+
+                startActivity(intent);
+            }
+
+        });
+
+        linInputReminders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminHomeActivity2.this, InputReminderActivity.class);

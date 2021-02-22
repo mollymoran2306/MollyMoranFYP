@@ -4,19 +4,22 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/txt1"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/header"
 
-        >
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/header">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Customise"
-            android:textSize="30dp"
-            android:layout_marginTop="80dp"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/white">
+            android:layout_marginTop="80dp"
+            android:text="User Settings"
+            android:textColor="@color/white"
+            android:textSize="30dp">
 
         </TextView>
     </ScrollView>
@@ -28,26 +31,74 @@
         android:layout_below="@id/swSendMessages"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="422dp"
-        android:text="Save Preferences" />
+        android:text="Save Preferences"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:background="@drawable/custom_button"/>
+
+
+    <TextView
+        android:id="@+id/txt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Customise Elderly User Screen"
+        android:textSize="20dp"></TextView>
 
     <Switch
         android:id="@+id/swSendMessages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/txt2"
+        android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="9dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="174dp"
+        android:layout_marginTop="12dp"
         android:checked="true"
         android:text="Allow Elderly User to Send Messages"
         android:textSize="16dp" />
 
     <View
+        android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="215dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="294dp"
+        android:layout_marginEnd="3dp"
         android:background="@color/lightgray" />
+
+    <Switch
+        android:id="@+id/swExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/swSendMessages"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="11dp"
+        android:checked="true"
+        android:text="Include Exercises                                    "
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/txt3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Manage Users"
+        android:textSize="20dp"></TextView>
 
 </RelativeLayout>

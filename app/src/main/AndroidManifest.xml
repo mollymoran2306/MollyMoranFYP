@@ -32,6 +32,7 @@
         <activity android:name=".Activities.UserSetupActivity"></activity>
         <activity android:name=".Activities.NewsActivity"></activity>
         <activity android:name=".Activities.NewsDetailsActivity"></activity>
+        <activity android:name=".Activities.CustomizeUserHome"></activity>
         <activity
             android:name=".Activities.SplashActivity"
             android:theme="@style/SplashTheme">

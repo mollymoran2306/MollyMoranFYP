@@ -1,9 +1,15 @@
 package com.example.MollyMoranFYP.Activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +19,7 @@ import com.example.MollyMoranFYP.Adapters.ReminderAdapter;
 import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
 import com.example.MollyMoranFYP.Utils.MyDividerItemDecoration;
+import com.example.MollyMoranFYP.Utils.MyTouchListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +37,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
     //Widgets
     RecyclerView recyclerView;
 
-    private DatabaseReference myRef;
+    private DatabaseReference myRef, db;
     private ArrayList<Reminder> reminderList;
     private ReminderAdapter mAdapter;
 
@@ -83,10 +90,78 @@ public class ViewRemindersActivity extends AppCompatActivity {
             //what happens if the action is cancelled
             }
         });
+
+          /*
+        This block of code is adapted from MyRecyclerViewApp by Michael Gleeson
+         */
+        recyclerView.addOnItemTouchListener(new MyTouchListener(getApplicationContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
+            @Override
+            public void onLeftSwipe(View view, int position) {
+                //code as per your need
+                Toast.makeText(getApplicationContext(), "Left Swipe", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRightSwipe(View view, int position) {
+                //code as per your need
+                Toast.makeText(getApplicationContext(), "Right Swipe", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onClick(View view, int position) {
+                // Movie movie = movieList.get(position);
+                // Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+
+                showActionsDialog(position);
+
+            }
+
+            public void onLongClick(View view, int position){
+                //code as per your need
+                Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_SHORT).show();
+            }
+        }
+        ) );
+    }
+
+    private void showActionsDialog(final int position) {
+        CharSequence colors[] = new CharSequence[]{"Edit", "Delete"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose option");
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                   // showNoteDialog(true, notesList.get(position), position);
+                } else {
+                    deleteNote(position);
+                }
+            }
+        });
+        builder.show();
     }
 
 
+    private void deleteNote(int position) {
+       removeitem(position);
+    }
 
+    /*	Code	below	is	based	on	MyDay - master opensource reminders application
+                by Edge555 url:https://github.com/edge555/MyDay
+                     */
+    public void removeitem(int position) {
+        Reminder curreminder = reminderList.get(position);
+        String delid = curreminder.getFull();
+        FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = curuser.getUid();
+        db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder").child(delid);
+        db.setValue(null);
+        reminderList.remove(position);
+        mAdapter.notifyDataSetChanged();
+        Toast.makeText(getApplicationContext(), "Reminder Deleted", Toast.LENGTH_LONG).show();
+    }
+    //END
 
 
 }

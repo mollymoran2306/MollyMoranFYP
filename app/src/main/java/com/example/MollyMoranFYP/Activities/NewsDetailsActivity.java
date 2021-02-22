@@ -42,6 +42,10 @@ WebView webView;
        tvTime.setText(time);
        tvDesc.setText(desc);
 
+       /*	Code	below	is	based	on	NewsApp
+                    by Satish7897 url:https://github.com/Satish7897/NewsApp
+                     */
+
         Picasso.get().load(imageUrl).into(imageView);
         webView.getSettings().setDomStorageEnabled(true);
 
@@ -50,5 +54,7 @@ WebView webView;
        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
        webView.setWebViewClient(new WebViewClient());
        webView.loadUrl(url);
+
+       //END
     }
 }

@@ -41,12 +41,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
    final Articles a=articles.get(position);
    String url=a.getUrl();
    holder.tvTitle.setText(a.getTitle());
-   //get source ke saath .getname lagana hai 32.36 part 1
    holder.tvSource.setText(a.getSource().getName());
    holder.tvDate.setText(a.getPublishedAt());
 
    String imageUrl=a.getUrlToImage();
    //picasso ka syntax new 33.07 part1
+
+        /*	Code	below	is	based	on	NewsApp
+                    by Satish7897 url:https://github.com/Satish7897/NewsApp
+                     */
         Picasso.get().load(imageUrl).into(holder.imageView);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 context.startActivity(intent);
             }
         });
+        //END
     }
 
 

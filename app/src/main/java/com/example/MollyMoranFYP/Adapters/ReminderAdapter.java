@@ -20,6 +20,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     private Context mContext;
     private ArrayList<Reminder> reminderList;
 
+
     public ReminderAdapter(Context mContext, ArrayList<Reminder> reminderList) {
         this.mContext = mContext;
         this.reminderList = reminderList;

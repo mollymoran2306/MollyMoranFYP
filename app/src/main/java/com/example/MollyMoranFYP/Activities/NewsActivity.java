@@ -57,6 +57,10 @@ List<Articles> articles=new ArrayList<>();
         }
     });
 
+     /*	Code	below	is	based	on	NewsApp
+                    by Satish7897 url:https://github.com/Satish7897/NewsApp
+                     */
+
         retrieveJson(country,API_KEY);
        button.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -87,6 +91,8 @@ List<Articles> articles=new ArrayList<>();
             }
         });
     }
+
+    //END
     public String getCountry()
     {
         Locale locale= Locale.getDefault();

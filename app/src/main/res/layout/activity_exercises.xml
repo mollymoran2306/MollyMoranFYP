@@ -98,13 +98,13 @@
                                 android:layout_width="200dp"
                                 android:layout_height="100dp"
                                 android:padding="10dp"
-                                android:src="@drawable/message" />
+                                 />
                         </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="View Messages"
+                            android:text="Sideways Walking"
                             android:textColor="#000"
                             android:textSize="15dp" />
 
