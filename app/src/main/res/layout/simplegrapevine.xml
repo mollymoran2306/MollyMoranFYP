@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="-10dp"
-            android:text="Sideways Walking"
+            android:text="Simple Grapevine"
             android:textColor="@color/white"
             android:textSize="30dp">
 
@@ -40,14 +40,16 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.494">
+        app:layout_constraintVertical_bias="0.494"
+
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="32dp"
-            android:text="Stand with your feet together, \nknees slightly bent."
+            android:layout_marginTop="52dp"
+            android:text="Start by crossing your right foot over your left."
             android:textSize="18dp">
 
         </TextView>
@@ -56,18 +58,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="150dp"
-            android:text="Step sideways in a slow and controlled manner, moving one foot to the side first."
-            android:textSize="18dp">
-
-        </TextView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="93dp"
-            android:layout_marginTop="310dp"
-            android:text="Move the other to join it."
+            android:layout_marginTop="160dp"
+            android:text="Bring your left foot to join it."
             android:textSize="18dp">
 
         </TextView>
@@ -77,8 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
             android:padding="10dp"
-            android:layout_marginTop="410dp"
-            android:text="Avoid dropping your hips as you step. Perform 10 steps each way or step from one side of the room to the other."
+            android:layout_marginTop="390dp"
+            android:text="Attempt 5 cross-steps on each side. If necessary, put your fingers against a wall for stability. The smaller the step, the more you work on your balance"
             android:textSize="18dp">
 
         </TextView>
@@ -96,16 +88,8 @@
             android:layout_height="60dp"
 
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="54dp"
             app:srcCompat="@drawable/one" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="300dp"
-            app:srcCompat="@drawable/three" />
 
 
     </androidx.cardview.widget.CardView>

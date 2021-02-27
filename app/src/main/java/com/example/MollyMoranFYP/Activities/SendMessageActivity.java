@@ -86,7 +86,7 @@ public class SendMessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 postMessage();
-                postImage();
+               // postImage();
             }
         });
 
@@ -114,6 +114,7 @@ public class SendMessageActivity extends AppCompatActivity {
         txtMessage = findViewById(R.id.txtMessage);
         String message = txtMessage.getText().toString();
         String sender = sharedpreferences.getString(Name, "");
+        String image = filePath.toString();
 
         if (subject.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Message Subject is empty", Toast.LENGTH_LONG).show();
@@ -139,7 +140,7 @@ public class SendMessageActivity extends AppCompatActivity {
                 Map<String, Object> val = new TreeMap<>();
                 Message message1;
 
-                    message1 = new Message(subject, message, sender);
+                    message1 = new Message(subject, message, image, sender, fin);
 
                 val.put(fin, message1);
                 id = fin;
@@ -211,6 +212,7 @@ public class SendMessageActivity extends AppCompatActivity {
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
                         Uri selectedImage = data.getData();
+                        Log.d(TAG, "Uri selected image is " + selectedImage);
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         if (selectedImage != null) {
                             Cursor cursor = getContentResolver().query(selectedImage,
@@ -281,6 +283,7 @@ public class SendMessageActivity extends AppCompatActivity {
 
             db.setValue(filePath.toString());
             Log.d(TAG, "Adding image to firebase " + filePath);
+
 
             }
         Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();

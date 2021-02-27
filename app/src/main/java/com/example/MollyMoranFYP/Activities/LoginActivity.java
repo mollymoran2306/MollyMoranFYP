@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.txtEmail);
         TextView txtPassword = findViewById(R.id.txtPassword);
 
-        txtEmail.setText("mom@gmail.com");
+        txtEmail.setText("sophmoran@gmail.com");
         txtPassword.setText("secret");
         //take this out!
 

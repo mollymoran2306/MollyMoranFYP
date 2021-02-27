@@ -2,6 +2,7 @@ package com.example.MollyMoranFYP.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Message r = messageList.get(position);
+
         holder.relsubject.setText(r.getSubject());
+        Log.d(TAG, "Subject is " + r.getSubject());
         holder.relmessagetext.setText(r.getMessageText());
+        Log.d(TAG, "r.getImage() is " + r.getImage());
         holder.messageImage.setImageURI(Uri.parse(r.getImage()));
         holder.txtUsername.setText(r.getSender());
     }

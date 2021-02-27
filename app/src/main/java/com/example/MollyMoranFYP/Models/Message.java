@@ -6,26 +6,29 @@ public class Message {
     private String messageText;
     private String image;
     private String sender;
+    private String full;
 
 
     public Message() {
     }
 
-    public Message(String subject, String messageText, String image, String sender) {
+    public Message(String subject, String messageText, String image, String sender, String full) {
         this.subject = subject;
         this.messageText = messageText;
         this.image = image;
         this.sender = sender;
+        this.full = full;
     }
 
 
 
-    public Message(String subject, String messageText, String sender) {
-        this.subject = subject;
-        this.messageText = messageText;
-        this.sender = sender;
-        this.image = image;
-    }
+//    public Message(String subject, String messageText, String sender, String id) {
+//        this.subject = subject;
+//        this.messageText = messageText;
+//        this.sender = sender;
+//        this.image = image;
+//        this.full = id;
+//    }
 
 
     public Message(String subject, String messageText) {
@@ -66,4 +69,14 @@ public class Message {
     public void setSender(String sender) {
         this.sender = sender;
     }
+
+    public String getFull() {
+        return full;
+    }
+
+    public void setFull(String full) {
+        this.full = full;
+    }
+
+
 }

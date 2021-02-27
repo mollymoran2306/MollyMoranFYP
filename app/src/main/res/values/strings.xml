@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Molly Moran FYP</string>
+    <string name="app_name">Connect</string>
     <string name="register">Register</string>
     <string name="first_name">First Name</string>
     <string name="registration">Registration</string>
@@ -26,4 +26,10 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+
+    <string-array name="UserType">
+        <item>Elderly User</item>
+        <item>Family Member/Carer</item>
+    </string-array>
 </resources>

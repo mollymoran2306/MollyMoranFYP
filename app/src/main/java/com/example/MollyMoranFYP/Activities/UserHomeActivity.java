@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.example.MollyMoranFYP.Models.Message;
 import com.example.MollyMoranFYP.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserHomeActivity extends AppCompatActivity {
 
-    private LinearLayout linNews, linWeather, linViewMessages, linSendMessage;
+    private LinearLayout linNews, linWeather, linViewMessages, linSendMessage, linExercise;
     private CardView cvSendMessage;
     private Switch viewSwitch2;
     private DatabaseReference myRef;
@@ -34,9 +33,10 @@ public class UserHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_userhomepage);
         setTitle("User Homepage");
         viewSwitch2 = findViewById(R.id.viewSwitch2);
-        linNews = findViewById(R.id.linNews);
+
         cvSendMessage = findViewById(R.id.cvSendMessage);
-        linViewMessages = findViewById(R.id.linViewMessages);
+
+
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
         String uid = cursor.getUid();
 
@@ -58,6 +58,7 @@ public class UserHomeActivity extends AppCompatActivity {
             }
         });
 
+        linNews = findViewById(R.id.linNews);
         linNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +82,16 @@ public class UserHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserHomeActivity.this, ViewMessagesActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        linExercise = findViewById(R.id.linExercise);
+        linExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserHomeActivity.this, ExercisesActivity.class);
                 startActivity(intent);
             }
 

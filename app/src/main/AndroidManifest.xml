@@ -33,6 +33,9 @@
         <activity android:name=".Activities.NewsActivity"></activity>
         <activity android:name=".Activities.NewsDetailsActivity"></activity>
         <activity android:name=".Activities.CustomizeUserHome"></activity>
+        <activity android:name=".Activities.ExercisesActivity"></activity>
+        <activity android:name=".Activities.Exercise_SidewaysWalking"></activity>
+        <activity android:name=".Activities.Exercise_SimpleGrapevine"></activity>
         <activity
             android:name=".Activities.SplashActivity"
             android:theme="@style/SplashTheme">

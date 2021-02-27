@@ -34,7 +34,7 @@ import java.util.Random;
 import static com.example.MollyMoranFYP.R.layout.activity_usersetup;
 
 public class UserSetupActivity extends AppCompatActivity {
-    Spinner spUser;
+    Spinner spUser, spUserType;
     DatabaseReference myRef;
     Button btnLetsGo;
     EditText txtNewName;
@@ -55,11 +55,13 @@ public class UserSetupActivity extends AppCompatActivity {
         setContentView(activity_usersetup);
         btnLetsGo = findViewById(R.id.btnLetsGo);
         txtNewName = findViewById(R.id.txtNewName);
+        spUserType = findViewById(R.id.spUserType);
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
         String uid = cursor.getUid();
+
 
         myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -71,8 +73,6 @@ public class UserSetupActivity extends AppCompatActivity {
                     String username = usernameSnapshot.child("Name").getValue(String.class);
                     usernames.add(username);
                 }
-
-               // Spinner areaSpinner = (Spinner) findViewById(R.id.spinner);
                 spUser = findViewById(R.id.spUser);
                 ArrayAdapter<String> usernameAdapter = new ArrayAdapter<String>(UserSetupActivity.this, android.R.layout.simple_spinner_item, usernames);
                 usernameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -85,6 +85,8 @@ public class UserSetupActivity extends AppCompatActivity {
             }
         });
 
+
+
         btnLetsGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +96,12 @@ public class UserSetupActivity extends AppCompatActivity {
                     //https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString(Name, n);
+
+                    editor.commit();
+                } else {
+                    String name = spUser.getSelectedItem().toString();
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(Name, name);
 
                     editor.commit();
                 }
@@ -106,6 +114,7 @@ public class UserSetupActivity extends AppCompatActivity {
     public void saveUser() {
 
         String name = txtNewName.getText().toString();
+        String userType = spUserType.getSelectedItem().toString();
 
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
         String uid = cursor.getUid();
@@ -138,6 +147,7 @@ public class UserSetupActivity extends AppCompatActivity {
             Map<String, Object> val = new TreeMap<>();
 
             val.put("Name", name);
+            val.put("User Type", userType);
             db.child(String.valueOf(maxid + 1)).updateChildren(val);
     }
 }}

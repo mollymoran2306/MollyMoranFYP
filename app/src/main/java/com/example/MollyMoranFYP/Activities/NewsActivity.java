@@ -40,7 +40,7 @@ List<Articles> articles=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_main);
+        setContentView(R.layout.activity_news_main2);
 
         recyclerView=(RecyclerView)findViewById(R.id.recyclerView);
         button=findViewById(R.id.refreshButton);
@@ -48,14 +48,14 @@ List<Articles> articles=new ArrayList<>();
 
         final String country="ie";
         Log.d(TAG, "country is " + country);
-    floatingActionButton=(ImageButton)findViewById(R.id.floating);
-    floatingActionButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent=new Intent(NewsActivity.this, NewsIntro.class);
-            startActivity(intent);
-        }
-    });
+//    floatingActionButton=(ImageButton)findViewById(R.id.floating);
+//    floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Intent intent=new Intent(NewsActivity.this, NewsIntro.class);
+//            startActivity(intent);
+//        }
+//    });
 
      /*	Code	below	is	based	on	NewsApp
                     by Satish7897 url:https://github.com/Satish7897/NewsApp

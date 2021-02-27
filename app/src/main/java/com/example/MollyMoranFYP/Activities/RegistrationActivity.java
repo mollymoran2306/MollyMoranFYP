@@ -57,7 +57,7 @@ public class  RegistrationActivity extends AppCompatActivity {
 
             txtFirstName.setText("Molly");
             txtLastName.setText("Moran");
-            txtEmail.setText(String.format("mm@gmail.com", UUID.randomUUID().toString()));
+            txtEmail.setText(String.format("sophmoran@gmail.com", UUID.randomUUID().toString()));
             txtPassword.setText("secret");
            //  TAKE THIS OUT!
 

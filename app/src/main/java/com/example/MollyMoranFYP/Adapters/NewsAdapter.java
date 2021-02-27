@@ -32,7 +32,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_news_items,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_news_items2,parent,false);
         return new ViewHolder(view);
     }
 
@@ -42,7 +42,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
    String url=a.getUrl();
    holder.tvTitle.setText(a.getTitle());
    holder.tvSource.setText(a.getSource().getName());
-   holder.tvDate.setText(a.getPublishedAt());
+  // holder.tvDate.setText(a.getPublishedAt());
 
    String imageUrl=a.getUrlToImage();
    //picasso ka syntax new 33.07 part1
@@ -81,7 +81,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             super(itemView);
 
             tvTitle=itemView.findViewById(R.id.tvId);
-            tvDate=itemView.findViewById(R.id.tvDate);
+           // tvDate=itemView.findViewById(R.id.tvDate);
             tvSource=itemView.findViewById(R.id.tvSource);
             imageView=itemView.findViewById(R.id.image);
             cardView=itemView.findViewById(R.id.cardView);
