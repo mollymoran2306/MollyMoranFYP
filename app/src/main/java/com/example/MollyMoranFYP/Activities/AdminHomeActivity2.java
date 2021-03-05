@@ -45,7 +45,7 @@ import java.util.TimerTask;
 import java.util.TreeMap;
 
 public class AdminHomeActivity2 extends AppCompatActivity {
-    private LinearLayout linSendMessage, linViewMessages, linViewReminders, linManageUsers, linInputReminders;
+    private LinearLayout linSendMessage, linViewMessages, linViewReminders, linManageUsers, linInputReminders, linSendFeedBack;
     private Switch viewSwitch;
     private CardView cardViewMessages;
     private TextView txtWelcome;
@@ -70,6 +70,8 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         linViewReminders = findViewById(R.id.linViewReminders);
         cardViewMessages = findViewById(R.id.cvViewMessages);
         linInputReminders = findViewById(R.id.linInputReminders);
+        linSendFeedBack = findViewById(R.id.linSendFeedback);
+
         viewSwitch = findViewById(R.id.viewSwitch);
 
         sharedpreferences = getSharedPreferences(mypreference,
@@ -152,6 +154,16 @@ public class AdminHomeActivity2 extends AppCompatActivity {
             }
         });
 
+        linSendFeedBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminHomeActivity2.this, FeedbackActivity.class);
+
+                startActivity(intent);
+            }
+
+        });
+
     }
   /*	Code	below	is	based	on	MyDay - master opensource reminders application
                 by Edge555 url:https://github.com/edge555/MyDay
@@ -202,7 +214,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
                                                     Reminder info = new Reminder(hmp.get("title"), hmp.get("des"), hmp.get("date"), hmp.get("time"), "None", hmp.get("marker"));
                                                     val.put(date, info);
                                                     dbb.updateChildren(val);
-                                                    db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Task").child(date);
+                                                    db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder").child(date);
                                                     db.setValue(null);
                                                 } else {
                                                     ArrayList<Integer> dates;

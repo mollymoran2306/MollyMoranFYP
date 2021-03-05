@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.TreeMap;
 import java.util.UUID;
 
 import static com.example.MollyMoranFYP.R.layout.activity_registration;
@@ -35,9 +33,8 @@ public class  RegistrationActivity extends AppCompatActivity {
         private Button rb;
         String n, fn, sn, u, p;
         EditText firstName, lastName, email, password;
-        TextView txtLogin;
         FirebaseAuth mAuth;
-        private DatabaseReference db, db2, db3;
+        private DatabaseReference db, db2, db3, db4;
 
 
     private static final String TAG = "*RegistrationActivity*";
@@ -64,7 +61,6 @@ public class  RegistrationActivity extends AppCompatActivity {
             Log.d(TAG, "The onCreate() method is being executed");
 
             TextView txtLogin = findViewById(R.id.txtLogin);
-
             txtLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -121,20 +117,23 @@ public class  RegistrationActivity extends AppCompatActivity {
                                     info.put("Email", u);
                                     db.setValue(info);
 
-                                    TreeMap<String, Reminder> taskk = new TreeMap<String, Reminder>();
-                                    db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Task");
-                                    db.setValue(taskk);
-
-                                    db2 = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames");
+                                    db2 = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames").child("1");
                                     HashMap<String, String> user = new HashMap<>();
                                     user.put("Name", n);
-                                    db2.child("1").setValue(user);
-                                   //  db2.setValue(user);
+                                    user.put("User Type", "Admin");
+//                                    db2.child("1").setValue(user);
+                                    db2.setValue(user);
+
 
                                     db3 = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("User Settings");
                                     HashMap<String, String> msg = new HashMap<>();
                                     msg.put("Send Message", "yes");
                                     db3.setValue(msg);
+
+//                                    HashMap<String, String> usertype = new HashMap<>();
+//                                    user.put("User Type", "Admin");
+//                                    db2.child("1").setValue(user);
+//                                    db2.child("1").setValue(usertype);
 
                                     Toast.makeText(getApplicationContext(), "Registration Successful!", Toast.LENGTH_LONG).show();
                                     Log.d(TAG,

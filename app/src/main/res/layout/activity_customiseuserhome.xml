@@ -101,4 +101,12 @@
         android:text="Manage Users"
         android:textSize="20dp"></TextView>
 
+    <Spinner
+        android:id="@+id/spinnerUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        />
+
 </RelativeLayout>

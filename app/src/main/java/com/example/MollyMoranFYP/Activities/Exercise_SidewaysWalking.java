@@ -11,6 +11,6 @@ public class Exercise_SidewaysWalking extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sidewayswalking);
+        setContentView(R.layout.exercise_sidewayswalking);
     }
 }

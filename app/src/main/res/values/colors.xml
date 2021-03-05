@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#7219FF</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="Blue">#37abff</color>
+    <color name="Purple">#7219FF</color>
     <color name="colorAccent">#64dfdf</color>
     <color name="purple">#9f32ff</color>
-    <color name="blue">#37abff</color>
+
+
     <color name="yellow">#ffb300</color>
 
     <color name="darkblue">#2980b9</color>
@@ -12,7 +13,7 @@
     <color name="black">#090909</color>
     <color name="grey">#A6A5A5</color>
     <color name="darkpurple">#a569bd</color>
-    <color name="lightpurple">#d896ff</color>
+    <color name="lightpurple">#EDDBF8</color>
     <color name="pinky">#fe104d</color>
     <color name="lightgray">#808080</color>
     <color name="white">#FFFFFF</color>
@@ -26,6 +27,7 @@
     <color name="icorange">#F4BC33</color>
     <color name="icred">#FF5757</color>
     <color name="icgreen">#8ACF7C</color>
+
 
 
 

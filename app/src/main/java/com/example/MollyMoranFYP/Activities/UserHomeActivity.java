@@ -87,7 +87,7 @@ public class UserHomeActivity extends AppCompatActivity {
 
         });
 
-        linExercise = findViewById(R.id.linExercise);
+        linExercise = findViewById(R.id.linSendFeedback);
         linExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

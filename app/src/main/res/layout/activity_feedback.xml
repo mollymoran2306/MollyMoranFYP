@@ -8,13 +8,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-     <androidx.appcompat.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
 
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="11dp"
-        android:background="@drawable/header_login"
+        android:background="@drawable/header_register"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toTopOf="@+id/txtFirstName"
@@ -29,70 +29,39 @@
         app:cardCornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.494">
+        app:layout_constraintVertical_bias="0.565">
 
         <Button
             android:id="@+id/btnSendFeedback"
-            android:layout_width="230dp"
+            android:layout_width="237dp"
             android:layout_height="42dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="170dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="250dp"
             android:layout_marginBottom="100dp"
             android:background="@drawable/custom_button"
-            android:text="Log In"
+            android:text="Send"
             android:textColor="@android:color/white"
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/txtEmail"
-            android:layout_width="300dp"
-            android:layout_height="42dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="50dp"
+            android:id="@+id/txtFeedback"
+            android:layout_width="308dp"
+            android:layout_height="207dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/custom_edittext"
             android:ems="10"
-            android:hint="@string/email"
-            android:inputType="textPersonName"
+            android:hint="Describe your issue or suggestion.."
+            android:inputType="text"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.612"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/txtPassword"
-            android:layout_width="300dp"
-            android:layout_height="42dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="120dp"
-            android:background="@drawable/custom_edittext"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPersonName"
-            android:padding="10dp" />
-
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New to Connect?"
-            android:layout_gravity="center"
-            android:layout_marginTop="110dp"
-            android:layout_marginRight="30dp"/>
-
-        <TextView
-            android:id="@+id/txtRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="54dp"
-            android:layout_marginTop="110dp"
-            android:clickable="true"
-            android:text="Register"
-            android:textColor="@color/darkblue" />
 
     </androidx.cardview.widget.CardView>
 
@@ -100,32 +69,17 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="94dp"
-        android:text="Log In"
-
+        android:layout_marginTop="64dp"
+        android:text="Send us some Feedback!"
+        android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/circle1"
-        android:layout_width="170dp"
-        android:layout_height="189dp"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="159dp"
-        android:layout_marginBottom="4dp"
-        android:src="@drawable/circle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.23"
-        app:layout_constraintStart_toEndOf="@+id/circle3"
-
-        />
 
     <ImageView
         android:id="@+id/circle2"
@@ -154,33 +108,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/circle2" />
 
-    <ImageView
-        android:id="@+id/circle4"
-        android:layout_width="134dp"
-        android:layout_height="134dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:layout_toLeftOf="@+id/circle3"
-        android:src="@drawable/transparentcircle"
-        app:layout_constraintBottom_toTopOf="@+id/txtPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.45" />
+
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="66dp"
-        android:text="Welcome Back,"
+        android:layout_marginTop="126dp"
+        android:text="Do you have any issues with Connect \n          or things we can improve?\n                       let us know!"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.0" />

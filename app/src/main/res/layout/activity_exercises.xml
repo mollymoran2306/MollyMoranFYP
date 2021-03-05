@@ -305,7 +305,7 @@
                     app:cardCornerRadius="12dp">
 
                     <LinearLayout
-                        android:id="@+id/linExercise"
+                        android:id="@+id/linSendFeedback"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="true"

@@ -44,10 +44,10 @@
 
             <Spinner
                 android:id="@+id/spUser"
-                android:layout_width="124dp"
+                android:layout_width="174dp"
                 android:layout_height="25dp"
-                android:layout_marginTop="96dp"
-                android:layout_marginEnd="72dp"
+                android:layout_marginTop="92dp"
+                android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,13 +58,14 @@
                 android:layout_marginTop="80dp"
                 android:text="Add a New User"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.511"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spUser" />
 
             <View
+                android:id="@+id/view"
                 android:layout_width="140dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="36dp"
@@ -83,25 +84,26 @@
 
             <EditText
                 android:id="@+id/txtNewName"
-                android:layout_width="156dp"
+                android:layout_width="174dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/custom_edittext"
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toTopOf="@+id/btnLetsGo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:layout_constraintVertical_bias="0.327" />
+                app:layout_constraintVertical_bias="0.261" />
 
             <Spinner
                 android:id="@+id/spUserType"
-                android:layout_width="141dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="174dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="24dp"
                 android:entries="@array/UserType"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.772"
+                app:layout_constraintHorizontal_bias="0.85"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtNewName" />
 
@@ -109,9 +111,10 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="26dp"
                 android:text="Select User"
                 android:textColor="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/spUser"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -138,24 +141,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User Name"
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="270dp" />
+                app:layout_constraintBottom_toTopOf="@+id/textView14"
+                app:layout_constraintEnd_toStartOf="@+id/txtNewName"
+                app:layout_constraintHorizontal_bias="0.676"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintVertical_bias="0.48" />
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="wrap_content"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="44dp"
                 android:text="User Type"
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="309dp" />
+                app:layout_constraintBottom_toTopOf="@+id/btnLetsGo"
+                app:layout_constraintEnd_toStartOf="@+id/spUserType"
+                app:layout_constraintHorizontal_bias="0.631"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User Name"
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="98dp" />
+                app:layout_constraintBottom_toTopOf="@+id/view"
+                app:layout_constraintEnd_toStartOf="@+id/spUser"
+                app:layout_constraintHorizontal_bias="0.654"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                app:layout_constraintVertical_bias="0.333" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -180,34 +194,18 @@
         android:id="@+id/txtRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="52dp"
         android:layout_marginBottom="132dp"
-        android:text="Who is Using this Device?"
+        android:gravity="center"
+        android:text="Who is Using \n this Device?"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtFirstName"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.547" />
-
-    <ImageView
-        android:id="@+id/circle1"
-        android:layout_width="170dp"
-        android:layout_height="189dp"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="177dp"
-        android:layout_marginBottom="4dp"
-        android:src="@drawable/circle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
-        app:layout_constraintStart_toEndOf="@+id/circle3"
-
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/circle2"
@@ -240,16 +238,15 @@
         android:id="@+id/circle4"
         android:layout_width="134dp"
         android:layout_height="134dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="60dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
         android:layout_toLeftOf="@+id/circle3"
         android:src="@drawable/transparentcircle"
         app:layout_constraintBottom_toTopOf="@+id/txtPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

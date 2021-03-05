@@ -15,14 +15,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.UUID;
-
 import static com.example.MollyMoranFYP.R.layout.activity_login;
 
 
 public class LoginActivity extends AppCompatActivity {
-
-
 
     private EditText email;
     private EditText password;
@@ -37,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
         email = findViewById(R.id.txtEmail);
         password = findViewById(R.id.txtPassword);
-        login = findViewById(R.id.btnLogin);
+        login = findViewById(R.id.btnSendFeedback);
 
         // take this out!
         TextView txtEmail = findViewById(R.id.txtEmail);
@@ -48,6 +44,15 @@ public class LoginActivity extends AppCompatActivity {
         //take this out!
 
         auth = FirebaseAuth.getInstance();
+
+        TextView txtRegister = findViewById(R.id.txtRegister);
+        txtRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
