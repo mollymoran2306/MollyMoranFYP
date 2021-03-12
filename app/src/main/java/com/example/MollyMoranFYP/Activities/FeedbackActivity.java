@@ -45,7 +45,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 String fb = feedback.getText().toString();
                 sendFeedback(fb);
                 Toast.makeText(getApplicationContext(), "Feedback Sent!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(FeedbackActivity.this, UserSetupActivity.class);
+                Intent intent = new Intent(FeedbackActivity.this, AdminHomeActivity2.class);
                 startActivity(intent);
 
             }

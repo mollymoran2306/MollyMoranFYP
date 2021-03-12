@@ -87,7 +87,7 @@ public class ViewMessagesActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                // Movie movie = movieList.get(position);
                // Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-                showActionsDialog(position);
+              //  showActionsDialog(position);
             }
 
             public void onLongClick(View view, int position){
@@ -109,6 +109,7 @@ public class ViewMessagesActivity extends AppCompatActivity {
                             ds.child("messageText").getValue(String.class),
                             ds.child("image").getValue(String.class),
                             ds.child("sender").getValue(String.class),
+                            ds.child("profilePic").getValue(String.class),
                             ds.child("full").getValue(String.class)
                     );
                     //crashes if theres no image, add error handling here

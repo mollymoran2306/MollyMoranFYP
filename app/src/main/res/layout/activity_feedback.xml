@@ -55,7 +55,7 @@
             android:background="@drawable/custom_edittext"
             android:ems="10"
             android:hint="Describe your issue or suggestion.."
-            android:inputType="text"
+            android:inputType="textMultiLine|text"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.612"

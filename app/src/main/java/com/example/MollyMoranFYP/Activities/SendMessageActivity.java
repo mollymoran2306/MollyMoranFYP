@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -37,18 +38,28 @@ import androidx.core.app.ActivityCompat;
 import com.example.MollyMoranFYP.Models.Message;
 import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
+
+import static com.example.MollyMoranFYP.Activities.AdminHomeActivity2.ProfilePic;
 
 public class SendMessageActivity extends AppCompatActivity {
     private Button btnSend;
@@ -57,8 +68,11 @@ public class SendMessageActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     public static final String Name = "nameKey";
+    public static final String ID = "userID";
 
     private Uri filePath;
+    private Uri imageUri;
+    private String imageUrl;
 
     Random rand = new Random();
     int rNum = 100 + rand.nextInt((999 - 100) + 1);
@@ -85,8 +99,9 @@ public class SendMessageActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postMessage();
+               // postMessage();
                // postImage();
+                upload();
             }
         });
 
@@ -102,59 +117,170 @@ public class SendMessageActivity extends AppCompatActivity {
     }
 
 
+//    public void postMessage() {
+//        boolean flag = true;
+//
+//        // Log.d("chk", String.valueOf(now));
+//        txtSubject = findViewById(R.id.txtSubject);
+//        String subject = txtSubject.getText().toString();
+//        txtMessage = findViewById(R.id.txtMessage);
+//        String message = txtMessage.getText().toString();
+//        String sender = sharedpreferences.getString(Name, "");
+//        String image = filePath.toString();
+//
+//        if (subject.isEmpty()) {
+//            Toast.makeText(getApplicationContext(), "Message Subject is empty", Toast.LENGTH_LONG).show();
+//            flag = false;
+//        }
+//      /*	Code	below	is	based	on	MyDay - master opensource reminders application
+//                by Edge555 url:https://github.com/edge555/MyDay
+//                     */
+//        if (flag) {
+//            FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+//            if (cursor != null) {
+//                String uid = cursor.getUid();
+//
+//                db = FirebaseDatabase
+//                        .getInstance()
+//                        .getReference()
+//                        .child("Users")
+//                        .child(uid)
+//                        .child("Message");
+////                }
+//                Map<String, Object> val = new TreeMap<>();
+//                Message message1;
+//
+//                    message1 = new Message(subject, message, image, sender, fin);
+//
+//                val.put(fin, message1);
+//                id = fin;
+//                db.updateChildren(val);
+//
+//                Log.d(TAG, "message saved to db" + message);
+//            }
+//            Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
+//            Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
+//            startActivity(intent);
+//        }
+//    }
+    //END
+private void upload() {
 
-
-
-    public void postMessage() {
-        boolean flag = true;
-
-        // Log.d("chk", String.valueOf(now));
-        txtSubject = findViewById(R.id.txtSubject);
-        String subject = txtSubject.getText().toString();
-        txtMessage = findViewById(R.id.txtMessage);
-        String message = txtMessage.getText().toString();
-        String sender = sharedpreferences.getString(Name, "");
-        String image = filePath.toString();
-
-        if (subject.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Message Subject is empty", Toast.LENGTH_LONG).show();
-            flag = false;
-        }
-      /*	Code	below	is	based	on	MyDay - master opensource reminders application
-                by Edge555 url:https://github.com/edge555/MyDay
+            /*	Code	below	is	based	on
+     url:
                      */
-        if (flag) {
-            FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
-            if (cursor != null) {
-                String uid = cursor.getUid();
-//                if (noww == 2) {
-//                    db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder");
-//                } else {
-                db = FirebaseDatabase
-                        .getInstance()
-                        .getReference()
-                        .child("Users")
-                        .child(uid)
-                        .child("Message");
-//                }
-                Map<String, Object> val = new TreeMap<>();
-                Message message1;
-
-                    message1 = new Message(subject, message, image, sender, fin);
-
-                val.put(fin, message1);
-                id = fin;
-                db.updateChildren(val);
-
-                Log.d(TAG, "message saved to db" + message);
+    if (filePath != null) {
+        final StorageReference filePath2 = FirebaseStorage.getInstance().getReference("Images").child(System.currentTimeMillis() + "." + getFileExtension(filePath));
+        StorageTask uploadtask = filePath2.putFile(filePath);
+        uploadtask.continueWithTask(new Continuation() {
+            @Override
+            public Object then(@NonNull Task task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                return filePath2.getDownloadUrl();
             }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                Uri downloadUri = task.getResult();
+                imageUrl = downloadUri.toString();
+
+                FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+                if (cursor != null) {
+                    String uid = cursor.getUid();
+
+                    txtSubject = findViewById(R.id.txtSubject);
+                    String subject = txtSubject.getText().toString();
+                    txtMessage = findViewById(R.id.txtMessage);
+                    String message = txtMessage.getText().toString();
+                    String sender = sharedpreferences.getString(Name, "");
+                    //String userID = sharedpreferences.getString(ID, "");
+                    String profilePic = sharedpreferences.getString(ProfilePic, "");
+                    Log.d(TAG, "Shared Pref Profil Pic is" + profilePic);
+                    String image;
+                    if (imageUrl != null) {
+                        image = imageUrl;
+                    } else {
+                        image = "";
+                    }
+
+
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                            .child("Users")
+                            .child(uid)
+                            .child("Message");
+                    String postId = ref.push().getKey();
+
+                    Map<String, Object> val = new TreeMap<>();
+                    Message message1;
+
+                    message1 = new Message(subject, message, image, sender, profilePic, fin);
+
+                    val.put(fin, message1);
+                    id = fin;
+                    ref.updateChildren(val);
+
+                    Log.d(TAG, "message saved to db" + message);
+
+                }
+
+                Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SendMessageActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show(); //e.get messages tells us exactly what went wrong
+            }
+        });
+    } else {
+        // Toast.makeText(this, "No image was selected!", Toast.LENGTH_SHORT).show();
+        FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+        if (cursor != null) {
+            String uid = cursor.getUid();
+
+            txtSubject = findViewById(R.id.txtSubject);
+            String subject = txtSubject.getText().toString();
+            txtMessage = findViewById(R.id.txtMessage);
+            String message = txtMessage.getText().toString();
+            String sender = sharedpreferences.getString(Name, "");
+            //String userID = sharedpreferences.getString(ID, "");
+            String profilePic = sharedpreferences.getString(ProfilePic, "");
+            Log.d(TAG, "Shared Pref Profil Pic is" + profilePic);
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                    .child("Users")
+                    .child(uid)
+                    .child("Message");
+            String postId = ref.push().getKey();
+
+            Map<String, Object> val = new TreeMap<>();
+            Message message1;
+
+            message1 = new Message(subject, message, sender, profilePic, fin);
+
+            val.put(fin, message1);
+            id = fin;
+            ref.updateChildren(val);
+
+            Log.d(TAG, "message saved to db" + message);
+
             Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
             startActivity(intent);
         }
     }
-    //END
+}
 
+
+    private String getFileExtension(Uri uri) {
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
+
+    }
+
+    //END
 
 
     /*	Code	below	is	based	on	ImageCaptureExample by Cassendra4
@@ -173,7 +299,7 @@ public class SendMessageActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
 
                 if (options[item].equals("Take Photo")) {
-                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
 
                 } else if (options[item].equals("Choose from Gallery")) {
@@ -184,7 +310,7 @@ public class SendMessageActivity extends AppCompatActivity {
 
                     }
 
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
 
                 } else if (options[item].equals("Cancel")) {
@@ -291,4 +417,5 @@ public class SendMessageActivity extends AppCompatActivity {
         startActivity(intent);
     }
     //END
-}}
+}
+        }

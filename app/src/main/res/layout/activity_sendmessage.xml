@@ -17,13 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/header"
+        android:layout_marginTop="-5dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
             android:text="Send a Message"
             android:textColor="@color/white"
             android:textSize="30sp">
@@ -104,11 +104,12 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
-                android:layout_width="wrap_content"
+                android:layout_width="67dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:clickable="true"
-                app:srcCompat="@android:drawable/ic_menu_gallery" />
+                app:maxImageSize="40dp"
+                app:srcCompat="@drawable/addimage" />
         </LinearLayout>
 
 

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +37,7 @@ import static com.example.MollyMoranFYP.R.layout.activity_usersetup;
 
 public class UserSetupActivity extends AppCompatActivity {
     Spinner spUser, spUserType;
-    DatabaseReference myRef;
+    DatabaseReference myRef, reff;
     Button btnLetsGo;
     EditText txtNewName;
     DatabaseReference db;
@@ -43,11 +45,14 @@ public class UserSetupActivity extends AppCompatActivity {
     long maxid=1;
     public static final String mypreference = "mypref";
     public static final String Name = "nameKey";
+    public static final String ID = "userID";
+    public static final String Type = "userType";
 
     Random rand = new Random();
     int rNum = 100 + rand.nextInt((999 - 100) + 1);
     String fin =  Integer.toString(rNum);
 
+    private static final String TAG = "*RegistrationActivity*";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +91,6 @@ public class UserSetupActivity extends AppCompatActivity {
         });
 
 
-
         btnLetsGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,55 +103,109 @@ public class UserSetupActivity extends AppCompatActivity {
 
                     editor.commit();
                 } else {
-                    String name = spUser.getSelectedItem().toString();
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString(Name, name);
+                    FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+                    String uid = cursor.getUid();
+                    String id = String.valueOf(spUser.getSelectedItemPosition() + 1);
+                    reff= FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child(id);
+                    Log.d(TAG, "reff is  " + reff);
+                    reff.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String name = spUser.getSelectedItem().toString();
+                            Log.d(TAG, "name is " + name);
 
-                    editor.commit();
+                            String id = String.valueOf(spUser.getSelectedItemPosition() + 1);
+                            Log.d(TAG, "id is " + id);
+
+
+                            String type = dataSnapshot.child("User Type").getValue().toString();
+                           Log.d(TAG, "type is " + type);
+
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(Name, name);
+                            editor.putString(ID, id);
+                            editor.putString(Type, type);
+                            editor.apply();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    if (sharedpreferences.getString(Type, "").equals("Family Member/Carer")) {
+                        Intent intent = new Intent(UserSetupActivity.this, AdminHomeActivity2.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(UserSetupActivity.this, UserHomeActivity.class);
+                        startActivity(intent);
+                    }
+//
+//                    SharedPreferences.Editor editor = sharedpreferences.edit();
+//                    editor.putString(Name, name);
+//                    editor.putString(ID, id);
+//                    editor.putString(userType, type);
+//
+//                    editor.commit();
                 }
-                Intent intent = new Intent(UserSetupActivity.this, AdminHomeActivity2.class);
-                startActivity(intent);
+
             }
         });
     }
 
     public void saveUser() {
 
-        String name = txtNewName.getText().toString();
-        String userType = spUserType.getSelectedItem().toString();
+        if (!spUserType.getSelectedItem().toString().equals("Select User Type")) {
 
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
         String uid = cursor.getUid();
 
         myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames");
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
                     maxid = snapshot.getChildrenCount();
+                Log.d(TAG, "snapshot count is " + maxid );
+
+                String name = txtNewName.getText().toString();
+                String userType = spUserType.getSelectedItem().toString();
+
+                String id = String.valueOf(maxid + 1);
+                Map<String, Object> val = new TreeMap<>();
+                val.put("ID", id);
+                val.put("Name", name);
+                val.put("User Type", userType);
+                myRef.child(String.valueOf(maxid + 1)).updateChildren(val);
+                // db.child(id).updateChildren(val);
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString(ID, id);
+                editor.putString(Type, userType);
+                editor.commit();
+
+                Log.d(TAG, "id in shared preferences is" + id );
                 }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+            if (sharedpreferences.getString(Name, "").equals("Family Member/Carer")) {
+                Intent intent = new Intent(UserSetupActivity.this, AdminHomeActivity2.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(UserSetupActivity.this, UserHomeActivity.class);
+                startActivity(intent);
+            }
 
-        FirebaseUser cursor2 = FirebaseAuth.getInstance().getCurrentUser();
-        if (cursor != null) {
-            String uid2 = cursor2.getUid();
+} else {
+            Toast.makeText(getApplicationContext(), "Please Select User Type!", Toast.LENGTH_LONG).show();
 
-            db = FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("Users")
-                    .child(uid2)
-                    .child("Usernames");
-//                }
-            Map<String, Object> val = new TreeMap<>();
-
-            val.put("Name", name);
-            val.put("User Type", userType);
-            db.child(String.valueOf(maxid + 1)).updateChildren(val);
+        }
     }
-}}
+    }

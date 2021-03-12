@@ -1,31 +1,47 @@
 package com.example.MollyMoranFYP.Activities;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
 import com.example.MollyMoranFYP.Utils.Process;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +49,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,19 +64,28 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeMap;
 
+import static com.example.MollyMoranFYP.Activities.UserSetupActivity.ID;
+
 public class AdminHomeActivity2 extends AppCompatActivity {
     private LinearLayout linSendMessage, linViewMessages, linViewReminders, linManageUsers, linInputReminders, linSendFeedBack;
     private Switch viewSwitch;
-    private CardView cardViewMessages;
+    private CardView cardViewMessages, cardViewProfilePic;
     private TextView txtWelcome;
     private DatabaseReference myRef, db, dbb;
+    private ImageView profilePic;
+
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     public static final String Name = "nameKey";
+    public static final String ProfilePic = "profilePic";
     private final String Channel_ID = "My_Channel";
+
     private final int Notification_ID = 001;
     ArrayList<Reminder> mexamplelist, mreminderlist;
     private static final String TAG = "*AdminHomeActivity2*";
+    private Uri filePath;
+    private String imageUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +100,8 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         cardViewMessages = findViewById(R.id.cvViewMessages);
         linInputReminders = findViewById(R.id.linInputReminders);
         linSendFeedBack = findViewById(R.id.linSendFeedback);
+        cardViewProfilePic = findViewById(R.id.cardViewProfilePic);
+        profilePic = findViewById(R.id.profilePic);
 
         viewSwitch = findViewById(R.id.viewSwitch);
 
@@ -78,29 +109,16 @@ public class AdminHomeActivity2 extends AppCompatActivity {
                 Context.MODE_PRIVATE);
         txtWelcome.setText("Welcome, " + sharedpreferences.getString(Name, ""));
 
+        setProfilePic();
 
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
 
-//        String uid = cursor.getUid();
-//        myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Info");
-//        myRef.child("Name").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//               String name = snapshot.getValue().toString();
-//                txtWelcome.setText("Welcome, " + name);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
         refreshTask();
+
         linManageUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity2.this, CustomizeUserHome.class);
+                Intent intent = new Intent(AdminHomeActivity2.this, ManageUsersActivity.class);
 
                 startActivity(intent);
             }
@@ -164,7 +182,18 @@ public class AdminHomeActivity2 extends AppCompatActivity {
 
         });
 
+        cardViewProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage(AdminHomeActivity2.this);
+            }
+        });
+
     }
+
+
+
+
   /*	Code	below	is	based	on	MyDay - master opensource reminders application
                 by Edge555 url:https://github.com/edge555/MyDay
                      */
@@ -270,7 +299,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
                                             if (exist == false) {
                                                 k++;
                                                 mexamplelist.add(new Reminder(hmp.get("title"), hmp.get("des"), hmp.get("date"), hmp.get("time"), hmp.get("repeat"), hmp.get("marker")));
-                                               // mAdapter.notifyDataSetChanged();
+                                                // mAdapter.notifyDataSetChanged();
                                             }
                                         }
                                     }
@@ -281,7 +310,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
                                     }
                                 });
                             }
-                           // buildrecylerview();
+                            // buildrecylerview();
                         }
                     }
 
@@ -304,6 +333,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         NotificationManagerCompat compat = NotificationManagerCompat.from(this);
         compat.notify(Notification_ID, builder.build());
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showNotification2(Reminder reminder) {
         Log.d(TAG, "showNotification2 running");
@@ -324,7 +354,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         Intent resintent = new Intent(this, AdminHomeActivity2.class);
         PendingIntent respenindent = PendingIntent.getActivity(this, 1, resintent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, id);
-         builder.setSmallIcon(R.drawable.ic_baseline_notifications_active_24);
+        builder.setSmallIcon(R.drawable.ic_baseline_notifications_active_24);
         builder.setContentTitle(title);
         builder.setContentText(text);
         builder.setDefaults(Notification.DEFAULT_SOUND);
@@ -384,4 +414,200 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         return f;
     }
     //END
+
+    private void selectImage(Context context) {
+
+        final CharSequence[] options = {"Choose from Gallery", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Set Profile Picture for " + sharedpreferences.getString(Name, ""));
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+//                if (options[item].equals("Take Photo")) {
+//                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivityForResult(takePicture, 0);
+//
+//                } else
+                    if (options[item].equals("Choose from Gallery")) {
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(AdminHomeActivity2.this, new String[]{
+                                Manifest.permission.READ_EXTERNAL_STORAGE
+                        }, 1);
+
+                    }
+
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
+
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    //this method adapted from https://stackoverflow.com/questions/42571558/bitmapfactory-unable-to-decode-stream-java-io-filenotfoundexception
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+                        profilePic.setImageBitmap(selectedImage);
+                        Log.d(TAG, "case 0 entered" + selectedImage);
+                        saveProfilePic();
+                    }
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Uri selectedImage = data.getData();
+                        Log.d(TAG, "Uri selected image is " + selectedImage);
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        if (selectedImage != null) {
+                            Cursor cursor = getContentResolver().query(selectedImage,
+                                    filePathColumn, null, null, null);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                //take this out if something breaks
+                                filePath = data.getData();
+
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String picturePath = cursor.getString(columnIndex);
+                                Log.d(TAG, "picture path is " + picturePath);
+
+                                profilePic.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                                Log.d(TAG, "case 1 entered, image bitmap is " + BitmapFactory.decodeFile(picturePath));
+                                cursor.close();
+                                saveProfilePic();
+                            }
+                        }
+
+
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void saveProfilePic() {
+        boolean flag = true;
+
+      /*	Code	below	is	based	on	MyDay - master opensource reminders application
+                by Edge555 url:https://github.com/edge555/MyDay
+                     */
+        if (flag) {
+
+            if (filePath != null) {
+                final StorageReference filePath2 = FirebaseStorage.getInstance().getReference("Profile Pictures").child(System.currentTimeMillis() + "." + getFileExtension(filePath));
+                StorageTask uploadtask = filePath2.putFile(filePath);
+                uploadtask.continueWithTask(new Continuation() {
+                    @Override
+                    public Object then(@NonNull Task task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return filePath2.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        Uri downloadUri = task.getResult();
+                        imageUrl = downloadUri.toString();
+
+                        sharedpreferences = getSharedPreferences(mypreference,
+                                Context.MODE_PRIVATE);
+                        String id = sharedpreferences.getString(ID, "");
+                        Log.d(TAG, "id is " + id);
+
+                        FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+                        if (cursor != null) {
+                            String uid = cursor.getUid();
+
+                            db = FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("Users")
+                                    .child(uid)
+                                    .child("Usernames")
+                                    .child(id);
+//                }
+                            Map<String, Object> val = new TreeMap<>();
+
+                            val.put("Profile Pic", imageUrl);
+                            db.updateChildren(val);
+
+                            Log.d(TAG, "pic saved to db");
+                        }
+                        Toast.makeText(getApplicationContext(), "Profile Picture Set!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }}}
+
+    private String getFileExtension(Uri uri) {
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
+
+    }
+
+    public void setProfilePic() {
+        //problem is here
+
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        String id = sharedpreferences.getString(ID, "");
+
+        FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+        if (cursor != null) {
+            String uid = cursor.getUid();
+            db = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("Users")
+                    .child(uid)
+                    .child("Usernames")
+                    .child(id);
+        }
+
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               if (dataSnapshot.hasChild("Profile Pic") ) {
+                   String pic = dataSnapshot.child("Profile Pic").getValue().toString();
+                   Log.d(TAG, "Profile Pic string is " + pic);
+                   Picasso.get().load(pic).into(profilePic);
+                   SharedPreferences.Editor editor = sharedpreferences.edit();
+                   editor.putString(ProfilePic, pic);
+                   editor.commit();
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
 }

@@ -7,17 +7,29 @@ public class Message {
     private String image;
     private String sender;
     private String full;
+    private String profilePic;
 
 
     public Message() {
     }
 
-    public Message(String subject, String messageText, String image, String sender, String full) {
+    public Message(String subject, String messageText, String image, String sender, String profilePic, String full) {
         this.subject = subject;
         this.messageText = messageText;
         this.image = image;
         this.sender = sender;
+        this.profilePic = profilePic;
         this.full = full;
+
+    }
+
+    public Message(String subject, String messageText, String sender,String profilePic, String full) {
+        this.subject = subject;
+        this.messageText = messageText;
+        this.profilePic = profilePic;
+        this.sender = sender;
+        this.full = full;
+
     }
 
 
@@ -68,6 +80,14 @@ public class Message {
 
     public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
     public String getFull() {

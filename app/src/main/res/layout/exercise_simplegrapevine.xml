@@ -9,9 +9,8 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-
-        android:background="@drawable/header"
+        android:layout_height="260dp"
+        android:background="@drawable/header_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,11 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="-10dp"
+            android:layout_marginBottom="50dp"
             android:text="Simple Grapevine"
             android:textColor="@color/white"
-            android:textSize="30dp">
+            android:textSize="40dp">
 
         </TextView>
     </ScrollView>

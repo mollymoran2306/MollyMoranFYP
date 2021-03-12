@@ -1,7 +1,7 @@
 package com.example.MollyMoranFYP.Adapters;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +12,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.MollyMoranFYP.Models.Image;
+import com.example.MollyMoranFYP.Activities.FullScreenImage;
+import com.example.MollyMoranFYP.Activities.ViewMessagesActivity;
 import com.example.MollyMoranFYP.Models.Message;
-import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
-    private static final String Tag = "RecyclerView";
     private Context mContext;
     private ArrayList<Message> messageList;
     private String i;
+    DatabaseReference reff;
 
     private static final String TAG = "*MessageAdapter*";
 
@@ -37,20 +45,78 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.message_item, parent, false);
+                .inflate(R.layout.activity_viewmessages_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Message r = messageList.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        
+        final Message r = messageList.get(position);
+        Log.d(TAG, "message r is " + r);
 
         holder.relsubject.setText(r.getSubject());
         Log.d(TAG, "Subject is " + r.getSubject());
+
         holder.relmessagetext.setText(r.getMessageText());
+
         Log.d(TAG, "r.getImage() is " + r.getImage());
-        holder.messageImage.setImageURI(Uri.parse(r.getImage()));
+
+        if (r.getImage() != "") {
+            Picasso.get().load(r.getImage()).into(holder.messageImage);
+        }
+
         holder.txtUsername.setText(r.getSender());
+        Log.d(TAG, "r.getSender is " + r.getSender());
+
+        Picasso.get().load(r.getProfilePic()).into(holder.profilePic);
+        Log.d(TAG, "r.getProfilePic is " + r.getProfilePic());
+
+
+        holder.messageImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(mContext, FullScreenImage.class);
+                intent.putExtra("image_url", r.getImage());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+                Log.d(TAG, "image url is " + r.getImage());
+            }
+        });
+
+//        FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+//        String uid = cursor.getUid();
+//
+//        reff= FirebaseDatabase
+//                .getInstance()
+//                .getReference()
+//                .child(uid)
+//                .child("Usernames")
+//                .child(r.getSender());
+//
+//        Log.d(TAG, "Ref is" + reff);
+//        Log.d(TAG, "Sender is " + r.getSender());
+
+//        reff.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.hasChild("Name") ) {
+//                    String name = dataSnapshot.child("Name").getValue(String.class);
+//                    holder.txtUsername.setText(name);
+//                }
+//
+//                if (dataSnapshot.hasChild("Profile Pic") ) {
+//                    String pic = dataSnapshot.child("Profile Pic").getValue(String.class);
+//                    Log.d(TAG, "Profile Pic string is " + pic);
+//                    Picasso.get().load(pic).into(holder.profilePic);
+//               }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -64,7 +130,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         TextView txtUsername;
         TextView relsubject;
         TextView relmessagetext;
-        ImageView messageImage;
+        ImageView messageImage, profilePic;
 
 
 
@@ -75,6 +141,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             relmessagetext = itemView.findViewById(R.id.relmessagetext);
             messageImage = itemView.findViewById(R.id.messageImage);
             txtUsername = itemView.findViewById(R.id.txtUsername);
+            profilePic = itemView.findViewById(R.id.profilePic);
         }
     }
 

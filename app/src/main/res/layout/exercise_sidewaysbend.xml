@@ -9,7 +9,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="290dp"
+        android:layout_height="260dp"
         android:background="@drawable/header_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="0dp"
-            android:layout_marginBottom="59dp"
-            android:text="Sideways Walking"
+            android:layout_marginBottom="50dp"
+            android:text="Sideways Bend"
             android:textColor="@color/white"
             android:textSize="40dp">
 
@@ -45,8 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="32dp"
-            android:text="Stand with your feet together, \nknees slightly bent."
+            android:layout_marginTop="24dp"
+            android:text="Stand upright with your feet hip-width apart and arms by your sides."
             android:textSize="18dp">
 
         </TextView>
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
             android:layout_marginTop="150dp"
-            android:text="Step sideways in a slow and controlled manner, moving one foot to the side first."
+            android:text="Slide your left arm down your side as far as is comfortable. As you lower your arm, you should feel a stretch on the opposite hip."
             android:textSize="18dp">
 
         </TextView>
@@ -65,22 +65,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="310dp"
-            android:text="Move the other to join it."
+            android:layout_marginTop="255dp"
+            android:text="Repeat with your right arm."
             android:textSize="18dp">
 
         </TextView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:padding="10dp"
-            android:layout_marginTop="410dp"
-            android:text="Avoid dropping your hips as you step. Perform 10 steps each way or step from one side of the room to the other."
-            android:textSize="18dp">
-
-        </TextView>
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="60dp"
@@ -103,11 +93,25 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="255dp"
             app:srcCompat="@drawable/three" />
 
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Hold each stretch for 2 seconds and perform 3 on each side."
+        android:textSize="18dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+    </TextView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

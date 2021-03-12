@@ -20,12 +20,17 @@ public class ExercisesActivity extends AppCompatActivity {
         linSidewaysWalking = findViewById(R.id.linSidewaysWalking);
         linSimpleGrapevine = findViewById(R.id.linViewMessages);
 
+
         linSidewaysWalking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ExercisesActivity.this, Exercise_SidewaysWalking.class);
+                Intent intent= new Intent(ExercisesActivity.this, IndividualExerciseActivity.class);
+                intent.putExtra("exercise", "Sideways Walking");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ExercisesActivity.this.startActivity(intent);
 
-                startActivity(intent);
+//                Intent intent = new Intent(ExercisesActivity.this, Exercise_SidewaysWalking.class);
+//                startActivity(intent);
             }
 
         });
@@ -33,9 +38,13 @@ public class ExercisesActivity extends AppCompatActivity {
         linSimpleGrapevine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ExercisesActivity.this, Exercise_SimpleGrapevine.class);
+                Intent intent= new Intent(ExercisesActivity.this, IndividualExerciseActivity.class);
+                intent.putExtra("exercise", "Simple Grapevine");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ExercisesActivity.this.startActivity(intent);
 
-                startActivity(intent);
+//                Intent intent = new Intent(ExercisesActivity.this, Exercise_SimpleGrapevine.class);
+//                startActivity(intent);
             }
 
         });

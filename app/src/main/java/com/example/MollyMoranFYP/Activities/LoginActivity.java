@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.txtEmail);
         TextView txtPassword = findViewById(R.id.txtPassword);
 
-        txtEmail.setText("sophmoran@gmail.com");
+        txtEmail.setText("molly.moran@gmail.com");
         txtPassword.setText("secret");
         //take this out!
 
@@ -79,5 +79,10 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

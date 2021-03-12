@@ -29,6 +29,7 @@
 
 
     <string-array name="UserType">
+        <item>Select User Type</item>
         <item>Elderly User</item>
         <item>Family Member/Carer</item>
     </string-array>

@@ -23,7 +23,7 @@ public class OnboardingSlideActivity extends AppCompatActivity {
         adapter=new OnboardingSlideViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
         //uncomment!!
-//        if (isOpenAlread())
+//        if (isOpenAlready())
 //        {
 //            Intent intent=new Intent(OnboardingSlideActivity.this,RegistrationActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -38,7 +38,7 @@ public class OnboardingSlideActivity extends AppCompatActivity {
 
    // }
 
-    private boolean isOpenAlread() {
+    private boolean isOpenAlready() {
 
         SharedPreferences sharedPreferences=getSharedPreferences("slide",MODE_PRIVATE);
         boolean result=sharedPreferences.getBoolean("slide",false);

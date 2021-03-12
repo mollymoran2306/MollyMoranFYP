@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/Blue</item>
         <item name="colorPrimaryDark">@color/Purple</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="fontFamily">@font/montserrat</item>
 
     </style>
 

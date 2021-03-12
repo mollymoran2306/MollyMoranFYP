@@ -12,14 +12,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="281dp"
-        android:background="@drawable/header">
+        android:background="@drawable/header"
+        android:layout_marginTop="-5dp">
 
         <TextView
             android:id="@+id/txtWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="-40dp"
+            android:layout_marginTop="30dp"
             android:text="Welcome Admin"
             android:textColor="@color/white"
             android:textSize="30dp">
@@ -28,19 +29,21 @@
     </ScrollView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/roundCardView"
+        android:id="@+id/cardViewProfilePic"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:elevation="0dp"
         app:cardCornerRadius="50dp">
+
         <ImageView
+            android:id="@+id/profilePic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/defaultuser"
             android:layout_gravity="center"
-            />
+            android:scaleType="centerCrop"
+            android:src="@drawable/defaultuser" />
     </androidx.cardview.widget.CardView>
 
 
@@ -48,6 +51,7 @@
         android:id="@+id/viewSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Change View"
         android:layout_marginLeft="250dp"
         android:textColor="@color/white"
@@ -57,7 +61,7 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp">
+        android:layout_marginTop="170dp">
 
         <LinearLayout
             android:layout_width="match_parent"

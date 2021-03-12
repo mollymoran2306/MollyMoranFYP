@@ -5,6 +5,7 @@ import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,11 +16,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.MollyMoranFYP.Adapters.MessageAdapter;
+import com.example.MollyMoranFYP.Adapters.UsersAdapter;
 
-import com.example.MollyMoranFYP.Models.Message;
-
-import com.example.MollyMoranFYP.Models.Reminder;
+import com.example.MollyMoranFYP.Models.User;
 import com.example.MollyMoranFYP.R;
 import com.example.MollyMoranFYP.Utils.MyDividerItemDecoration;
 import com.example.MollyMoranFYP.Utils.MyTouchListener;
@@ -40,9 +39,10 @@ public class ManageUsersActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     private DatabaseReference myRef, db;
-    private ArrayList<Message> messageList;
-    private MessageAdapter mAdapter;
+    private ArrayList<User> userList;
+    private UsersAdapter mAdapter;
     private String i;
+    private ImageView userImage;
 
     private static final String TAG = "*ManageUsersActivity*";
 
@@ -58,11 +58,12 @@ public class ManageUsersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setHasFixedSize(true);
+        userImage = findViewById(R.id.userImage);
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
         String uid = cursor.getUid();
 
-        messageList = new ArrayList<>();
-        mAdapter = new MessageAdapter(this, messageList);
+        userList = new ArrayList<>();
+        mAdapter = new UsersAdapter(this, userList);
         recyclerView.setAdapter(mAdapter);
 
         /*
@@ -97,20 +98,30 @@ public class ManageUsersActivity extends AppCompatActivity {
 
 
 
-        myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Message");
+        myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    Message r = new Message(
-                            ds.child("subject").getValue(String.class),
-                            ds.child("messageText").getValue(String.class),
-                            ds.child("image").getValue(String.class),
-                            ds.child("sender").getValue(String.class),
-                            ds.child("full").getValue(String.class)
-                    );
+                    if (ds.child("Profile Pic").exists()) {
+                        User r = new User(
+                                ds.child("Name").getValue(String.class),
+                                ds.child("User Type").getValue(String.class),
+                                ds.child("ID").getValue(String.class),
+                                ds.child("Profile Pic").getValue(String.class)
+                        );
+                        userList.add(r); }
+                    else {
+                        User r = new User(
+                                ds.child("Name").getValue().toString(),
+                                ds.child("User Type").getValue(String.class),
+                                ds.child("ID").getValue(String.class)
+                        );
+                        userList.add(r);
+                        }
+
                     //crashes if theres no image, add error handling here
-                    messageList.add(r);
+
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -148,15 +159,15 @@ public class ManageUsersActivity extends AppCompatActivity {
                 by Edge555 url:https://github.com/edge555/MyDay
                      */
     public void removeitem(int position) {
-        Message curmessage = messageList.get(position);
-        String delid = curmessage.getFull();
+        User curmessage = userList.get(position);
+        String delid = curmessage.getUserID();
         FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = curuser.getUid();
-        db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Message").child(delid);
+        db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames").child(delid);
         db.setValue(null);
-        messageList.remove(position);
+        userList.remove(position);
         mAdapter.notifyDataSetChanged();
-        Toast.makeText(getApplicationContext(), "Message Deleted", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "User Deleted", Toast.LENGTH_LONG).show();
     }
     //END
 

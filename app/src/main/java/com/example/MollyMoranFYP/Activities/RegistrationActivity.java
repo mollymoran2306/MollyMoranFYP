@@ -47,15 +47,15 @@ public class  RegistrationActivity extends AppCompatActivity {
             setTitle("Connect");
 
             // TAKE THIS OUT!
-            TextView txtFirstName = findViewById(R.id.txtFirstName);
-            TextView txtLastName = findViewById(R.id.txtLastName);
-            TextView txtEmail = findViewById(R.id.txtEmail);
-            TextView txtPassword = findViewById(R.id.txtPassword);
-
-            txtFirstName.setText("Molly");
-            txtLastName.setText("Moran");
-            txtEmail.setText(String.format("sophmoran@gmail.com", UUID.randomUUID().toString()));
-            txtPassword.setText("secret");
+//            TextView txtFirstName = findViewById(R.id.txtFirstName);
+//            TextView txtLastName = findViewById(R.id.txtLastName);
+//            TextView txtEmail = findViewById(R.id.txtEmail);
+//            TextView txtPassword = findViewById(R.id.txtPassword);
+//
+//            txtFirstName.setText("Molly");
+//            txtLastName.setText("Moran");
+//            txtEmail.setText(String.format("sophmoran@gmail.com", UUID.randomUUID().toString()));
+//            txtPassword.setText("secret");
            //  TAKE THIS OUT!
 
             Log.d(TAG, "The onCreate() method is being executed");
@@ -119,8 +119,9 @@ public class  RegistrationActivity extends AppCompatActivity {
 
                                     db2 = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames").child("1");
                                     HashMap<String, String> user = new HashMap<>();
-                                    user.put("Name", n);
-                                    user.put("User Type", "Admin");
+                                    user.put("ID", "1");
+                                    user.put("Name", fn);
+                                    user.put("User Type", "Family Member/Carer");
 //                                    db2.child("1").setValue(user);
                                     db2.setValue(user);
 
@@ -157,6 +158,9 @@ public class  RegistrationActivity extends AppCompatActivity {
                 //END
             });
         }
-
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
 }
