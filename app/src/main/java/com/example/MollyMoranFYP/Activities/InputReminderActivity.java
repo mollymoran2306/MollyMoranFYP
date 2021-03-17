@@ -47,7 +47,7 @@ public class  InputReminderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inputreminder);
-        setTitle("Input Reminder");
+        getSupportActionBar().hide();
         repeat = 0;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

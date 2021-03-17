@@ -1,6 +1,7 @@
 package com.example.MollyMoranFYP.Activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,6 +54,7 @@ public class ViewMessagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewmessages);
         setTitle("Message Board");
+        getSupportActionBar().hide();
 
         recyclerView = findViewById(R.id.recyclerview);
 
@@ -73,26 +75,36 @@ public class ViewMessagesActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new MyTouchListener(getApplicationContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
             @Override
             public void onLeftSwipe(View view, int position) {
-                //code as per your need
-                Toast.makeText(getApplicationContext(), "Left Swipe", Toast.LENGTH_SHORT).show();
+
+              //  Toast.makeText(getApplicationContext(), "Left Swipe", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightSwipe(View view, int position) {
-                //code as per your need
-                Toast.makeText(getApplicationContext(), "Right Swipe", Toast.LENGTH_SHORT).show();
+
+              //  Toast.makeText(getApplicationContext(), "Right Swipe", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onClick(View view, int position) {
-               // Movie movie = movieList.get(position);
-               // Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-              //  showActionsDialog(position);
+                final Message r = messageList.get(position);
+                Intent intent= new Intent(ViewMessagesActivity.this, FullScreenImage.class);
+                intent.putExtra("image_url", r.getImage());
+                intent.putExtra("subject", r.getSubject());
+                intent.putExtra("sender", r.getSender());
+                intent.putExtra("message", r.getMessageText());
+                intent.putExtra("profile pic", r.getProfilePic());
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ViewMessagesActivity.this.startActivity(intent);
+
+                Log.d(TAG, "image url is " + r.getImage());
             }
 
             public void onLongClick(View view, int position){
                 //code as per your need
-                Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_SHORT).show();
+                showActionsDialog(position);
+
             }
         }
         ) );
@@ -126,7 +138,7 @@ public class ViewMessagesActivity extends AppCompatActivity {
     }
 //END
 private void showActionsDialog(final int position) {
-    CharSequence colors[] = new CharSequence[]{"Edit", "Delete"};
+    CharSequence colors[] = new CharSequence[]{"Delete", "Cancel"};
 
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("Choose option");
@@ -134,9 +146,9 @@ private void showActionsDialog(final int position) {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             if (which == 0) {
-                // showNoteDialog(true, notesList.get(position), position);
+                deleteMessage(position);
             } else {
-               deleteMessage(position);
+                dialog.cancel();
             }
         }
     });

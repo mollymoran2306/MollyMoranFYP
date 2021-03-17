@@ -26,6 +26,7 @@ public class CustomizeUserHome extends AppCompatActivity {
     Switch swSendMessages;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customiseuserhome);
 

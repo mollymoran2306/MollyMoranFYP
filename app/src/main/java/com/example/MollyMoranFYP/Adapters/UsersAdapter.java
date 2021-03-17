@@ -44,9 +44,13 @@ public class UsersAdapter extends   RecyclerView.Adapter<UsersAdapter.ViewHolder
 
         holder.txtUsername.setText(r.getName());
         Log.d(TAG, "Name is " + r.getName());
-        holder.userType.setText(r.getUserType());
+        holder.userType.setText("User Type: " + r.getUserType());
         Log.d(TAG, "Type is " + r.getUserType());
-        Picasso.get().load(r.getProfilePic()).into(holder.userImage);
+        if (r.getProfilePic()!= null ) {
+            Picasso.get().load(r.getProfilePic()).into(holder.userImage);
+        } else {
+            Picasso.get().load(R.drawable.users).into(holder.userImage);
+        }
         Log.d(TAG, "Image is" + r.getProfilePic());
     }
 

@@ -47,6 +47,8 @@ public class UserSetupActivity extends AppCompatActivity {
     public static final String Name = "nameKey";
     public static final String ID = "userID";
     public static final String Type = "userType";
+    public String id, uid;
+
 
     Random rand = new Random();
     int rNum = 100 + rand.nextInt((999 - 100) + 1);
@@ -58,6 +60,8 @@ public class UserSetupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_usersetup);
+        getSupportActionBar().hide();
+
         btnLetsGo = findViewById(R.id.btnLetsGo);
         txtNewName = findViewById(R.id.txtNewName);
         spUserType = findViewById(R.id.spUserType);
@@ -65,7 +69,7 @@ public class UserSetupActivity extends AppCompatActivity {
                 Context.MODE_PRIVATE);
 
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = cursor.getUid();
+         uid = cursor.getUid();
 
 
         myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames");
@@ -101,39 +105,11 @@ public class UserSetupActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString(Name, n);
 
-                    editor.commit();
-                } else {
-                    FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
-                    String uid = cursor.getUid();
-                    String id = String.valueOf(spUser.getSelectedItemPosition() + 1);
-                    reff= FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child(id);
-                    Log.d(TAG, "reff is  " + reff);
-                    reff.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String name = spUser.getSelectedItem().toString();
-                            Log.d(TAG, "name is " + name);
+                    Log.d(TAG, "shared pref name is " + sharedpreferences.getString(Name, ""));
 
-                            String id = String.valueOf(spUser.getSelectedItemPosition() + 1);
-                            Log.d(TAG, "id is " + id);
+                    Log.d(TAG, "shared pref type is " + sharedpreferences.getString(Type, ""));
 
 
-                            String type = dataSnapshot.child("User Type").getValue().toString();
-                           Log.d(TAG, "type is " + type);
-
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putString(Name, name);
-                            editor.putString(ID, id);
-                            editor.putString(Type, type);
-                            editor.apply();
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
                     if (sharedpreferences.getString(Type, "").equals("Family Member/Carer")) {
                         Intent intent = new Intent(UserSetupActivity.this, AdminHomeActivity2.class);
                         startActivity(intent);
@@ -141,6 +117,64 @@ public class UserSetupActivity extends AppCompatActivity {
                         Intent intent = new Intent(UserSetupActivity.this, UserHomeActivity.class);
                         startActivity(intent);
                     }
+
+                    editor.commit();
+                } else {
+                    String name = spUser.getSelectedItem().toString();
+                    Log.d(TAG, "name is " + name);
+
+                    final  String id = String.valueOf(spUser.getSelectedItemPosition() + 1);
+                    Log.d(TAG, "id is " + id);
+
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(Name, name);
+                    editor.putString(ID, id);
+
+                    editor.apply();
+
+                    reff= FirebaseDatabase
+                            .getInstance()
+                            .getReference()
+                            .child("Users")
+                            .child(uid)
+                            .child("Usernames")
+                            .child(id);
+                    Log.d(TAG, "reff is  " + reff);
+
+                    reff.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            String type = dataSnapshot.child("User Type").getValue(String.class);
+                            Log.d(TAG, "type is " + type);
+
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(Type, type);
+                            editor.apply();
+
+                            Log.d(TAG, "shared pref type is " + sharedpreferences.getString(Type, ""));
+                            if (sharedpreferences.getString(Type, "").equals("Family Member/Carer")) {
+                                Intent intent = new Intent(UserSetupActivity.this, AdminHomeActivity2.class);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(UserSetupActivity.this, UserHomeActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+//                    Log.d(TAG, "shared pref type is " + sharedpreferences.getString(Type, ""));
+//                    if (sharedpreferences.getString(Type, "").equals("Family Member/Carer")) {
+//                        Intent intent = new Intent(UserSetupActivity.this, AdminHomeActivity2.class);
+//                        startActivity(intent);
+//                    } else {
+//                        Intent intent = new Intent(UserSetupActivity.this, UserHomeActivity.class);
+//                        startActivity(intent);
+//                    }
 //
 //                    SharedPreferences.Editor editor = sharedpreferences.edit();
 //                    editor.putString(Name, name);

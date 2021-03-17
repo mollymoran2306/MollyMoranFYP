@@ -87,6 +87,7 @@ public class SendMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendmessage);
+        getSupportActionBar().hide();
         setTitle("Send Message"); //might change to add to message board
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);

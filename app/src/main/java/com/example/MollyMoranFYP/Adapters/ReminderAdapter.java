@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
 
-    private static final String Tag = "RecyclerView";
     private Context mContext;
     private ArrayList<Reminder> reminderList;
 

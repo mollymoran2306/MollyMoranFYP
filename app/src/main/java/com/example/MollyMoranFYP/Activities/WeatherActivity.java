@@ -31,6 +31,7 @@ public class WeatherActivity extends AppCompatActivity {
     private static final String TAG = "*WeatherActivity*";
     final String APP_ID = "dab3af44de7d24ae7ff86549334e45bd";
     final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
+    //final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/onecall";
 
     final long MIN_TIME = 5000;
     final float MIN_DISTANCE = 1000;
@@ -38,7 +39,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     String Location_Provider = LocationManager.GPS_PROVIDER;
 
-    TextView NameofCity, weatherState, Temperature;
+    TextView NameofCity, weatherState, Temperature, txtHigh, txtLow;
     ImageView weatherIcon;
 
     RelativeLayout mCityFinder;
@@ -52,12 +53,15 @@ public class WeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather2);
         setTitle("Today's Weather");
+        getSupportActionBar().hide();
 
         weatherState = findViewById(R.id.weatherCondition);
         Temperature = findViewById(R.id.txtTemp);
         weatherIcon = findViewById(R.id.weatherIcon);
-        //   mCityFinder = findViewById(R.id.cityFinder);
         NameofCity = findViewById(R.id.txtCity);
+        txtHigh = findViewById(R.id.txtHigh);
+        txtLow = findViewById(R.id.txtLow);
+
     }
 
     /*	Code	below	is	based	on	the YouTube video:
@@ -137,7 +141,7 @@ public class WeatherActivity extends AppCompatActivity {
         {
             if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
             {
-                Toast.makeText(WeatherActivity.this,"Locationget Succesffully",Toast.LENGTH_SHORT).show();
+                Toast.makeText(WeatherActivity.this,"Location got Successfully",Toast.LENGTH_SHORT).show();
                 getWeatherForCurrentLocation();
             }
             else
@@ -175,10 +179,13 @@ public class WeatherActivity extends AppCompatActivity {
     private  void updateUI(WeatherData weather){
 
         Temperature.setText(weather.getmTemperature());
-        NameofCity.setText(weather.getMcity());
-       weatherState.setText(weather.getmWeatherType());
+        NameofCity.setText("Today in " +weather.getMcity());
+        weatherState.setText(weather.getmWeatherType());
         int resourceID=getResources().getIdentifier(weather.getMicon(),"drawable",getPackageName());
         weatherIcon.setImageResource(resourceID);
+        txtHigh.setText("High: " + weather.getmHigh());
+        txtLow.setText("Low: " + weather.getmLow());
+
     }
 
     @Override

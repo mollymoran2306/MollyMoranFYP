@@ -13,11 +13,15 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.CompoundButton;
@@ -90,7 +94,8 @@ public class AdminHomeActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adminhome2);
-        setTitle("Admin Homepage");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
         txtWelcome = findViewById(R.id.txtWelcome);
         linManageUsers = findViewById(R.id.linManageUsers);
@@ -112,8 +117,31 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         setProfilePic();
 
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+        assert cursor != null;
+        final String uid = cursor.getUid();
 
-        refreshTask();
+        DatabaseReference rootRef = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Users")
+                .child(uid);
+
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("Reminder")) {
+                    refreshTask();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+//        refreshTask();
 
         linManageUsers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +218,42 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         });
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.logout:
+                //if the user presses the FAQ option on the menu, the faqActivity will launch
+               // Intent intent2 = new Intent(MainActivity.this, FaqActivity.class);
+               // startActivity(intent2);
+                FirebaseAuth.getInstance().signOut();
+                Intent intent2 = new Intent(AdminHomeActivity2.this, LoginActivity.class);
+                startActivity(intent2);
+
+                SharedPreferences preferences =getSharedPreferences(mypreference,Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+                finish();
+
+                return true;
+            case R.id.switchUser:
+                //if the user presses the Contact option on the menu, the contactActivity will launch
+                Intent intent3 = new Intent(AdminHomeActivity2.this, UserSetupActivity.class);
+                startActivity(intent3);
+                return true;
+            default: return super.onOptionsItemSelected(item);
+        }
+
+
+    }
 
 
 
@@ -209,11 +273,21 @@ public class AdminHomeActivity2 extends AppCompatActivity {
                         final String s = getTimeMethod("dd-MMM-yy-hh-mm-ss a");
                         if (s.substring(16, 18).equals("00")) {
                             final String curtime = process(s);
+                            Log.d(TAG, "curtime is " + curtime);
+
+
                             mexamplelist = new ArrayList<>();
                             FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
                             final String uid = curuser.getUid();
                             if (curuser != null) {
-                                db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder");
+
+                                db = FirebaseDatabase
+                                        .getInstance()
+                                        .getReference()
+                                        .child("Users")
+                                        .child(uid)
+                                        .child("Reminder");
+
                                 db.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -229,6 +303,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
                                             hmp = (HashMap<String, String>) childsnap.getValue();
                                             Reminder rem = new Reminder(hmp.get("title"), hmp.get("des"), hmp.get("date"), hmp.get("time"), "None", hmp.get("marker"));
                                             String tasktime = date.substring(0, 12);
+                                            Log.d(TAG, "tasktime is " + tasktime);
                                             if (curtime.compareTo(tasktime) == 0) {
                                                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                                                     showNotification1(rem);

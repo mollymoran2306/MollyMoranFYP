@@ -47,6 +47,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewreminders);
         setTitle("Reminders");
+        getSupportActionBar().hide();
 
         recyclerView = findViewById(R.id.recyclerview);
 
@@ -60,6 +61,11 @@ public class ViewRemindersActivity extends AppCompatActivity {
         reminderList = new ArrayList<>();
         mAdapter = new ReminderAdapter(this, reminderList);
         recyclerView.setAdapter(mAdapter);
+
+        if (recyclerView.getChildCount() == 0)
+        {
+            Toast.makeText(ViewRemindersActivity.this, "No Reminders to show!", Toast.LENGTH_SHORT).show();
+        }
 
 
         /*	Code	below	is	based	on	MyDay - master opensource reminders application
@@ -97,45 +103,39 @@ public class ViewRemindersActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new MyTouchListener(getApplicationContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
             @Override
             public void onLeftSwipe(View view, int position) {
-                //code as per your need
-                Toast.makeText(getApplicationContext(), "Left Swipe", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onRightSwipe(View view, int position) {
-                //code as per your need
-                Toast.makeText(getApplicationContext(), "Right Swipe", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onClick(View view, int position) {
-                // Movie movie = movieList.get(position);
-                // Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
 
-                showActionsDialog(position);
 
             }
 
             public void onLongClick(View view, int position){
-                //code as per your need
-                Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_SHORT).show();
+                showActionsDialog(position);
             }
         }
         ) );
     }
+    //END
 
     private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Edit", "Delete"};
+        CharSequence colors[] = new CharSequence[]{"Delete", "Cancel"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose option");
         builder.setItems(colors, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                   // showNoteDialog(true, notesList.get(position), position);
-                } else {
                     deleteNote(position);
+                } else {
+                    dialog.cancel();
                 }
             }
         });
@@ -155,7 +155,11 @@ public class ViewRemindersActivity extends AppCompatActivity {
         String delid = curreminder.getFull();
         FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = curuser.getUid();
-        db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder").child(delid);
+        db = FirebaseDatabase.getInstance().getReference()
+                .child("Users")
+                .child(uid)
+                .child("Reminder")
+                .child(delid);
         db.setValue(null);
         reminderList.remove(position);
         mAdapter.notifyDataSetChanged();

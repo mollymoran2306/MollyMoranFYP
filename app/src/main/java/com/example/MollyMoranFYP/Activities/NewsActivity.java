@@ -39,6 +39,7 @@ List<Articles> articles=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_main2);
 

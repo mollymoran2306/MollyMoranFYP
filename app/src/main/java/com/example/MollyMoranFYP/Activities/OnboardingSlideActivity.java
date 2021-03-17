@@ -18,6 +18,7 @@ public class OnboardingSlideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slide);
+        getSupportActionBar().hide();
 
         viewPager=findViewById(R.id.viewpager);
         adapter=new OnboardingSlideViewPagerAdapter(this);
@@ -25,7 +26,7 @@ public class OnboardingSlideActivity extends AppCompatActivity {
         //uncomment!!
 //        if (isOpenAlready())
 //        {
-//            Intent intent=new Intent(OnboardingSlideActivity.this,RegistrationActivity.class);
+//            Intent intent=new Intent(OnboardingSlideActivity.this,LoginActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
 //            startActivity(intent);
 //        }

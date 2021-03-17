@@ -1,28 +1,45 @@
 package com.example.MollyMoranFYP.Activities;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WeatherData {
 
-    // this code is adapted from the YouTube video Weather app in android studio | Part -2 | Current Location by Tech Projects
 
-    private String mTemperature,micon,mcity,mWeatherType;
+ /*	Code	below	is	based	on	the YouTube video Weather app in android studio | Part -2 | Current Location
+                    by Tech Projects url:https://www.youtube.com/watch?v=VHgM_MQBQPg&t=262s
+                     */
+    private String mTemperature,micon,mcity,mWeatherType, mHigh, mLow;
     private int mCondition;
+    private static final String TAG = "*WeatherData*";
 
     public static WeatherData fromJson(JSONObject jsonObject)
     {
 
         try
         {
+            Log.d(TAG, "jsonObject is " + jsonObject);
+
             WeatherData weatherD=new WeatherData();
             weatherD.mcity=jsonObject.getString("name");
             weatherD.mCondition=jsonObject.getJSONArray("weather").getJSONObject(0).getInt("id");
             weatherD.mWeatherType=jsonObject.getJSONArray("weather").getJSONObject(0).getString("main");
             weatherD.micon=updateWeatherIcon(weatherD.mCondition);
+
             double tempResult=jsonObject.getJSONObject("main").getDouble("temp")-273.15;
             int roundedValue=(int)Math.rint(tempResult);
             weatherD.mTemperature=Integer.toString(roundedValue);
+
+            double tempHigh=jsonObject.getJSONObject("main").getDouble("temp_max")-273.15;
+            int roundedValue1=(int)Math.rint(tempResult);
+            weatherD.mHigh=Integer.toString(roundedValue1);
+
+            double tempLow=jsonObject.getJSONObject("main").getDouble("temp_min")-273.15;
+            int roundedValue2=(int)Math.rint(tempResult);
+            weatherD.mLow=Integer.toString(roundedValue2);
+
             return weatherD;
         }
 
@@ -92,6 +109,7 @@ public class WeatherData {
 
 
     }
+    //END
 
     public String getmTemperature() {
         return mTemperature+"°C";
@@ -108,5 +126,13 @@ public class WeatherData {
     public String getmWeatherType() {
         return mWeatherType;
     }
+
+    public String getmHigh() {
+        return mHigh+"°C";
+    }
+    public String getmLow() {
+        return mLow+"°C";
+    }
+
 }
 

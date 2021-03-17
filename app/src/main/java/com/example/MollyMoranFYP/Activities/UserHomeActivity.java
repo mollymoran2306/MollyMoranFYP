@@ -4,11 +4,15 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -65,6 +69,7 @@ public class UserHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userhomepage);
         setTitle("User Homepage");
+        getSupportActionBar().hide();
         viewSwitch2 = findViewById(R.id.viewSwitch2);
 
         cvSendMessage = findViewById(R.id.cvSendMessage);
@@ -148,6 +153,43 @@ public class UserHomeActivity extends AppCompatActivity {
             }
         });
 }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.logout:
+                //if the user presses the FAQ option on the menu, the faqActivity will launch
+                // Intent intent2 = new Intent(MainActivity.this, FaqActivity.class);
+                // startActivity(intent2);
+                FirebaseAuth.getInstance().signOut();
+                Intent intent2 = new Intent(UserHomeActivity.this, LoginActivity.class);
+                startActivity(intent2);
+
+                SharedPreferences preferences =getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+                finish();
+
+                return true;
+            case R.id.switchUser:
+                //if the user presses the Contact option on the menu, the contactActivity will launch
+                Intent intent3 = new Intent(UserHomeActivity.this, UserSetupActivity.class);
+                startActivity(intent3);
+                return true;
+            default: return super.onOptionsItemSelected(item);
+        }
+
+
+    }
     private void refreshTask() {
         new Timer().schedule(new TimerTask() {
             @Override

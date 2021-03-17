@@ -4,103 +4,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="151dp"
         android:layout_marginTop="-5dp"
-        android:background="@drawable/header">
+        android:background="@drawable/header_register">
 
         <TextView
+            android:id="@+id/txtCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Today's Weather"
+            android:layout_gravity="center"
+            android:text="Today in Cork"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:layout_gravity="center">
+            android:textSize="30sp">
 
         </TextView>
+
+
     </ScrollView>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="384dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:layout_marginStart="13dp"
-        app:cardCornerRadius="5dp"
+        android:layout_height="500dp"
+        app:cardCornerRadius="10dp"
+        android:layout_gravity="center"
+       android:layout_marginTop="10dp"
+        android:background="@drawable/sunbackground"
         >
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="90dp">
-
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            >
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txtHigh"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="High: 10"
+                android:layout_marginTop="300dp"
+               />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/txtLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Low: 10"
+                android:layout_marginTop="350dp"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                <TextView
-                    android:id="@+id/txtCity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CORK "
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/txtTemp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="45sp"
-                    android:textStyle="bold" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+            <TextView
+                android:id="@+id/txtTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="300dp"
+                android:text="10"
+                android:textSize="150sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <TextView
-                        android:id="@+id/weatherCondition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="22 June 2020"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+            <TextView
+                android:id="@+id/weatherCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Cloudy"
+                android:textSize="30dp"
+                android:layout_marginTop="200dp"
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
 
             <ImageView
                 android:id="@+id/weatherIcon"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_gravity="end"
-                android:layout_marginLeft="50dp" />
-        </LinearLayout>
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
 
-    </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     </androidx.cardview.widget.CardView>
+
+
 
 </LinearLayout>
 

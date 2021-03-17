@@ -19,13 +19,13 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/header"
+        android:layout_marginTop="-10dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
             android:text="Set Reminder"
             android:textColor="@color/white"
             android:textSize="30sp">

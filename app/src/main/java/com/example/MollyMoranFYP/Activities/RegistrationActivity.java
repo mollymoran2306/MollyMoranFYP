@@ -44,7 +44,7 @@ public class  RegistrationActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(activity_registration);
-            setTitle("Connect");
+            getSupportActionBar().hide();
 
             // TAKE THIS OUT!
 //            TextView txtFirstName = findViewById(R.id.txtFirstName);

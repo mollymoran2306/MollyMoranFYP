@@ -18,6 +18,7 @@ public class IndividualExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         String exercise = getIntent().getStringExtra("exercise");
         Log.d(TAG, "exercise is  " + exercise);
+        getSupportActionBar().hide();
 
         if (exercise.equals("Sideways Walking")) {
             setContentView(R.layout.exercise_sidewayswalking);

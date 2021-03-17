@@ -18,7 +18,6 @@
         <activity android:name=".Activities.AdminHomeActivity2"></activity>
         <activity android:name=".Activities.ViewRemindersActivity"></activity>
         <activity android:name=".Activities.InputReminderActivity"></activity>
-        <activity android:name=".Activities.RemindersActivity"></activity>
         <activity android:name=".Activities.RegistrationActivity"></activity>
         <activity android:name=".Activities.SendMessageActivity"></activity>
         <activity android:name=".Activities.ViewMessagesActivity"></activity>
@@ -31,13 +30,12 @@
         <activity android:name=".Activities.NewsDetailsActivity"></activity>
         <activity android:name=".Activities.CustomizeUserHome"></activity>
         <activity android:name=".Activities.ExercisesActivity"></activity>
-        <activity android:name=".Activities.Exercise_SidewaysWalking"></activity>
-        <activity android:name=".Activities.Exercise_SimpleGrapevine"></activity>
         <activity android:name=".Activities.FeedbackActivity" />
         <activity android:name=".Activities.OnboardingSlideActivity" />
         <activity android:name=".Activities.ManageUsersActivity" />
         <activity android:name=".Activities.FullScreenImage" />
         <activity android:name=".Activities.IndividualExerciseActivity" />
+
 
         <activity
             android:name=".Activities.SplashActivity"

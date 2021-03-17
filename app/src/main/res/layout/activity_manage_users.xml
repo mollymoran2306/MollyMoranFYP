@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:background="#e2eef2"
     android:orientation="vertical"
-    tools:context=".Activities.RemindersActivity">
+    tools:context=".Activities.ManageUsersActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/header"
+        android:layout_marginTop="-10dp"
         >
 
         <TextView
@@ -29,7 +30,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="384dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="110dp"
         android:layout_marginStart="13dp"
         app:cardCornerRadius="12dp"
         >

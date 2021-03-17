@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#e2eef2"
     android:orientation="vertical"
-    tools:context=".Activities.RemindersActivity">
+    tools:context=".Activities.ViewMessagesActivity">
 
     <ScrollView
         android:layout_width="match_parent"
