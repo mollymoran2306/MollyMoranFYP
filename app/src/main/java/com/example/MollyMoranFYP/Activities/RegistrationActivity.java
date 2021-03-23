@@ -129,6 +129,7 @@ public class  RegistrationActivity extends AppCompatActivity {
                                     db3 = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("User Settings");
                                     HashMap<String, String> msg = new HashMap<>();
                                     msg.put("Send Message", "yes");
+                                    msg.put("Message Board Name", "Message Board");
                                     db3.setValue(msg);
 
 //                                    HashMap<String, String> usertype = new HashMap<>();

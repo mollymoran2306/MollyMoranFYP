@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -14,8 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.RetrieveDataActivity"></activity>
-        <activity android:name=".Activities.AdminHomeActivity"></activity>
-        <activity android:name=".Activities.AdminHomeActivity2"></activity>
+        <activity android:name=".Activities.CarerHomeActivity"></activity>
         <activity android:name=".Activities.ViewRemindersActivity"></activity>
         <activity android:name=".Activities.InputReminderActivity"></activity>
         <activity android:name=".Activities.RegistrationActivity"></activity>
@@ -35,6 +36,7 @@
         <activity android:name=".Activities.ManageUsersActivity" />
         <activity android:name=".Activities.FullScreenImage" />
         <activity android:name=".Activities.IndividualExerciseActivity" />
+        <activity android:name=".Activities.HelpForCarersActivity" />
 
 
         <activity

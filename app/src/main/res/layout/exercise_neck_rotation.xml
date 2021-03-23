@@ -6,28 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="260dp"
-        android:background="@drawable/header_login"
+        android:layout_height="200dp"
+        android:background="@drawable/header"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="550dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="0dp"
-            android:layout_marginBottom="50dp"
             android:text="Neck Rotation"
             android:textColor="@color/white"
             android:textSize="40dp">
 
         </TextView>
     </ScrollView>
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -47,7 +47,8 @@
             android:layout_marginLeft="93dp"
             android:layout_marginTop="24dp"
             android:text="Sit upright with shoulders down. Look straight ahead."
-            android:textSize="18dp">
+            android:textSize="18dp"
+            android:textColor="@color/black">
 
         </TextView>
 
@@ -55,9 +56,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="140dp"
             android:text="Slowly turn your head towards your left shoulder as far as is comfortable. Hold for 5 seconds and return to the starting position."
-            android:textSize="18dp">
+            android:textSize="18dp"
+            android:textColor="@color/black">
 
         </TextView>
 
@@ -65,9 +67,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="255dp"
+            android:layout_marginTop="300dp"
             android:text="Repeat on the right."
-            android:textSize="18dp">
+            android:textSize="18dp"
+            android:textColor="@color/black">
 
         </TextView>
 
@@ -76,16 +79,15 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="140dp"
             app:srcCompat="@drawable/two" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="60dp"
             android:layout_height="60dp"
-
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="25dp"
             app:srcCompat="@drawable/one" />
 
         <ImageView
@@ -93,7 +95,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="255dp"
+            android:layout_marginTop="300dp"
             app:srcCompat="@drawable/three" />
 
 
@@ -103,8 +105,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Do 3 rotations on each side."
-        android:textSize="18dp"
+        android:text="Do 3 rotations on each side"
+        android:textSize="28dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

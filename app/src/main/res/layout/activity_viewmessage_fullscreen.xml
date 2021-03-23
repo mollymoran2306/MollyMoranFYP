@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/header"
-        android:layout_marginTop="-5dp"
-
+        android:layout_marginTop="-10dp"
         >
 
         <TextView
@@ -19,18 +18,18 @@
             android:text="Message"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:textSize="30sp"
-            android:layout_marginBottom="20dp">
+            android:textSize="40sp"
+            >
 
         </TextView>
     </ScrollView>
     <androidx.cardview.widget.CardView
         android:layout_width="384dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="120dp"
         android:layout_marginStart="13dp"
         app:cardCornerRadius="12dp"
-
+        android:padding="20dp"
         >
 
     <androidx.cardview.widget.CardView
@@ -78,10 +77,10 @@
             android:id="@+id/messagetext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="140dp"
             android:text="@string/message_text"
             android:textSize="24sp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="140dp"
             android:padding="20dp"/>
 
         <ImageView

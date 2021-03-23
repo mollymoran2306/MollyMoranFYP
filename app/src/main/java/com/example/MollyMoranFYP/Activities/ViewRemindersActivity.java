@@ -1,6 +1,7 @@
 package com.example.MollyMoranFYP.Activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
 import com.example.MollyMoranFYP.Utils.MyDividerItemDecoration;
 import com.example.MollyMoranFYP.Utils.MyTouchListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +42,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
     private DatabaseReference myRef, db;
     private ArrayList<Reminder> reminderList;
     private ReminderAdapter mAdapter;
+    private FloatingActionButton fbAdd;
 
 
     @Override
@@ -50,6 +53,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         recyclerView = findViewById(R.id.recyclerview);
+        fbAdd = findViewById(R.id.fbAdd);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -59,10 +63,47 @@ public class ViewRemindersActivity extends AppCompatActivity {
         String uid = cursor.getUid();
 
         reminderList = new ArrayList<>();
-        mAdapter = new ReminderAdapter(this, reminderList);
-        recyclerView.setAdapter(mAdapter);
 
-        if (recyclerView.getChildCount() == 0)
+        if (reminderList.isEmpty())
+        {
+            Toast.makeText(ViewRemindersActivity.this, "No Reminders to show!", Toast.LENGTH_SHORT).show();
+        } else {
+            mAdapter = new ReminderAdapter(this, reminderList);
+            recyclerView.setAdapter(mAdapter);
+            myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder");
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Reminder r = new Reminder(
+                                ds.child("title").getValue(String.class),
+                                ds.child("des").getValue(String.class),
+                                ds.child("date").getValue(String.class),
+                                ds.child("time").getValue(String.class),
+                                ds.child("repeat").getValue(String.class),
+                                ds.child("full").getValue(String.class)
+                        );
+                        reminderList.add(r);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+                //END
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    //what happens if the action is cancelled
+                }
+            });
+        }
+        fbAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewRemindersActivity.this, InputReminderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        if (reminderList.isEmpty())
         {
             Toast.makeText(ViewRemindersActivity.this, "No Reminders to show!", Toast.LENGTH_SHORT).show();
         }
@@ -72,30 +113,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
                 by Edge555 url:https://github.com/edge555/MyDay
                      */
         //want to change this to only display future reminders not past reminders
-        myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Reminder");
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    Reminder r = new Reminder(
-                            ds.child("title").getValue(String.class),
-                            ds.child("des").getValue(String.class),
-                            ds.child("date").getValue(String.class),
-                            ds.child("time").getValue(String.class),
-                            ds.child("repeat").getValue(String.class),
-                            ds.child("full").getValue(String.class)
-                    );
-                    reminderList.add(r);
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-            //END
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            //what happens if the action is cancelled
-            }
-        });
 
           /*
         This block of code is adapted from MyRecyclerViewApp by Michael Gleeson
@@ -125,7 +143,7 @@ public class ViewRemindersActivity extends AppCompatActivity {
     //END
 
     private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Delete", "Cancel"};
+        CharSequence colors[] = new CharSequence[]{"Delete Reminder", "Cancel"};
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose option");
@@ -154,7 +172,10 @@ public class ViewRemindersActivity extends AppCompatActivity {
         Reminder curreminder = reminderList.get(position);
         String delid = curreminder.getFull();
         FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = curuser.getUid();
+        String uid = null;
+        if (curuser != null) {
+            uid = curuser.getUid();
+        }
         db = FirebaseDatabase.getInstance().getReference()
                 .child("Users")
                 .child(uid)

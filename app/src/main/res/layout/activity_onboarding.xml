@@ -90,7 +90,8 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/desc"
-        app:srcCompat="@drawable/seleted" />
+        app:srcCompat="@drawable/seleted"
+        />
 
     <ImageView
         android:id="@+id/ind3"

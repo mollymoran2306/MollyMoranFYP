@@ -38,7 +38,19 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:padding="10dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fbAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="300dp"
+            android:layout_marginBottom="15dp"
+            app:srcCompat="@drawable/plus_sign"
+            android:background="@color/Blue"/>
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

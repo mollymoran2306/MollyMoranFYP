@@ -1,6 +1,5 @@
 package com.example.MollyMoranFYP.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
-
+    public static final String Name = "nameKey";
     public static final String Type = "userType";
     private static final String TAG = "*LoginActivity*";
 
@@ -45,19 +44,22 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(activity_login);
         getSupportActionBar().hide();
 
-
         sharedpreferences = getSharedPreferences(mypreference,MODE_PRIVATE);
         Log.d(TAG, "user type is " + sharedpreferences.getString(Type, "") );
+        Log.d(TAG, "user name is " + sharedpreferences.getString(Name, "") );
+        Log.d(TAG, "logged is " + sharedpreferences.getBoolean("logged",false));
 
-        if(sharedpreferences.getBoolean("logged",false)){
-            if (sharedpreferences.getString(Type, "").equals("Family Member/Carer")) {
-                Intent intent = new Intent(LoginActivity.this, AdminHomeActivity2.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                startActivity(intent);
-            }
-        }
+        //put back in to log in automatically
+
+//        if(sharedpreferences.getBoolean("logged",false)){
+//            if (sharedpreferences.getString(Type, "").equals("Family Member/Carer")) {
+//                Intent intent = new Intent(LoginActivity.this, CarerHomeActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+//                startActivity(intent);
+//            }
+//        }
 
         email = findViewById(R.id.txtEmail);
         password = findViewById(R.id.txtPassword);
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.txtEmail);
         TextView txtPassword = findViewById(R.id.txtPassword);
 
-        txtEmail.setText("molly.moran@gmail.com");
+        txtEmail.setText("moll.moran@gmail.com");
         txtPassword.setText("secret");
         //take this out!
 

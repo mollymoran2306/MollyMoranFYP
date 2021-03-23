@@ -70,8 +70,8 @@ import java.util.TreeMap;
 
 import static com.example.MollyMoranFYP.Activities.UserSetupActivity.ID;
 
-public class AdminHomeActivity2 extends AppCompatActivity {
-    private LinearLayout linSendMessage, linViewMessages, linViewReminders, linManageUsers, linInputReminders, linSendFeedBack;
+public class CarerHomeActivity extends AppCompatActivity {
+    private LinearLayout linSendMessage, linViewMessages, linHelpforCarers, linManageUsers, linInputReminders, linSendFeedBack;
     private Switch viewSwitch;
     private CardView cardViewMessages, cardViewProfilePic;
     private TextView txtWelcome;
@@ -86,14 +86,14 @@ public class AdminHomeActivity2 extends AppCompatActivity {
 
     private final int Notification_ID = 001;
     ArrayList<Reminder> mexamplelist, mreminderlist;
-    private static final String TAG = "*AdminHomeActivity2*";
+    private static final String TAG = "*CarerHomeActivity2*";
     private Uri filePath;
     private String imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adminhome2);
+        setContentView(R.layout.activity_carer_home);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
@@ -101,52 +101,53 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         linManageUsers = findViewById(R.id.linManageUsers);
         linSendMessage = findViewById(R.id.linSendMessage);
         linViewMessages = findViewById(R.id.linViewMessages);
-        linViewReminders = findViewById(R.id.linViewReminders);
+        linHelpforCarers = findViewById(R.id.linHelpforCarers);
         cardViewMessages = findViewById(R.id.cvViewMessages);
-        linInputReminders = findViewById(R.id.linInputReminders);
+        linInputReminders = findViewById(R.id.linReminders);
         linSendFeedBack = findViewById(R.id.linSendFeedback);
         cardViewProfilePic = findViewById(R.id.cardViewProfilePic);
         profilePic = findViewById(R.id.profilePic);
 
         viewSwitch = findViewById(R.id.viewSwitch);
 
+
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         txtWelcome.setText("Welcome, " + sharedpreferences.getString(Name, ""));
-
+        Log.d(TAG, "Shared pref name is  " + sharedpreferences.getString(Name, ""));
         setProfilePic();
 
         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
-        assert cursor != null;
-        final String uid = cursor.getUid();
+        if (cursor != null) {
+            final String uid = cursor.getUid();
 
-        DatabaseReference rootRef = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("Users")
-                .child(uid);
+            DatabaseReference rootRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("Users")
+                    .child(uid);
 
-        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild("Reminder")) {
-                    refreshTask();
+            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild("Reminder")) {
+                        refreshTask();
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
 
-
+        }
 //        refreshTask();
 
         linManageUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity2.this, ManageUsersActivity.class);
+                Intent intent = new Intent(CarerHomeActivity.this, CustomizeUserHome.class);
 
                 startActivity(intent);
             }
@@ -156,7 +157,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         linInputReminders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity2.this, InputReminderActivity.class);
+                Intent intent = new Intent(CarerHomeActivity.this, ViewRemindersActivity.class);
 
                 startActivity(intent);
             }
@@ -166,8 +167,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         cardViewMessages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity2.this, ViewMessagesActivity.class);
-
+                Intent intent = new Intent(CarerHomeActivity.this, ViewMessagesActivity.class);
                 startActivity(intent);
             }
 
@@ -176,18 +176,16 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         linSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity2.this, SendMessageActivity.class);
-
+                Intent intent = new Intent(CarerHomeActivity.this, SendMessageActivity.class);
                 startActivity(intent);
             }
 
         });
 
-        linViewReminders.setOnClickListener(new View.OnClickListener() {
+        linHelpforCarers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity2.this, ViewRemindersActivity.class);
-
+                Intent intent = new Intent(CarerHomeActivity.this, HelpForCarersActivity.class);
                 startActivity(intent);
             }
 
@@ -195,7 +193,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
 
         viewSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Intent intent = new Intent(AdminHomeActivity2.this, UserHomeActivity.class);
+                Intent intent = new Intent(CarerHomeActivity.this, UserHomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -203,7 +201,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         linSendFeedBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity2.this, FeedbackActivity.class);
+                Intent intent = new Intent(CarerHomeActivity.this, FeedbackActivity.class);
 
                 startActivity(intent);
             }
@@ -213,7 +211,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         cardViewProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectImage(AdminHomeActivity2.this);
+                selectImage(CarerHomeActivity.this);
             }
         });
 
@@ -234,7 +232,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
                // Intent intent2 = new Intent(MainActivity.this, FaqActivity.class);
                // startActivity(intent2);
                 FirebaseAuth.getInstance().signOut();
-                Intent intent2 = new Intent(AdminHomeActivity2.this, LoginActivity.class);
+                Intent intent2 = new Intent(CarerHomeActivity.this, LoginActivity.class);
                 startActivity(intent2);
 
                 SharedPreferences preferences =getSharedPreferences(mypreference,Context.MODE_PRIVATE);
@@ -246,8 +244,15 @@ public class AdminHomeActivity2 extends AppCompatActivity {
                 return true;
             case R.id.switchUser:
                 //if the user presses the Contact option on the menu, the contactActivity will launch
-                Intent intent3 = new Intent(AdminHomeActivity2.this, UserSetupActivity.class);
+                Intent intent3 = new Intent(CarerHomeActivity.this, UserSetupActivity.class);
                 startActivity(intent3);
+
+                SharedPreferences preferences2 =getSharedPreferences(mypreference,Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = preferences2.edit();
+                editor2.clear();
+                editor2.apply();
+                finish();
+
                 return true;
             default: return super.onOptionsItemSelected(item);
         }
@@ -278,9 +283,9 @@ public class AdminHomeActivity2 extends AppCompatActivity {
 
                             mexamplelist = new ArrayList<>();
                             FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
-                            final String uid = curuser.getUid();
+//                            final String uid = curuser.getUid();
                             if (curuser != null) {
-
+                                final String uid = curuser.getUid();
                                 db = FirebaseDatabase
                                         .getInstance()
                                         .getReference()
@@ -426,7 +431,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
         if (notificationManager != null) {
             notificationManager.createNotificationChannel(notificationChannel);
         }
-        Intent resintent = new Intent(this, AdminHomeActivity2.class);
+        Intent resintent = new Intent(this, CarerHomeActivity.class);
         PendingIntent respenindent = PendingIntent.getActivity(this, 1, resintent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, id);
         builder.setSmallIcon(R.drawable.ic_baseline_notifications_active_24);
@@ -509,7 +514,7 @@ public class AdminHomeActivity2 extends AppCompatActivity {
 //                } else
                     if (options[item].equals("Choose from Gallery")) {
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(AdminHomeActivity2.this, new String[]{
+                        ActivityCompat.requestPermissions(CarerHomeActivity.this, new String[]{
                                 Manifest.permission.READ_EXTERNAL_STORAGE
                         }, 1);
 

@@ -9,18 +9,18 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="290dp"
-        android:background="@drawable/header_login"
+        android:layout_height="200dp"
+        android:background="@drawable/header"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="550dp"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="0dp"
-            android:layout_marginBottom="59dp"
             android:text="Sideways Walking"
             android:textColor="@color/white"
             android:textSize="40dp">
@@ -45,9 +45,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:text="Stand with your feet together, \nknees slightly bent."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp">
 
         </TextView>
 
@@ -57,7 +59,9 @@
             android:layout_marginLeft="93dp"
             android:layout_marginTop="150dp"
             android:text="Step sideways in a slow and controlled manner, moving one foot to the side first."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp">
 
         </TextView>
 
@@ -65,9 +69,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="310dp"
+            android:layout_marginTop="300dp"
             android:text="Move the other to join it."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp">
 
         </TextView>
 
@@ -93,7 +99,6 @@
             android:id="@+id/imageView3"
             android:layout_width="60dp"
             android:layout_height="60dp"
-
             android:layout_marginLeft="20dp"
             android:layout_marginTop="24dp"
             app:srcCompat="@drawable/one" />

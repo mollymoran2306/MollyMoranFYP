@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:text="Today in Cork"
             android:textColor="@color/white"
-            android:textSize="30sp">
+            android:textSize="40sp">
 
         </TextView>
 
@@ -34,13 +34,13 @@
         app:cardCornerRadius="10dp"
         android:layout_gravity="center"
        android:layout_marginTop="10dp"
-        android:background="@drawable/sunbackground"
         >
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+
             >
 
             <TextView

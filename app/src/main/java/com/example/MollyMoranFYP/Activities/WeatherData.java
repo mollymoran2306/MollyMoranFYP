@@ -57,7 +57,7 @@ public class WeatherData {
     {
         if(condition>=0 && condition<=300)
         {
-            return "thunderstrom1";
+            return "thunderstorm";
         }
         else if(condition>=300 && condition<=500)
         {
@@ -69,7 +69,7 @@ public class WeatherData {
         }
         else  if(condition>=600 && condition<=700)
         {
-            return "snow2";
+            return "snow";
         }
         else if(condition>=701 && condition<=771)
         {
@@ -78,7 +78,7 @@ public class WeatherData {
 
         else if(condition>=772 && condition<=800)
         {
-            return "overcast";
+            return "fog";
         }
         else if(condition==800)
         {
@@ -86,15 +86,16 @@ public class WeatherData {
         }
         else if(condition>=801 && condition<=804)
         {
-            return "cloudy";
+            // return "cloudy";
+            return "fog";
         }
         else  if(condition>=900 && condition<=902)
         {
-            return "thunderstrom1";
+            return "thunderstorm";
         }
         if(condition==903)
         {
-            return "snow1";
+            return "snow";
         }
         if(condition==904)
         {
@@ -102,7 +103,7 @@ public class WeatherData {
         }
         if(condition>=905 && condition<=1000)
         {
-            return "thunderstrom2";
+            return "thunderstorm";
         }
 
         return "dunno";

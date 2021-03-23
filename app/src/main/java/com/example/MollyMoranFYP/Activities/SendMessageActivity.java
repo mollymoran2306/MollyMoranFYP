@@ -3,10 +3,6 @@ package com.example.MollyMoranFYP.Activities;
 
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,13 +18,9 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -36,7 +28,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.MollyMoranFYP.Models.Message;
-import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,15 +42,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
-import java.util.UUID;
 
-import static com.example.MollyMoranFYP.Activities.AdminHomeActivity2.ProfilePic;
+import static com.example.MollyMoranFYP.Activities.CarerHomeActivity.ProfilePic;
 
 public class SendMessageActivity extends AppCompatActivity {
     private Button btnSend;
@@ -69,6 +58,7 @@ public class SendMessageActivity extends AppCompatActivity {
     public static final String mypreference = "mypref";
     public static final String Name = "nameKey";
     public static final String ID = "userID";
+    public static final String Type = "userType";
 
     private Uri filePath;
     private Uri imageUri;
@@ -198,7 +188,7 @@ private void upload() {
                     String sender = sharedpreferences.getString(Name, "");
                     //String userID = sharedpreferences.getString(ID, "");
                     String profilePic = sharedpreferences.getString(ProfilePic, "");
-                    Log.d(TAG, "Shared Pref Profil Pic is" + profilePic);
+                    Log.d(TAG, "Shared Pref Profile Pic is" + profilePic);
                     String image;
                     if (imageUrl != null) {
                         image = imageUrl;
@@ -215,10 +205,16 @@ private void upload() {
 
                     Map<String, Object> val = new TreeMap<>();
                     Message message1;
+                    final String s = getTimeMethod("dd-MMM-yy-hh-mm-ss a");
+                    final String curtime = process(s);
+                    Log.d(TAG, "curtime is " + curtime);
+                    String date = curtime.substring(0, 8);
+                    String time= curtime.substring(8, 12);
 
-                    message1 = new Message(subject, message, image, sender, profilePic, fin);
+                    message1 = new Message(subject, message, image, sender, profilePic, fin, date, time);
 
-                    val.put(fin, message1);
+
+                    val.put(curtime, message1);
                     id = fin;
                     ref.updateChildren(val);
 
@@ -227,7 +223,7 @@ private void upload() {
                 }
 
                 Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
+                Intent intent = new Intent(SendMessageActivity.this, CarerHomeActivity.class);
                 startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -260,17 +256,28 @@ private void upload() {
             Map<String, Object> val = new TreeMap<>();
             Message message1;
 
-            message1 = new Message(subject, message, sender, profilePic, fin);
+            final String s = getTimeMethod("dd-MMM-yy-hh-mm-ss a");
+            final String curtime = process(s);
+            Log.d(TAG, "curtime is " + curtime);
+            String date = curtime.substring(0, 8);
+            String time= curtime.substring(8, 12);
 
-            val.put(fin, message1);
+            message1 = new Message(subject, message, sender, profilePic, fin, date, time);
+
+            val.put(curtime, message1);
             id = fin;
             ref.updateChildren(val);
 
             Log.d(TAG, "message saved to db" + message);
 
             Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
-            startActivity(intent);
+            if (sharedpreferences.getString(Type, "").equals("Elderly User")) {
+                Intent intent = new Intent(SendMessageActivity.this, UserHomeActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(SendMessageActivity.this, CarerHomeActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }
@@ -414,9 +421,58 @@ private void upload() {
 
             }
         Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(SendMessageActivity.this, AdminHomeActivity2.class);
+        Intent intent = new Intent(SendMessageActivity.this, CarerHomeActivity.class);
         startActivity(intent);
     }
     //END
 }
+    private String getTimeMethod(String formate) {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formate);
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
+    }
+
+    private String process(String s) {
+        String f = "20" + s.substring(7, 9);
+        String month = s.substring(3, 6);
+        if (month.equals("Jan")) {
+            f += "00";
+        } else if (month.equals("Feb")) {
+            f += "01";
+        } else if (month.equals("Mar")) {
+            f += "02";
+        } else if (month.equals("Apr")) {
+            f += "03";
+        } else if (month.equals("May")) {
+            f += "04";
+        } else if (month.equals("Jun")) {
+            f += "05";
+        } else if (month.equals("Jul")) {
+            f += "06";
+        } else if (month.equals("Aug")) {
+            f += "07";
+        } else if (month.equals("Sep")) {
+            f += "08";
+        } else if (month.equals("Oct")) {
+            f += "09";
+        } else if (month.equals("Nov")) {
+            f += "10";
+        } else {
+            f += "11";
+        }
+        f += s.substring(0, 2);
+        String h = s.substring(10, 12);
+        int hr = Integer.parseInt(h);
+        if (s.charAt(19) == 'P') {
+            hr += 12;
+        }
+        String hour = String.valueOf(hr);
+        if (hour.length() == 1) {
+            f += "0";
+        }
+        f += hour;
+        f += s.substring(13, 15);
+        return f;
+    }
         }

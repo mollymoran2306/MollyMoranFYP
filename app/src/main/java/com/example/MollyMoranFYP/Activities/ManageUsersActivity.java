@@ -74,13 +74,13 @@ public class ManageUsersActivity extends AppCompatActivity {
             @Override
             public void onLeftSwipe(View view, int position) {
                 //code as per your need
-                Toast.makeText(getApplicationContext(), "Left Swipe", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Left Swipe", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightSwipe(View view, int position) {
                 //code as per your need
-                Toast.makeText(getApplicationContext(), "Right Swipe", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Right Swipe", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -92,7 +92,7 @@ public class ManageUsersActivity extends AppCompatActivity {
 
             public void onLongClick(View view, int position){
                 //code as per your need
-                Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_SHORT).show();
             }
         }
         ) );
@@ -164,8 +164,10 @@ public class ManageUsersActivity extends AppCompatActivity {
         String delid = curmessage.getUserID();
         FirebaseUser curuser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = curuser.getUid();
+
         db = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Usernames").child(delid);
         db.setValue(null);
+
         userList.remove(position);
         mAdapter.notifyDataSetChanged();
         Toast.makeText(getApplicationContext(), "User Deleted", Toast.LENGTH_LONG).show();

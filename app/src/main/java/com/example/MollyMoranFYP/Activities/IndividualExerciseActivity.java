@@ -26,8 +26,18 @@ public class IndividualExerciseActivity extends AppCompatActivity {
         else if (exercise.equals("Simple Grapevine")) {
             setContentView(R.layout.exercise_simplegrapevine);
         }
-//        else {
-//            setContentView(R.layout.exercise_sidewayswalking);
-//        }
+        else if (exercise.equals("Sit to Stand")) {
+            setContentView(R.layout.exercise_sit_to_stand);
+        }
+        else if (exercise.equals("Bicep Curls")) {
+            setContentView(R.layout.exercise_bicep_curls);
+        }
+        else if (exercise.equals("Neck Rotation")) {
+            setContentView(R.layout.exercise_neck_rotation);
+        }
+        else if (exercise.equals("Sideways Bend")) {
+            setContentView(R.layout.exercise_sidewaysbend);
+        }
+
     }
 }

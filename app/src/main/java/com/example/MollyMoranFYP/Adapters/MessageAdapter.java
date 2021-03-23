@@ -62,15 +62,25 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         Log.d(TAG, "r.getImage() is " + r.getImage());
 
-        if (r.getImage() != "") {
+        if (r.getImage() == null) {
+
+        } else {
             Picasso.get().load(r.getImage()).into(holder.messageImage);
         }
 
         holder.txtUsername.setText(r.getSender());
         Log.d(TAG, "r.getSender is " + r.getSender());
 
-        Picasso.get().load(r.getProfilePic()).into(holder.profilePic);
+        if (r.getProfilePic().equals("")) {
+            Picasso.get().load(R.drawable.users).into(holder.messageImage);
+        } else {
+            Picasso.get().load(r.getProfilePic()).into(holder.profilePic);
+        }
+
         Log.d(TAG, "r.getProfilePic is " + r.getProfilePic());
+
+        holder.txtDate.setText(parseDate(r.getDate()));
+        holder.txtTime.setText(parseTime(r.getTime()));
 
 
         holder.messageImage.setOnClickListener(new View.OnClickListener() {
@@ -78,9 +88,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             public void onClick(View v) {
                 Intent intent= new Intent(mContext, FullScreenImage.class);
                 intent.putExtra("image_url", r.getImage());
+                intent.putExtra("profile pic", r.getProfilePic());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
                 Log.d(TAG, "image url is " + r.getImage());
+                Log.d(TAG, "profile pic is " + r.getProfilePic());
             }
         });
 
@@ -127,7 +139,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtUsername;
+        TextView txtUsername, txtDate, txtTime;
         TextView relsubject;
         TextView relmessagetext;
         ImageView messageImage, profilePic;
@@ -142,6 +154,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             messageImage = itemView.findViewById(R.id.messageImage);
             txtUsername = itemView.findViewById(R.id.txtUsername);
             profilePic = itemView.findViewById(R.id.profilePic);
+            txtDate = itemView.findViewById(R.id.txtDate);
+            txtTime = itemView.findViewById(R.id.txtTime);
         }
     }
 

@@ -52,7 +52,6 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather2);
-        setTitle("Today's Weather");
         getSupportActionBar().hide();
 
         weatherState = findViewById(R.id.weatherCondition);
@@ -141,7 +140,7 @@ public class WeatherActivity extends AppCompatActivity {
         {
             if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
             {
-                Toast.makeText(WeatherActivity.this,"Location got Successfully",Toast.LENGTH_SHORT).show();
+                Toast.makeText(WeatherActivity.this,"Location found Successfully",Toast.LENGTH_SHORT).show();
                 getWeatherForCurrentLocation();
             }
             else

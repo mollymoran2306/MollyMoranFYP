@@ -2,17 +2,17 @@ package com.example.MollyMoranFYP.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +20,6 @@ import com.example.MollyMoranFYP.Adapters.MessageAdapter;
 
 import com.example.MollyMoranFYP.Models.Message;
 
-import com.example.MollyMoranFYP.Models.Reminder;
 import com.example.MollyMoranFYP.R;
 import com.example.MollyMoranFYP.Utils.MyDividerItemDecoration;
 import com.example.MollyMoranFYP.Utils.MyTouchListener;
@@ -34,17 +33,18 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class ViewMessagesActivity extends AppCompatActivity {
 
-    //Widgets
     RecyclerView recyclerView;
 
-    private DatabaseReference myRef, db;
+    private DatabaseReference myRef, db, db2, db3;
     private ArrayList<Message> messageList;
     private MessageAdapter mAdapter;
     private String i;
+    private TextView txtMessageBoard;
 
     private static final String TAG = "*ViewMessageActivity*";
 
@@ -56,15 +56,40 @@ public class ViewMessagesActivity extends AppCompatActivity {
         setTitle("Message Board");
         getSupportActionBar().hide();
 
+        txtMessageBoard = findViewById(R.id.txtMessageBoard);
+
+        FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = cursor.getUid();
+            db2 = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("Users")
+                    .child(uid)
+                    .child("User Settings");
+
+            db2.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    String name = dataSnapshot.child("Message Board Name").getValue().toString();
+                    txtMessageBoard.setText(name);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+            });
+
+
+
         recyclerView = findViewById(R.id.recyclerview);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setHasFixedSize(true);
-        FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = cursor.getUid();
-
         messageList = new ArrayList<>();
         mAdapter = new MessageAdapter(this, messageList);
         recyclerView.setAdapter(mAdapter);
@@ -109,7 +134,13 @@ public class ViewMessagesActivity extends AppCompatActivity {
         }
         ) );
 
+        txtMessageBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showActionsDialog2();
 
+            }
+        });
 
         myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Message");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -122,11 +153,14 @@ public class ViewMessagesActivity extends AppCompatActivity {
                             ds.child("image").getValue(String.class),
                             ds.child("sender").getValue(String.class),
                             ds.child("profilePic").getValue(String.class),
-                            ds.child("full").getValue(String.class)
+                            ds.child("full").getValue(String.class),
+                            ds.child("date").getValue(String.class),
+                            ds.child("time").getValue(String.class)
                     );
                     //crashes if theres no image, add error handling here
                     messageList.add(r);
                 }
+                Collections.reverse(messageList);
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -138,7 +172,7 @@ public class ViewMessagesActivity extends AppCompatActivity {
     }
 //END
 private void showActionsDialog(final int position) {
-    CharSequence colors[] = new CharSequence[]{"Delete", "Cancel"};
+    CharSequence colors[] = new CharSequence[]{"Delete Message", "Cancel"};
 
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("Choose option");
@@ -175,7 +209,49 @@ private void showActionsDialog(final int position) {
    }
     //END
 
+ private boolean showActionsDialog2() {
+     final EditText etName = new EditText(this);
+     AlertDialog dialog = new AlertDialog.Builder(this)
+             .setTitle("Rename Message Board")
+             .setMessage("Please enter a new name")
+             .setView(etName)
+             .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+                     if (String.valueOf(etName.getText()) != null) {
+                         String name = String.valueOf(etName.getText());
+                         FirebaseUser cursor = FirebaseAuth.getInstance().getCurrentUser();
+                         if (cursor != null) {
+                             String uid = cursor.getUid();
+                             db3 = FirebaseDatabase
+                                     .getInstance()
+                                     .getReference()
+                                     .child("Users")
+                                     .child(uid)
+                                     .child("User Settings");
+                             HashMap<String, Object> msg = new HashMap<>();
+                             msg.put("Message Board Name", name);
+                             db3.updateChildren(msg);
+                             txtMessageBoard.setText(name);
+                             Toast.makeText(getApplicationContext(), "Name Changed!", Toast.LENGTH_LONG).show();
+                         }
+                     } else {
+                         Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_LONG).show();
+                     }
 
+
+                 }
+             })
+             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+         @Override
+         public void onClick(DialogInterface dialog, int which) {
+             dialog.cancel();
+         }
+     })
+             .create();
+     dialog.show();
+     return true;
+ }
 
 }
 

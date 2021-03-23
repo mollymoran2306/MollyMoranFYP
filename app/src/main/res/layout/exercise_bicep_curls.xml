@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="260dp"
-        android:background="@drawable/header_login"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/header"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="-15dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
-            android:layout_marginLeft="0dp"
             android:text="Bicep Curls"
             android:textColor="@color/white"
             android:textSize="40dp">
@@ -32,14 +33,12 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="390dp"
-        android:layout_height="400dp"
+        android:layout_height="410dp"
         app:cardCornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.494">
+        android:layout_gravity="center"
+        android:layout_marginTop="-15dp"
+
+       >
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +46,9 @@
             android:layout_marginLeft="93dp"
             android:layout_marginTop="24dp"
             android:text="Hold a pair of light weights (filled water bottles will do) and stand with your feet hip-width apart."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp">
 
         </TextView>
 
@@ -55,9 +56,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="170dp"
             android:text="Keeping your arms by your side, slowly bend them until the weight in your hand reaches your shoulder."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp"
+            >
 
         </TextView>
 
@@ -65,9 +69,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="255dp"
+            android:layout_marginTop="320dp"
             android:text="Slowly lower again."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            >
 
         </TextView>
 
@@ -76,7 +82,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="170dp"
             app:srcCompat="@drawable/two" />
 
         <ImageView
@@ -93,19 +99,20 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="255dp"
+            android:layout_marginTop="320dp"
             app:srcCompat="@drawable/three" />
 
 
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:padding="10dp"
         android:text="This can also be carried out while sitting. Attempt 3 sets of 5 curls with each arm."
-        android:textSize="18dp"
-        android:gravity="center"
+        android:textSize="21dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,4 +121,4 @@
     </TextView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -8,27 +8,33 @@ public class Message {
     private String sender;
     private String full;
     private String profilePic;
+    private String date;
+    private String time;
 
 
     public Message() {
     }
 
-    public Message(String subject, String messageText, String image, String sender, String profilePic, String full) {
+    public Message(String subject, String messageText, String image, String sender, String profilePic, String full, String date, String time) {
         this.subject = subject;
         this.messageText = messageText;
         this.image = image;
         this.sender = sender;
         this.profilePic = profilePic;
         this.full = full;
+        this.date = date;
+        this.time = time;
 
     }
 
-    public Message(String subject, String messageText, String sender,String profilePic, String full) {
+    public Message(String subject, String messageText, String sender,String profilePic, String full, String date, String time) {
         this.subject = subject;
         this.messageText = messageText;
         this.profilePic = profilePic;
         this.sender = sender;
         this.full = full;
+        this.date = date;
+        this.time = time;
 
     }
 
@@ -97,6 +103,24 @@ public class Message {
     public void setFull(String full) {
         this.full = full;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+
 
 
 }

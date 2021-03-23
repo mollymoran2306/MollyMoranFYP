@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/header"
-        android:layout_marginTop="-5dp"
+        android:layout_marginTop="-15dp"
         >
 
         <TextView
@@ -109,7 +109,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 app:maxImageSize="40dp"
-                app:srcCompat="@drawable/addimage" />
+                app:srcCompat="@drawable/add_image" />
         </LinearLayout>
 
 

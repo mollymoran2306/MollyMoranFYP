@@ -9,17 +9,17 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="260dp"
-        android:background="@drawable/header_login"
+        android:layout_height="200dp"
+        android:background="@drawable/header"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="550dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
             android:text="Simple Grapevine"
             android:textColor="@color/white"
             android:textSize="40dp">
@@ -31,14 +31,15 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="390dp"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         app:cardCornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.494"
+        app:layout_constraintVertical_bias="0.417"
+        android:layout_marginBottom="20dp"
 
         >
 
@@ -48,7 +49,9 @@
             android:layout_marginLeft="93dp"
             android:layout_marginTop="55dp"
             android:text="Start by crossing your right foot over your left."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp">
 
         </TextView>
 
@@ -56,9 +59,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="170dp"
+            android:paddingRight="20dp"
             android:text="Bring your left foot to join it."
-            android:textSize="18dp">
+            android:textColor="@color/black"
+            android:textSize="21dp">
 
         </TextView>
 
@@ -66,18 +71,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
-            android:padding="10dp"
             android:layout_marginTop="390dp"
+            android:padding="10dp"
             android:text="Attempt 5 cross-steps on each side. If necessary, put your fingers against a wall for stability. The smaller the step, the more you work on your balance"
             android:textSize="18dp">
 
         </TextView>
+
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="170dp"
             app:srcCompat="@drawable/two" />
 
         <ImageView
@@ -91,6 +97,20 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Attempt 5 cross-steps on each side. If necessary, put your fingers against a wall for stability. The smaller the step, the more you work on your balance."
+        android:textSize="21dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+    </TextView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

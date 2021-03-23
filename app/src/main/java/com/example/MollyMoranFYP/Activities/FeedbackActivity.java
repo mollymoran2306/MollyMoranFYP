@@ -33,9 +33,9 @@ public class FeedbackActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
-
         feedback = findViewById(R.id.txtFeedback);
 
         btnSendFeedback = findViewById(R.id.btnSendFeedback);
@@ -45,7 +45,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 String fb = feedback.getText().toString();
                 sendFeedback(fb);
                 Toast.makeText(getApplicationContext(), "Feedback Sent!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(FeedbackActivity.this, AdminHomeActivity2.class);
+                Intent intent = new Intent(FeedbackActivity.this, CarerHomeActivity.class);
                 startActivity(intent);
 
             }

@@ -2,6 +2,7 @@ package com.example.MollyMoranFYP.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,7 +101,8 @@ public class OnboardingSlideViewPagerAdapter extends PagerAdapter {
                 ind3.setImageResource(R.drawable.unselected);
 
                 title.setText("Stay Connected");
-                desc.setText("Connect allows you to send messages and set reminders for your loved one");
+                String msg = "<b>Connect</b> allows you to send messages and set reminders for your loved one";
+                desc.setText(Html.fromHtml(msg));
                 back.setVisibility(View.GONE);
                 next.setVisibility(View.VISIBLE);
                 btnGetStarted.setVisibility(View.GONE);

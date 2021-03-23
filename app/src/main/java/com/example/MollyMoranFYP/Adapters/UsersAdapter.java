@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class UsersAdapter extends   RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
-    private static final String Tag = "RecyclerView";
     private Context mContext;
     private ArrayList<User> userList;
     private String i;

@@ -139,6 +139,7 @@ public class  InputReminderActivity extends AppCompatActivity {
                 tvTime.setText(parsetime(reminderTime));
             }
         }, hour, min, true);
+
         timePickerDialog.show();
     }
 
@@ -201,7 +202,7 @@ public class  InputReminderActivity extends AppCompatActivity {
                 Log.d(TAG, "Reminder added to database " + reminder);
             }
             Toast.makeText(getApplicationContext(), "Reminder Added!", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(InputReminderActivity.this, AdminHomeActivity2.class);
+            Intent intent = new Intent(InputReminderActivity.this, CarerHomeActivity.class);
             startActivity(intent);
         }
     }

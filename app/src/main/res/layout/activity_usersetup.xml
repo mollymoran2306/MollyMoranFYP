@@ -19,11 +19,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.562">
+        app:layout_constraintVertical_bias="0.562"
+        android:foregroundGravity="center">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="321dp"
-            android:layout_height="422dp">
+            android:layout_height="422dp"
+            android:layout_gravity="center">
 
             <Button
                 android:id="@+id/btnLetsGo"
@@ -49,19 +51,20 @@
                 android:layout_marginTop="59dp"
                 android:layout_marginEnd="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Light"/>
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="240dp"
+                android:layout_marginBottom="212dp"
                 android:text="Add a New User"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.523"
+                app:layout_constraintHorizontal_bias="0.522"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <View
@@ -89,29 +92,34 @@
 
             <EditText
                 android:id="@+id/txtNewName"
-                android:layout_width="197dp"
+                android:layout_width="250dp"
                 android:layout_height="35dp"
-                android:layout_marginEnd="28dp"
                 android:background="@drawable/custom_edittext"
                 android:ems="10"
+                android:hint="Username"
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/btnLetsGo"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.549"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:layout_constraintVertical_bias="0.193" />
+                app:layout_constraintVertical_bias="0.161" />
 
             <Spinner
                 android:id="@+id/spUserType"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginTop="24dp"
+                android:dropDownWidth="wrap_content"
                 android:entries="@array/UserType"
-                android:textAlignment="textStart"
+                android:gravity="left"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtNewName" />
+                app:layout_constraintHorizontal_bias="0.518"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtNewName"
+                android:theme="@style/ThemeOverlay.AppCompat.Light"/>
 
             <TextView
                 android:id="@+id/textView11"
@@ -141,29 +149,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.248" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User Name"
-                app:layout_constraintBottom_toTopOf="@+id/textView14"
-                app:layout_constraintEnd_toStartOf="@+id/txtNewName"
-                app:layout_constraintHorizontal_bias="0.387"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:layout_constraintVertical_bias="0.415" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="78dp"
-                android:layout_height="23dp"
-                android:layout_marginBottom="48dp"
-                android:text="User Type"
-                app:layout_constraintBottom_toTopOf="@+id/btnLetsGo"
-                app:layout_constraintEnd_toStartOf="@+id/spUserType"
-                app:layout_constraintHorizontal_bias="0.348"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -200,18 +185,16 @@
         android:id="@+id/txtRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginBottom="132dp"
+        android:layout_marginTop="55dp"
         android:gravity="center"
         android:text="Who is Using \n this Device?"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtFirstName"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/circle2"

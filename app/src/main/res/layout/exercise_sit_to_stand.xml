@@ -9,12 +9,12 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-
+        android:layout_height="200dp"
         android:background="@drawable/header"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="550dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:layout_marginLeft="0dp"
             android:text="Sit to Stand"
             android:textColor="@color/white"
-            android:textSize="30dp">
+            android:textSize="40dp">
 
         </TextView>
     </ScrollView>
@@ -47,7 +47,9 @@
             android:layout_marginLeft="93dp"
             android:layout_marginTop="32dp"
             android:text="Sit on the edge of the chair, feet hip-width apart. Lean slightly forwards."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp">
 
         </TextView>
 
@@ -57,7 +59,9 @@
             android:layout_marginLeft="93dp"
             android:layout_marginTop="150dp"
             android:text="Stand up slowly using your legs, not arms. Keep looking forward and do not look down."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp">
 
         </TextView>
 
@@ -65,9 +69,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="93dp"
-            android:layout_marginTop="255dp"
+            android:layout_marginTop="285dp"
             android:text="Stand upright and then slowly sit down, bottom-first."
-            android:textSize="18dp">
+            android:textSize="21dp"
+            android:textColor="@color/black"
+            android:paddingRight="20dp">
 
         </TextView>
 
@@ -93,7 +99,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="255dp"
+            android:layout_marginTop="285dp"
             app:srcCompat="@drawable/three" />
 
 
@@ -104,11 +110,12 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="Aim for 5 repetitions – the slower, the better."
-        android:textSize="18dp"
+        android:textSize="21dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        android:gravity="center">
 
     </TextView>
 

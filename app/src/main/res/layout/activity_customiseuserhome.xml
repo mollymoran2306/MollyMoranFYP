@@ -1,40 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
         android:id="@+id/txt1"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
 
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/header"
-        android:layout_marginTop="-5dp">
+        android:layout_marginTop="-10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="User Settings"
+            android:layout_marginTop="10dp"
             android:textColor="@color/white"
             android:textSize="30dp">
 
         </TextView>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/swSendMessages"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="422dp"
-        android:text="Save Preferences"
-        android:textColor="@color/white"
-        android:padding="10dp"
-        android:background="@drawable/custom_button"/>
 
 
     <TextView
@@ -43,8 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt1"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
         android:text="Customise Elderly User Screen"
         android:textSize="20dp"></TextView>
@@ -56,8 +46,7 @@
         android:layout_below="@id/txt2"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="12dp"
         android:checked="true"
         android:text="Allow Elderly User to Send Messages"
@@ -82,8 +71,7 @@
         android:layout_below="@+id/swSendMessages"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="11dp"
         android:checked="true"
         android:text="Include Exercises                                    "
@@ -95,18 +83,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line1"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp"
         android:text="Manage Users"
         android:textSize="20dp"></TextView>
 
-    <Spinner
-        android:id="@+id/spinnerUsers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="290dp"
+            android:layout_marginTop="350dp"
+            android:layout_marginStart="13dp"
+            />
 
 
-        />
+
 
 </RelativeLayout>

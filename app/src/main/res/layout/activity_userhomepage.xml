@@ -14,16 +14,17 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="281dp"
+        android:layout_height="220dp"
         android:background="@drawable/header"
-android:layout_marginTop="-5dp"
+        android:layout_marginTop="-15dp"
         >
 
         <TextView
+            android:id="@+id/txtWelcomeUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:text="Welcome User"
             android:textColor="@color/white"
             android:textSize="30dp">
@@ -34,19 +35,19 @@ android:layout_marginTop="-5dp"
         android:id="@+id/roundCardView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:elevation="0dp"
         app:cardCornerRadius="50dp"
         >
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/defaultuser"
-        android:layout_gravity="center"
-
-        />
+        <ImageView
+            android:id="@+id/userProfilePic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/defaultuser" />
 
     </androidx.cardview.widget.CardView>
 
@@ -148,8 +149,6 @@ android:layout_marginTop="-5dp"
 
                             android:layout_width="match_parent"
                             android:layout_height="105dp"
-
-
                             android:clickable="true"
                             android:focusable="auto"
                             android:focusableInTouchMode="true"
@@ -229,7 +228,7 @@ android:layout_marginTop="-5dp"
                     android:layout_width="160dp"
                     android:layout_height="140dp"
                     android:layout_margin="10dp"
-                    android:clickable="true"
+                    android:clickable="false"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="0dp"
                     app:cardCornerRadius="12dp">
@@ -245,7 +244,7 @@ android:layout_marginTop="-5dp"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="105dp"
-                            android:clickable="true"
+                            android:clickable="false"
                             android:gravity="center">
 
                             <ImageView
@@ -321,7 +320,6 @@ android:layout_marginTop="-5dp"
                     android:layout_width="160dp"
                     android:layout_height="140dp"
                     android:layout_margin="10dp"
-                    android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="0dp"
                     app:cardCornerRadius="12dp"
@@ -337,7 +335,6 @@ android:layout_marginTop="-5dp"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="105dp"
-
                             android:gravity="center">
 
                             <ImageView
